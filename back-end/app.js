@@ -1,10 +1,11 @@
 const express = require("express");
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const mongoSanitize = require("express-mongo-sanitize");
+//const mongoSanitize = require("express-mongo-sanitize");
 const path = require("path");
 const dotenv = require("dotenv");
+const database = require('./persistence/database')
 
 const postsRoutes = require("./routes/posts");
 const authRoutes = require("./routes/auth");
@@ -13,17 +14,18 @@ const userRoutes = require("./routes/user")
 const app = express();
 dotenv.config();
 
-mongoose
-  .connect(`${process.env.MONGODB_URL}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
+database.sync()
+// mongoose
+//   .connect(`${process.env.MONGODB_URL}`, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("Connexion à MongoDB réussie !"))
+//   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 app.use(express.json());
-app.use(mongoSanitize());
+//app.use(mongoSanitize());
 
 //Limit each IP to 100 requests per 15 minutes
 app.use(

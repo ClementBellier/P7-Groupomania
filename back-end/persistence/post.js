@@ -1,18 +1,16 @@
 const postModel = require("../models/Post");
 
 exports.savePostInDB = async (post) => {
-  const newPost = new postModel({ ...post });
-  return newPost
-    .save()
+  return postModel.create({ ...post })
     .then((post) => post)
     .catch((error) => {
       return { error };
     });
 };
 
-exports.findAllPosts = async (param) => {
+exports.findAllPosts = async () => {
   return postModel
-    .find(param)
+    .findAll()
     .then((posts) => posts)
     .catch((error) => {
       return { error };
@@ -21,8 +19,8 @@ exports.findAllPosts = async (param) => {
 
 exports.findOnePost = async (postId) => {
   return postModel
-    .findOne({ _id: postId })
-    .then((post) => post)
+    .findOne({where:{id:postId}})
+    .then(post => post)
     .catch((error) => {
       return { error };
     });
@@ -30,9 +28,9 @@ exports.findOnePost = async (postId) => {
 
 exports.deletePost = async (postId) => {
   return postModel
-    .deleteOne({ _id: postId })
+    .destroy({where: { id: postId }})
     .then((deleteResult) => {
-      if (deleteResult.ok === 0) return { error: "Post inexistant" };
+      if (deleteResult === 0) return { error: "Post inexistant" };
       return deleteResult;
     })
     .catch((error) => {
@@ -42,7 +40,7 @@ exports.deletePost = async (postId) => {
 
 exports.modifyPost = async (post) => {
   return postModel
-    .findOneAndUpdate({ _id: post._id }, { ...post }, { new: true })
+    .update({ ...post},{ where: {id: post.id} })
     .then((post) => post)
     .catch((error) => {
       return { error };

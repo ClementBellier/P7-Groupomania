@@ -28,7 +28,7 @@ class User {
         if(!userInDB) return new ApiErrors().userNotFound()
         if(userInDB.error) return new ApiErrors(userInDB.error).serverError()
 
-        this.userId = userInDB._id
+        this.userId = userInDB.id
         this.role = userInDB.role
         const validPassword = await crypt.comparePassword(this.password, userInDB.password)
 

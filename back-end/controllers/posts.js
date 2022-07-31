@@ -23,10 +23,10 @@ exports.modifyPost = async (req, res, next) => {
   const postObject = req.file
     ? {
         ...JSON.parse(req.body.post),
-        _id: req.params.id,
+        id: req.params.id,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
       }
-    : { ...req.body, _id: req.params.id };
+    : { ...req.body, id: req.params.id };
   const response = await new Post().modifyPost(postObject, userWhoAskModify);
   return res.status(response.code).json(response.message);
 };

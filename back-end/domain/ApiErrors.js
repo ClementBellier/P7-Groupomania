@@ -15,7 +15,7 @@ class ApiErrors extends Error {
     return this.notFound();
   };
   postNotFound = () => {
-    this.error = "Post non trouvée !";
+    this.error = "Post non trouvé !";
     return this.notFound();
   };
   wrongPassword = () => {

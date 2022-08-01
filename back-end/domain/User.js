@@ -48,10 +48,10 @@ class User {
     const userInDB = await databaseUserAccess.findUserByIdInDB(userId);
     if (!userInDB) return new ApiErrors().userNotFound();
     if (userInDB.error) return new ApiErrors(userInDB.error).serverError();
-    return new Success().requestFound({ userInDB });
+    return new Success().requestFound(userInDB);
   };
   findPostsOfThisUser = async (userId) => {
-    const postsOfUser = await databasePostsAccess.findAllPosts({ userId });
+    const postsOfUser = await databasePostsAccess.findAllPosts(userId);
     if (postsOfUser.error)
       return new ApiErrors(postsOfUser.error).serverError();
     return new Success().requestFound(postsOfUser);

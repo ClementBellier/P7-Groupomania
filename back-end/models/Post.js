@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const database = require('../persistence/database')
+const userSchema = require('./User')
 
 const postSchema = database.define('posts', {
   id: {
@@ -41,5 +42,5 @@ const postSchema = database.define('posts', {
     defaultValue: 0
   }
 })
-
+postSchema.belongsTo(userSchema, {as:'user', foreignKey: 'userId'})
 module.exports = postSchema

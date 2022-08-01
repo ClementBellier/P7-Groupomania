@@ -1,18 +1,22 @@
-const User = require('../domain/User')
+const User = require("../domain/User");
 
 exports.signup = async (req, res, next) => {
-    const user = new User(req.body.email, req.body.password)
-    const response = await user.saveUser()
-    return res.status(response.code).json(response.message)
-}
+  const user = new User(req.body.email, req.body.password);
+  const response = await user.saveUser();
+  return res.status(response.code).json(response.message);
+};
 
 exports.login = async (req, res, next) => {
-    const user = new User(req.body.email, req.body.password)
-    const response = await user.findUser()
-    return res.status(response.code).json(response.message)
-}
-
-exports.getAllOfAUser = async (req, res, next) => {    
-  const response = await new User().findAllOfThisUser(req.params.id);
+  const user = new User(req.body.email, req.body.password);
+  const response = await user.findUser();
   return res.status(response.code).json(response.message);
-}
+};
+
+exports.getDataOfAUser = async (req, res, next) => {
+  const response = await new User().findDataOfThisUser(req.params.id);
+  return res.status(response.code).json(response.message);
+};
+exports.getPostsOfAUser = async (req, res, next) => {
+  const response = await new User().findPostsOfThisUser(req.params.id);
+  return res.status(response.code).json(response.message);
+};

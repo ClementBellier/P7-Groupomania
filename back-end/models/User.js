@@ -16,6 +16,18 @@ const userSchema = database.define('users', {
     role: {
         type: Sequelize.STRING(20),
         defaultValue: 'user'
+    },
+    name: {
+        type: Sequelize.STRING(100),
+        defaultValue: 'user'
+    },
+    firstName: {
+        type: Sequelize.STRING(100),
+        defaultValue: 'user'
+    },
+    departement: {
+        type: Sequelize.STRING(100),
+        defaultValue: 'user'
     }
 })
 

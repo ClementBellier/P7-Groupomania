@@ -48,15 +48,28 @@ class User {
     const userInDB = await databaseUserAccess.findUserByIdInDB(userId);
     if (!userInDB) return new ApiErrors().userNotFound();
     if (userInDB.error) return new ApiErrors(userInDB.error).serverError();
-    return new Success().postFound({userInDB});
+    return new Success().requestFound({ userInDB });
   };
   findPostsOfThisUser = async (userId) => {
     const postsOfUser = await databasePostsAccess.findAllPosts({ userId });
     if (postsOfUser.error)
       return new ApiErrors(postsOfUser.error).serverError();
-    return new Success().postFound(postsOfUser);
+    return new Success().requestFound(postsOfUser);
   };
-  
+  updateDataOfThisUser = async (updateUser, userWhoAskUpdate) => {
+    if (
+      updateUser.id !== userWhoAskUpdate.id &&
+      userWhoAskUpdate.role !== "admin"
+      )
+      return new ApiErrors().unauthorizedRequest();
+    if (updateUser.password === null || updateUser.password === "")
+      delete updateUser.password;
+    const updateUserInDB = await databaseUserAccess.updateUser(updateUser);
+    if (!updateUserInDB) return new ApiErrors().userNotFound();
+    if (updateUserInDB.error)
+      return new ApiErrors(updateUserInDB.error).serverError();
+    return new Success().userUpdate();
+  };
   authorize = (token) => {
     const decodedToken = tokenBuilder.verifyToken(token);
     if (!decodedToken || decodedToken.error)

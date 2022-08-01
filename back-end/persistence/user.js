@@ -28,3 +28,9 @@ exports.findUserByIdInDB = async (userId) => {
       return { error };
     });
 };
+
+exports.updateUser = async (user) => {
+  return userModel.update({...user}, {where:{id:user.id}})
+    .then(user=>user)
+    .catch(error => {return {error}})
+}

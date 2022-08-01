@@ -16,6 +16,14 @@ exports.getDataOfAUser = async (req, res, next) => {
   const response = await new User().findDataOfThisUser(req.params.id);
   return res.status(response.code).json(response.message);
 };
+
+exports.updateDataOfAUser = async (req, res, next) => {
+  const user = { id: parseInt(req.params.id), ...req.body };
+  const userWhoAskUpdate = { id: req.auth.userId, role: req.auth.role };
+  const response = await new User().updateDataOfThisUser(user,userWhoAskUpdate);
+  return res.status(response.code).json(response.message);
+};
+
 exports.getPostsOfAUser = async (req, res, next) => {
   const response = await new User().findPostsOfThisUser(req.params.id);
   return res.status(response.code).json(response.message);

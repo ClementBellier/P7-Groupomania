@@ -22,13 +22,13 @@ class Post {
   findAll = async () => {
     const posts = await postInDB.findAllPosts();
     if (posts.error) return new ApiErrors(posts.error).serverError();
-    return new Success().postFound(posts);
+    return new Success().requestFound(posts);
   };
   findOne = async (postId) => {
     const post = await postInDB.findOnePost(postId);
     if (!post) return new ApiErrors().postNotFound();
     if (post.error) return new ApiErrors(post.error).serverError();
-    return new Success().postFound(post);
+    return new Success().requestFound(post);
   };
   deleteImage = (post) => {
     const fileName = post.imageUrl.split("/images/")[1];
@@ -67,8 +67,8 @@ class Post {
       !modifiedPost.text &&
       (modifiedPost.imageUrl === null || modifiedPost.imageUrl === "")
     )
-      return this.deletePost(modifiedPost.id, userWhoAskModify)
-      
+      return this.deletePost(modifiedPost.id, userWhoAskModify);
+
     if (
       originPost.imageUrl !== null &&
       modifiedPost.imageUrl !== originPost.imageUrl
@@ -83,7 +83,10 @@ class Post {
   };
   unlike = async (userId, post) => {
     if (post.usersLiked.includes(`+${userId}-`)) {
-      post.usersLiked = post.usersLiked.split(`+${userId}-`).join('').toString();
+      post.usersLiked = post.usersLiked
+        .split(`+${userId}-`)
+        .join("")
+        .toString();
       post.likes--;
       const unlikePost = await this.updatePost(post.dataValues);
       if (unlikePost.error)
@@ -98,12 +101,12 @@ class Post {
     if (post.error) return new ApiErrors(post.error).notFound();
     if (like === 0) return await this.unlike(userId, post);
     if (post.usersLiked.includes(`+${userId}-`))
-    return new ApiErrors("L'utilisateur-rice a déjà voté").badRequest();
+      return new ApiErrors("L'utilisateur-rice a déjà voté").badRequest();
     if (like === 1) {
       post.likes++;
-      post.usersLiked += `+${userId}-`
+      post.usersLiked += `+${userId}-`;
       const likePost = await this.updatePost(post.dataValues);
-      if (likePost.error) return new ApiErrors(likePost.error).serverError();      
+      if (likePost.error) return new ApiErrors(likePost.error).serverError();
       return new Success().likeRecord();
     }
     return new ApiErrors("Ceci n'est pas un vote convenable").badRequest();

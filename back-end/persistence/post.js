@@ -1,5 +1,6 @@
-const postModel = require("../models/Post");
+const { postModel, likesModel } = require("../models/Post");
 const userModel = require("../models/User");
+//const likesModel = require("../models/Likes");
 
 exports.savePostInDB = async (post) => {
   return postModel
@@ -12,13 +13,18 @@ exports.savePostInDB = async (post) => {
 
 exports.findAllPosts = async (userId) => {
   const options = {
-    include: {
-      model: userModel,
-      as: "user",
-      attributes: { exclude: ["id", "role", "password"] },
-    },
+    include: [
+      {
+        model: userModel,
+        attributes: { exclude: ["id", "role", "password"] },
+      },
+      {
+        model: likesModel,
+        attributes: ["user_id"],
+      },
+    ],
   };
-  if(userId) options.where = {userId}
+  if (userId) options.where = { userId };
   return postModel
     .findAll(options)
     .then((posts) => posts)
@@ -30,11 +36,16 @@ exports.findAllPosts = async (userId) => {
 exports.findOnePost = async (postId) => {
   const options = {
     where: { id: postId },
-    include: {
-      model: userModel,
-      as: "user",
-      attributes: { exclude: ["id", "role", "password"] },
-    },
+    include: [
+      {
+        model: userModel,
+        attributes: { exclude: ["id", "role", "password"] },
+      },
+      {
+        model: likesModel,
+        attributes: { exclude: ["post_id"] },
+      },
+    ],
   };
   return postModel
     .findOne(options)
@@ -47,10 +58,7 @@ exports.findOnePost = async (postId) => {
 exports.deletePost = async (postId) => {
   return postModel
     .destroy({ where: { id: postId } })
-    .then((deleteResult) => {
-      if (deleteResult === 0) return { error: "Post inexistant" };
-      return deleteResult;
-    })
+    .then((deleteResult) => deleteResult)
     .catch((error) => {
       return { error };
     });

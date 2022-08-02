@@ -4,6 +4,7 @@ const ApiErrors = require("./ApiErrors");
 const Success = require("./Success");
 
 const postInDB = require("../persistence/post");
+const likesInDB = require("../persistence/likes")
 
 class Post {
   constructor() {}
@@ -81,30 +82,37 @@ class Post {
       return new ApiErrors(updatedPost.error).serverError();
     return new Success().postModified();
   };
-  unlike = async (userId, post) => {
-    if (post.usersLiked.includes(`+${userId}-`)) {
-      post.usersLiked = post.usersLiked
-        .split(`+${userId}-`)
-        .join("")
-        .toString();
-      post.likes--;
-      const unlikePost = await this.updatePost(post.dataValues);
-      if (unlikePost.error)
-        return new ApiErrors(unlikePost.error).serverError();
-      return new Success().unlikeRecord();
-    }
-    return new ApiErrors("L'utilisateur-rice n'a pas voté").badRequest();
+
+  unlike = async (userId, post) => { 
+    const deletedLike = likesInDB.deleteLike(userId, post.id)
+    if(!deletedLike) return new ApiErrors().postNotFound();
+    if (deletedLike.error) return new ApiErrors(deletedPost).serverError();
+
+    post.likes--;
+    const unlikePost = await this.updatePost(post.dataValues);
+    if (unlikePost.error)
+      return new ApiErrors(unlikePost.error).serverError();
+    return new Success().unlikeRecord();
   };
 
   likePost = async (userId, like, postId) => {
     const post = await postInDB.findOnePost(postId);
-    if (post.error) return new ApiErrors(post.error).notFound();
-    if (like === 0) return await this.unlike(userId, post);
-    if (post.usersLiked.includes(`+${userId}-`))
-      return new ApiErrors("L'utilisateur-rice a déjà voté").badRequest();
+    if (!post) return new ApiErrors().postNotFound();
+    if(post.error) return new ApiErrors(post.error).serverError();
+    
+    const likes = await likesInDB.findLikesOfThisPost(postId)
+    if(likes.error) return new ApiErrors(likes.error).serverError();
+    const hasAlreadyVote = likes.some(like => like.user_id === userId)
+    
+    if (like === 0 && hasAlreadyVote) return await this.unlike(userId, post);
+    if(like === 0 && !hasAlreadyVote) return new ApiErrors("L'utilisateur-rice n'a pas voté").badRequest();
+    if (hasAlreadyVote)
+    return new ApiErrors("L'utilisateur-rice a déjà voté").badRequest();
     if (like === 1) {
+      const addedLike = await likesInDB.saveLikeInDB(userId, postId)
+      if(addedLike.error) return new ApiErrors(addedLike.error).serverError();
+
       post.likes++;
-      post.usersLiked += `+${userId}-`;
       const likePost = await this.updatePost(post.dataValues);
       if (likePost.error) return new ApiErrors(likePost.error).serverError();
       return new Success().likeRecord();

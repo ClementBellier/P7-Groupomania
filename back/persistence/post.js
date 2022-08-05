@@ -21,6 +21,10 @@ exports.findAllPosts = async (userId) => {
       {
         model: likesModel,
         attributes: ["user_id"],
+        include: {
+          model: userModel,
+          attributes: { exclude: ["id", "role", "password"] },
+        }
       },
     ],
   };
@@ -28,7 +32,7 @@ exports.findAllPosts = async (userId) => {
   return postModel
     .findAll(options)
     .then((posts) => posts)
-    .catch((error) => {
+    .catch((error) => {console.log(error);
       return { error };
     });
 };
@@ -42,8 +46,12 @@ exports.findOnePost = async (postId) => {
         attributes: { exclude: ["id", "role", "password"] },
       },
       {
-        model: likesModel,
-        attributes: { exclude: ["post_id"] },
+        model: likesModel,        
+        attributes: ["user_id"],
+        include: {
+          model: userModel,
+          attributes: { exclude: ["id", "role", "password"] },
+        }
       },
     ],
   };

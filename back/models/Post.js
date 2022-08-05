@@ -63,4 +63,5 @@ const likesModel = database.define("userlikes", {
 postModel.belongsTo(userModel);
 postModel.hasMany(likesModel, {foreignKey: "post_id"});
 likesModel.belongsTo(postModel, {foreignKey: "post_id"});
+likesModel.belongsTo(userModel, {foreignKey: "user_id"});
 module.exports = { postModel, likesModel };

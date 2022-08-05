@@ -1,5 +1,9 @@
-import { Login } from "../components/Login";
+import { Login } from '../components/Login'
 
-export function LoginPage(){
-    return <Login />
+export function LoginPage() {
+  return (
+    <>
+      <Login />
+    </>
+  )
 }

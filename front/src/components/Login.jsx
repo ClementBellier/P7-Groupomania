@@ -23,26 +23,26 @@ export function Login() {
     setIsLoginActive(!isLoginActive)
   }
   return (
-    <div className='login'>
+    <div className="login">
       {isLoginActive ? (
         <div className="login-title">
-          <h1 className="login-title__title">Se connecter</h1>
-          <h1
-            className="login-title__title active-signup-title"
+          <h2 className="login-title__title">Se connecter</h2>
+          <h2
+            className="login-title__title inactive-signup-title"
             onClick={handleActive}
           >
             S'enregistrer
-          </h1>
+          </h2>
         </div>
       ) : (
         <div className="login-title">
-          <h1
-            className="login-title__title active-login-title"
+          <h2
+            className="login-title__title inactive-login-title"
             onClick={handleActive}
           >
             Se connecter
-          </h1>
-          <h1 className="login-title__title">S'enregistrer</h1>
+          </h2>
+          <h2 className="login-title__title">S'enregistrer</h2>
         </div>
       )}
 
@@ -61,17 +61,17 @@ export function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      {isLoginActive ? (
-        <>
-          <button onClick={handleLogin}>Se connecter</button>
-          <button onClick={handleActive}>Pas encore inscrit ?</button>
-        </>
-      ) : (
-        <>
-          <button onClick={handleSignup}>S'enregistrer</button>
-          <button onClick={handleActive}>Déjà inscrit ?</button>
-        </>
-      )}
+        {isLoginActive ? (
+          <>
+            <button className='accent' onClick={handleLogin}>Se connecter</button>
+            <button onClick={handleActive}>Pas encore inscrit ?</button>
+          </>
+        ) : (
+          <>
+            <button className='accent' onClick={handleSignup}>S'enregistrer</button>
+            <button onClick={handleActive}>Déjà inscrit ?</button>
+          </>
+        )}
       </div>
       {/* {errorMessage ? <span>{errorMessage}</span> : null} */}
     </div>

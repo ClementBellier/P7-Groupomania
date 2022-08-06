@@ -6,6 +6,7 @@
     --tertiary-color: #4E5166;
     --shadow-color: rgba(129, 129, 129, 0.336);
 
+    font-size: 16px;
     font-family: 'Lato', sans-serif;
     color: var(--tertiary-color);
 }
@@ -31,4 +32,26 @@ body{
     width: min(100vw, 700px);
     margin-inline: auto;
     padding-top: 20px;
+}
+
+button{
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: transparent;
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+button.accent{    
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+}
+button:hover{
+    transform: scale(1.025);
+    box-shadow: 2px 2px 2px var(--shadow-color);
 }

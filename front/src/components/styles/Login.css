@@ -42,10 +42,45 @@
     gap: 10px;
     padding: 15px;
 }
+.login-form label:last-of-type{
+    margin-top: 20px;
+}
 .login-form input{
     height: 40px;
     border-radius: 20px;
     padding-inline: 20px;
     border: 2px solid var(--tertiary-color);
-    margin-bottom: 20px;
+}
+.login-form input:valid{
+    border: 2px solid var(--success-color);
+}
+.login-form button:first-of-type{
+    margin-top: 50px;
+}
+.login-form input:focus-visible{
+    outline: var(--primary-color) solid;
+}
+.error-message,.success-message{
+    position: relative;
+    color: var(--message-color);
+    font-weight: 600;
+    padding-left: 30px;
+}
+.error-message::before,.success-message::before{
+    margin-inline: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.error-message::before{
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path stroke="rgb(253, 45, 1)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13.253 5.98 12 13.5l-1.253-7.52a1.27 1.27 0 1 1 2.506 0Z"/><circle cx="12" cy="19" r="1" stroke="rgb(253, 45, 1)" stroke-width="2"/></svg>');
+}
+.success-message::before{
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  fill="none" viewBox="0 0 24 24"><path stroke="rgb(0, 176, 107)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 14L9 18L19 8"/></svg>');
+}
+.error-message{
+    --message-color: var(--primary-color);
+}
+.success-message{
+    --message-color: var(--success-color);
 }

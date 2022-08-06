@@ -21,6 +21,7 @@ function useAuth() {
     authed,
     userDetails,
     errorMessage,
+    setErrorMessage,
     async login(email, password) {
         try {
           const response = await fetchApiAuth('login', email, password)

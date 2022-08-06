@@ -2,24 +2,32 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../utils/hooks/useAuth'
 import './styles/Login.css'
+import { EmailInput } from './EmailInput'
+import { PasswordInput } from './PasswordInput'
 
 export function Login() {
   const navigate = useNavigate()
-  const { login, signup, errorMessage } = useAuth()
+  const { login, signup, errorMessage, setErrorMessage } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isAnErrorInMail, setIsAnErrorInMail] = useState(true)
+  const [isAnErrorInPassword, setIsAnErrorInPassword] = useState(true)
   const [isLoginActive, setIsLoginActive] = useState(true)
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault()
     login(email, password).then(() => {
       navigate('/home')
     })
   }
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault()
     const data = await signup(email, password)
     if (!data.error) handleLogin()
   }
-  const handleActive = () => {
+  const handleIsLoginActive = (e) => {
+    e.preventDefault()
+    setErrorMessage()
     setIsLoginActive(!isLoginActive)
   }
   return (
@@ -29,7 +37,7 @@ export function Login() {
           <h2 className="login-title__title">Se connecter</h2>
           <h2
             className="login-title__title inactive-signup-title"
-            onClick={handleActive}
+            onClick={handleIsLoginActive}
           >
             S'enregistrer
           </h2>
@@ -38,7 +46,7 @@ export function Login() {
         <div className="login-title">
           <h2
             className="login-title__title inactive-login-title"
-            onClick={handleActive}
+            onClick={handleIsLoginActive}
           >
             Se connecter
           </h2>
@@ -46,34 +54,62 @@ export function Login() {
         </div>
       )}
 
-      <div className="login-form">
+      <form className="login-form">
         <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+        <EmailInput
+          email={email}
+          setEmail={setEmail}
+          isLoginActive={isLoginActive}
+          isAnErrorInMail={isAnErrorInMail}
+          setIsAnErrorInMail={setIsAnErrorInMail}
+          setErrorMessage={setErrorMessage}
         />
+        {typeof errorMessage === 'string' && (
+          <span className="error-message">{errorMessage}</span>
+        )}
         <label htmlFor="password">Mot de passe</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+        <PasswordInput
+          password={password}
+          setPassword={setPassword}
+          isLoginActive={isLoginActive}
+          isAnErrorInPassword={isAnErrorInPassword}
+          setIsAnErrorInPassword={setIsAnErrorInPassword}
         />
+        {typeof errorMessage === 'object' &&
+          errorMessage.map((error) => (
+            <span className="error-message">{error.message}</span>
+          ))}
         {isLoginActive ? (
           <>
-            <button className='accent' onClick={handleLogin}>Se connecter</button>
-            <button onClick={handleActive}>Pas encore inscrit ?</button>
+            <button
+              type="submit"
+              className="accent"
+              onClick={(e) => handleLogin(e)}
+            >
+              Se connecter
+            </button>
+            <button onClick={(e) => handleIsLoginActive(e)}>
+              Pas encore inscrit ?
+            </button>
           </>
         ) : (
           <>
-            <button className='accent' onClick={handleSignup}>S'enregistrer</button>
-            <button onClick={handleActive}>Déjà inscrit ?</button>
+            <button
+              type="submit"
+              className="accent"
+              onClick={(e) =>
+                !isAnErrorInMail && !isAnErrorInPassword && handleSignup(e)
+              }
+            >
+              S'enregistrer
+            </button>
+            <button onClick={(e) => handleIsLoginActive(e)}>
+              Déjà inscrit ?
+            </button>
           </>
         )}
-      </div>
-      {/* {errorMessage ? <span>{errorMessage}</span> : null} */}
+      </form>
+      {errorMessage ? console.log(errorMessage) : null}
     </div>
   )
 }

@@ -5,6 +5,7 @@
     --secondary-color: #FFD7D7;
     --tertiary-color: #4E5166;
     --shadow-color: rgba(129, 129, 129, 0.336);
+    --success-color: #00B06B;
 
     font-size: 16px;
     font-family: 'Lato', sans-serif;
@@ -35,6 +36,7 @@ body{
 }
 
 button{
+    min-width: 180px;
     height: 40px;
     line-height: 40px;
     border-radius: 20px;

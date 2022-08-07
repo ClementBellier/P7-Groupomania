@@ -40,7 +40,7 @@ export function PasswordInput({ password, setPassword, isLoginActive, isAnErrorI
     <>
       <input
         id="password"
-        type="text"
+        type="password"
         value={password}
         onChange={(e) => handlepasswordInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}

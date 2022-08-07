@@ -32,7 +32,6 @@ ul{
 body{
     width: min(100vw, 700px);
     margin-inline: auto;
-    padding-top: 20px;
 }
 
 button{

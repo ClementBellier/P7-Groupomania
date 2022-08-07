@@ -1,33 +1,39 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-export function useFetchLoginSignup(url, email, password) {
+export function useFetch({method, url, body, token}) {
   const [data, setData] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const requestOptions = {
+    method,
+    headers: {},
+  }
+  if (body) {
+    requestOptions.headers['Content-Type'] = 'application/json'
+    requestOptions.body = JSON.stringify(body)
+  }
+  if (token) {
+    requestOptions.headers['Authorization'] = 'Bearer ' + token
+  }
 
   useEffect(() => {
     if (!url) return
     setLoading(true)
     async function fetchData() {
-      try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: email, password: password }),
-          })
-        const data = await response.json()
-        setData(data)
-      } catch (err) {
-        console.log(err)
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
+      fetch(url, requestOptions)
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data)
+          setLoading(false)
+        })
+        .catch((error) => setError(error))
     }
     fetchData()
-  }, [url])
-  return { isLoading, data, error }
+  }, [])
+
+  return {
+    isLoading,
+    data,
+    error,
+  }
 }

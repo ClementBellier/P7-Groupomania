@@ -1,0 +1,30 @@
+.post{
+    width: 95%;
+    margin: 20px auto;    
+    box-shadow: 2px 2px 15px var(--shadow-color);
+    border-radius: 15px;
+    overflow: hidden;
+}
+.post__user{
+    /* border-image: conic-gradient(var(--secondary-color) 0 0) fill 0/0/15px 100vmax 0; */
+    background-color: var(--secondary-color);
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.post__text{
+    font-weight: 300;
+    font-size: 20px;
+    padding: 5px 15px;
+}
+.post__like{
+    color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    border-top: 1px solid var(--tertiary-color);
+}
+.post__like--heart{
+    width: 35px;
+}

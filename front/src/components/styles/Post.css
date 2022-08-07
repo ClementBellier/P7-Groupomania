@@ -23,8 +23,8 @@
     font-size: 20px;
     padding: 5px 15px;
 }
-.post__like{
-    color: var(--primary-color);
+.post__like{    
+    color: var(--like-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,4 +33,18 @@
 }
 .post__like--heart{
     width: 35px;
+    fill: none;
+}
+.post__like--number{
+    font-size: 25px;
+}
+.liked{
+    --like-color: var(--primary-color);
+    font-weight: 800;
+}
+.liked .post__like--heart{
+    fill: var(--primary-color)
+}
+.post__like:not(.liked){
+    --like-color: var(--tertiary-color)
 }

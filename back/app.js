@@ -14,7 +14,7 @@ dotenv.config();
 
 database.sync()
 
-app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
+app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(express.json());
 
 //Limit each IP to 100 requests per 15 minutes

@@ -12,6 +12,12 @@
     margin-bottom: 10px;
     font-weight: 600;
 }
+.post__image{
+    width: min(400px, 95%);
+    aspect-ratio: 1;
+    margin-inline: auto;
+    display: block;
+}
 .post__text{
     font-weight: 300;
     font-size: 20px;

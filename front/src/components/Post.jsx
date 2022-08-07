@@ -4,8 +4,8 @@ export function Post(post) {
   return (
     <div className="post" key={post.id}>
       <p className="post__user">{post.user.email}</p>
-      {post.text !== '' && <p className='post__text'>{post.text}</p>}
       {post.imageUrl && <img src={post.imageUrl} className="post__image" />}
+      {post.text !== '' && <p className='post__text'>{post.text}</p>}
       <div className="post__like">
         <svg
           className="post__like--heart"

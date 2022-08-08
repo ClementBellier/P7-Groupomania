@@ -2,12 +2,16 @@ import useAuth from '../utils/hooks/useAuth'
 
 export function Like({ likes, userlikes }) {
   const { userDetails } = useAuth()
-console.log(userlikes)
+  console.log(userlikes)
+  const handleMouseOver = () => {}
   return (
     <div
       className={
-        userlikes.some(user => user.user_id === userDetails.userId) ? 'post__like liked' : 'post__like'
+        userlikes.some((user) => user.user_id === userDetails.userId)
+          ? 'post__like liked'
+          : 'post__like'
       }
+      onMouseOver={handleMouseOver}
     >
       <svg
         className="post__like--heart"

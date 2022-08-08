@@ -6,11 +6,14 @@
     overflow: hidden;
 }
 .post__user{
-    /* border-image: conic-gradient(var(--secondary-color) 0 0) fill 0/0/15px 100vmax 0; */
     background-color: var(--secondary-color);
     padding: 5px 15px;
     margin-bottom: 10px;
     font-weight: 600;
+}
+.post__user div:last-child{
+    font-weight: 300;
+    font-style: italic;
 }
 .post__image{
     width: min(400px, 95%);

@@ -3,12 +3,15 @@ import { Like } from './Like.jsx'
 import { UserName } from '../utils/Atoms/UserName'
 import useAuth from '../utils/hooks/useAuth'
 
-export function Post(post) {
+export function Post({post}) {
   const { userDetails } = useAuth()
+  console.log(typeof post.date)
   return (
     <div className="post" key={post.id}>
       <div className="post__user">
         <UserName user={post.user} isShowingDepartement={true} />
+        <div>{new Date(post.date).toLocaleString('fr', { timeStyle: "medium",
+  dateStyle: "full" })}</div>
       </div>
       {post.imageUrl && <img src={post.imageUrl} className="post__image" />}
       <p className="post__text">{post.text !== '' && post.text}

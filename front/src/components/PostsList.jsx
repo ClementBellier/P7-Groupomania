@@ -13,10 +13,7 @@ export function PostList() {
   if (error) {
     return <span> Oups, il y a eu une erreur</span>
   }
-
   return (
-    <>
-      {isLoading ? <p>En chargement</p> : data.map((post) => Post(post))}
-    </>
+    <>{isLoading ? <p>En chargement</p> : data.sort((a, z) => z.date - a.date).map((post) => <Post key={`post-${post.id}`} post={post} />)}</>
   )
 }

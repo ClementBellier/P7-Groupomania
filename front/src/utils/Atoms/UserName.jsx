@@ -2,13 +2,13 @@ export function UserName({ user, isShowingDepartement }) {
   return (
     <>
       {user.name && user.firstName ? (
-        <div>
+        <span>
           {user.firstName} {user.name}
-        </div>
+        </span>
       ) : (
-        <div>{user.email}</div>
+        <span>{user.email}</span>
       )}
-      {user.departement && isShowingDepartement && <div>{user.departement}</div>}
+      {user.departement && isShowingDepartement && <span>{user.departement}</span>}
     </>
   )
 }

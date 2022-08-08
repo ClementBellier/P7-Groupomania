@@ -1,4 +1,4 @@
-export function UserName({ user }) {
+export function UserName({ user, isShowingDepartement }) {
   return (
     <>
       {user.name && user.firstName ? (
@@ -8,7 +8,7 @@ export function UserName({ user }) {
       ) : (
         <div>{user.email}</div>
       )}
-      {user.departement && <div>{user.departement}</div>}
+      {user.departement && isShowingDepartement && <div>{user.departement}</div>}
     </>
   )
 }

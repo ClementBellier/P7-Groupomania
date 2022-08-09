@@ -1,13 +1,14 @@
+import { useState } from 'react'
 import { CreatePost } from '../components/CreatePost'
-import { Header } from '../components/Header'
 import { PostList } from '../components/PostsList'
 
 export function Home(){
-
+    const [ isNeedReRender, setIsNeedReRender] = useState(false)
+    const needReRender = () => {setIsNeedReRender(!isNeedReRender)}
+    console.log('Home render ?')
     return (
     <>
-    <Header />
-    <CreatePost />
-    <PostList />
+    <CreatePost needReRender={needReRender} />
+    <PostList needReRender={needReRender} />
     </>)
 }

@@ -4,7 +4,7 @@ import { doFetch } from '../utils/functions/doFetch'
 import './styles/CreatePost.css'
 import './styles/Login.css'
 
-export function CreatePost() {
+export function CreatePost({ needReRender }) {
   const { userDetails } = useAuth()
   const [textValue, setTextValue] = useState('')
   const [file, setFile] = useState(false)
@@ -14,7 +14,7 @@ export function CreatePost() {
   const handleDeleteImage = () => {
     setFile(false)
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     let data = { text: textValue }
     let isMultipartFormData = false
@@ -24,13 +24,16 @@ export function CreatePost() {
       data.append('post', JSON.stringify({ text: textValue }))
       data.append('image', file)
     }
-    doFetch({
+    const { error } = await doFetch({
       method: 'POST',
       url: `http://localhost:3000/api/posts/`,
       body: data,
       token: userDetails.token,
       isMultipartFormData: isMultipartFormData,
     })
+    setTextValue('')
+    setFile(false)
+    error ? console.error(error) : needReRender()
   }
   return (
     <form className="create-post">

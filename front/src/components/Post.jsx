@@ -2,10 +2,21 @@ import './styles/Post.css'
 import { Like } from './Like.jsx'
 import { UserName } from '../utils/Atoms/UserName'
 import useAuth from '../utils/hooks/useAuth'
+import { useState } from 'react'
+import { doFetch } from '../utils/functions/doFetch'
 
-export function Post({ post }) {
+export function Post({ post, needReRender }) {
   const { userDetails } = useAuth()
-  console.log(typeof post.date)
+  const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
+  const handleDeletePost = async () => {
+    const {error} = await doFetch({
+      method: 'DELETE',
+      url: `http://localhost:3000/api/posts/${post.id}`,
+      token: userDetails.token,
+      isMultipartFormData: false,
+    })
+    error ? console.error(error) : (console.log("render?"),needReRender())
+  }
   return (
     <div className="post" key={post.id}>
       <div className="post__user">
@@ -46,7 +57,12 @@ export function Post({ post }) {
               </svg>
               Modifier
             </div>
-            <div className="post__action">
+            <div
+              className="post__action"
+              onClick={() =>
+                setShowConfirmationMessage(!showConfirmationMessage)
+              }
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -65,6 +81,24 @@ export function Post({ post }) {
           </>
         ) : null}
       </div>
+      {showConfirmationMessage ? (
+        <div className="post__confirmation-message">
+          <p className="post__confirmation-message__text">
+            Voulez-vous vraiment supprimer ce post ?
+          </p>
+          <div className="post__confirmation-message__response">
+            <button className="accent" onClick={(e) => handleDeletePost(e)}>
+              Oui
+            </button>
+            <button
+              className="accent"
+              onClick={() => setShowConfirmationMessage(false)}
+            >
+              Non
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

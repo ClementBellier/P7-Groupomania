@@ -1,19 +1,20 @@
 header{
     border-image: conic-gradient(var(--primary-color) 0 0) fill 0/0/0 100vmax;
-    height: 60px;
     width: 95%;
     margin-inline: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
+    padding-block: 10px;
 }
 .header__logo{
     display: flex;
     gap: 3px;
 }
 @media (max-width: 430px){
-    .header__logo{flex-direction: column;align-items: center;}
+    .header__logo{flex-direction: column;align-items: flex-end; gap:0}
+    .header__logo--text{margin-top: -8px;}
 }
 .header__logo--image{
     height: 30px;
@@ -23,6 +24,7 @@ header{
     text-transform: uppercase;
     font-size: 18px;
     font-weight: 300;
+    white-space: nowrap;
 }
 .header__actions{
     display: flex;

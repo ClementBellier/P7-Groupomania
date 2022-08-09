@@ -5,14 +5,31 @@ import { Home } from './pages/Home'
 import { Profile } from './pages/Profile'
 import { RequireAuth } from './utils/context/RequireAuth'
 import { AuthProvider } from './utils/hooks/useAuth'
+import { Header } from './components/Header'
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="/profile/:id" element={<RequireAuth><Profile /></RequireAuth>} />
+        <Route
+          path="/home"
+          element={
+            <RequireAuth>
+              <Header />
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile/:id"
+          element={
+            <RequireAuth>
+              <Header />
+              <Profile />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </AuthProvider>
   )

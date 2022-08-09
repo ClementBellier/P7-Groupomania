@@ -4,6 +4,7 @@
     box-shadow: 2px 2px 15px var(--shadow-color);
     border-radius: 15px;
     overflow: hidden;
+    position: relative;
 }
 .post__user{
     background-color: var(--secondary-color);
@@ -81,4 +82,24 @@
 }
 .post__action svg{
     width: 35px;
+}
+.post__confirmation-message{
+    position: absolute;
+    inset: 15%;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 0 100vmax var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.post__confirmation-message__text{
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+.post__confirmation-message__response{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }

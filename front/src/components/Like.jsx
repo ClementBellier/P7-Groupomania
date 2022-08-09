@@ -16,6 +16,7 @@ export function Like({ likes, userlikes, id }) {
       url: `http://localhost:3000/api/posts/${id}/like`,
       body: likeFetchBody,
       token: userDetails.token,
+      isMultipartFormData: false,
     })
     setUserLikedThisPost(!userLikedThisPost)
     userLikedThisPost ? setPostLikes(postLikes-1) : setPostLikes(postLikes+1)

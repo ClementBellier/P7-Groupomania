@@ -10,11 +10,9 @@
     padding: 5px 15px;
     margin-bottom: 10px;
     font-weight: 500;
-    font-style: italic;
 }
 .post__user span:first-child{
     font-weight: 800;
-    font-style: normal;
 }
 .post__user span:last-of-type:not(:first-child)::before{
     content: '-';
@@ -22,13 +20,14 @@
 }
 .post__user div:last-child{
     font-weight: 300;
+    font-style: italic;
 }
 .post__user div:last-child::first-letter{
     text-transform: capitalize;
 }
 .post__image{
-    width: min(400px, 95%);
-    aspect-ratio: 1;
+    width: min(400px, 95%);    
+    height: auto;
     margin-inline: auto;
     display: block;
 }

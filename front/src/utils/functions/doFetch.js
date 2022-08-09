@@ -1,4 +1,10 @@
-export async function doFetch({ method, url, body, token }) {
+export async function doFetch({
+  method,
+  url,
+  body,
+  token,
+  isMultipartFormData,
+}) {
   let data = {}
   let isLoading = true
   let error = false
@@ -7,18 +13,20 @@ export async function doFetch({ method, url, body, token }) {
     headers: {},
   }
   if (body) {
-    requestOptions.headers['Content-Type'] = 'application/json'
-    requestOptions.body = JSON.stringify(body)
+    if (isMultipartFormData) requestOptions.body = body
+    else {
+      requestOptions.headers['Content-Type'] = 'application/json'
+      requestOptions.body = JSON.stringify(body)
+    }
   }
   if (token) {
     requestOptions.headers['Authorization'] = 'Bearer ' + token
   }
-  try{
+  try {
     const response = await fetch(url, requestOptions)
     data = await response.json()
     isLoading = false
-  }
-  catch(errorCatched){
+  } catch (errorCatched) {
     error = errorCatched
   }
   return {

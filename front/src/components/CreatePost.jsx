@@ -11,6 +11,9 @@ export function CreatePost() {
   const handleAddImage = (e) => {
     setFile(e.target.files[0])
   }
+  const handleDeleteImage = () => {
+    setFile(false)
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     let data = { text: textValue }
@@ -32,7 +35,20 @@ export function CreatePost() {
   return (
     <form className="create-post">
       {file && (
-        <img src={URL.createObjectURL(file)} className="create-post__image" />
+        <div className="create-post__image">
+          <img src={URL.createObjectURL(file)} />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            onClick={handleDeleteImage}
+          >
+            <g stroke="currentColor" strokeLinecap="round">
+              <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" />
+              <path d="M9 15L15 9M15 15L9 9" />
+            </g>
+          </svg>
+        </div>
       )}
       <div className="create-post__grow-wrap" data-replicated-value={textValue}>
         <textarea

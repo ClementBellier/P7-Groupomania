@@ -1,5 +1,7 @@
 .create-post{
     padding: 15px;
+    position: relative;
+    overflow: visible;
 }
 .create-post__grow-wrap{
     display: grid;
@@ -40,7 +42,7 @@
 .create-post__actions--image svg{
     width: 42px;
 }
-#create-post__actions--image-input{
+.create-post__actions input{
     display: none;
 }
 .create-post__image{
@@ -48,14 +50,15 @@
     margin: 10px auto 10px;
     width: min(400px, 95%);
     height: auto;
+    display: block;
 }
 .create-post__image img{
     width: 100%;
 }
-.create-post__image svg{
+.create-post__image--delete{
     position: absolute;
-    top: -20px;
-    right: -20px;
+    top: -10px;
+    right: -10px;
     width: 40px;
     stroke-width: 3px;
     background-color: white;

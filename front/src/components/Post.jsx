@@ -4,18 +4,20 @@ import { UserName } from '../utils/Atoms/UserName'
 import useAuth from '../utils/hooks/useAuth'
 import { useState } from 'react'
 import { doFetch } from '../utils/functions/doFetch'
+import { CreatePost } from './CreatePost'
 
 export function Post({ post, needReRender }) {
   const { userDetails } = useAuth()
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
+  const [isModifyActive, setModifyActive] = useState(false)
   const handleDeletePost = async () => {
-    const {error} = await doFetch({
+    const { error } = await doFetch({
       method: 'DELETE',
       url: `http://localhost:3000/api/posts/${post.id}`,
       token: userDetails.token,
       isMultipartFormData: false,
     })
-    error ? console.error(error) : (console.log("render?"),needReRender())
+    error ? console.error(error) : needReRender()
   }
   return (
     <div className="post" key={post.id}>
@@ -28,20 +30,27 @@ export function Post({ post, needReRender }) {
           })}
         </div>
       </div>
-      {post.imageUrl && <img src={post.imageUrl} className="post__image" />}
-      {post.text !== '' || post.modified ? (
-        <p className="post__text">
-          {post.text !== '' && post.text}
-          {post.modified && (
-            <span className="post__text__modified"> (modifié) </span>
-          )}
-        </p>
-      ) : null}
+      {isModifyActive ? <CreatePost post={post} needReRender={needReRender} setModifyActive={setModifyActive} onBlur={()=>setModifyActive(false)} /> : (
+        <>
+          {post.imageUrl && <img src={post.imageUrl} className="post__image" />}
+          {post.text !== '' || post.modified ? (
+            <p className="post__text">
+              {post.text !== '' && post.text}
+              {post.modified && (
+                <span className="post__text__modified"> (modifié) </span>
+              )}
+            </p>
+          ) : null}
+        </>
+      )}
       <div className="post__footer">
         <Like likes={post.likes} userlikes={post.userlikes} id={post.id} />
         {userDetails.userId === post.userId || userDetails.role === 'admin' ? (
           <>
-            <div className="post__action">
+            <div
+              className="post__action"
+              onClick={() => setModifyActive(!isModifyActive)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

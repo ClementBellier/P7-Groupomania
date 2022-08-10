@@ -5,7 +5,7 @@ import { PostList } from '../components/PostsList'
 export function Home(){
     const [ isNeedReRender, setIsNeedReRender] = useState(false)
     const needReRender = () => {setIsNeedReRender(!isNeedReRender)}
-    console.log('Home render ?')
+    
     return (
     <>
     <CreatePost needReRender={needReRender} />

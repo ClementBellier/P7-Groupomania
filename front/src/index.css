@@ -43,7 +43,7 @@ button{
     color: var(--primary-color);
     text-decoration: underline;
     cursor: pointer;
-    transition: all .2s ease-in-out;
+    transition: transform .2s ease-in-out;
     padding-inline: 20px;
 }
 button.accent{    
@@ -52,7 +52,11 @@ button.accent{
     font-weight: 700;
     text-decoration: none;
 }
-button:hover{
+button:not(.accent):hover{
+    transform: scale(1.025);
+    text-shadow: 1px 1px 1px var(--shadow-color);
+}
+button.accent:hover{
     transform: scale(1.025);
     box-shadow: 2px 2px 2px var(--shadow-color);
 }

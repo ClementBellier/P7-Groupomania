@@ -10,7 +10,13 @@
     font-style: italic;
 }
 .user-details input{
-    padding: 2px 15px 2px 5px;
+    display: block;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--tertiary-color);
+    padding: 2px 20px;
+    width: 100%;
+    margin-top: 3px;
 }
 .user-details__no-data{
     font-style: italic;

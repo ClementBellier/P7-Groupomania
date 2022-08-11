@@ -3,17 +3,18 @@ import { doFetch } from '../utils/functions/doFetch'
 import useAuth from '../utils/hooks/useAuth'
 import { Post } from './Post'
 
-export function PostList({ needReRender }) {
+export function PostList({ needReRender, userId }) {
   const [data, setData] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const { userDetails } = useAuth()
 
   useEffect(() => {
+    const urlToFetch = userId ? `http://localhost:3000/api/users/${userId}/posts` : 'http://localhost:3000/api/posts/'
     const fetchData = async () => {
       const { data, isLoading, error } = await doFetch({
         method: 'GET',
-        url: 'http://localhost:3000/api/posts/',
+        url: urlToFetch,
         token: userDetails.token,
       })
       setData(data)

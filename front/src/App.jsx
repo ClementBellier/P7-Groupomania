@@ -22,7 +22,7 @@ function App() {
           }
         />
         <Route
-          path="/profile/:id"
+          path="/profile/:userId"
           element={
             <RequireAuth>
               <Header />

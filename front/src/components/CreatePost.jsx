@@ -33,6 +33,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
     if (!post) {
       setFile(false)
       setTextValue('')
+      setImageUrl(null)
       console.log('Enleve le texte ?')
     }
     const { error } = await doFetch({

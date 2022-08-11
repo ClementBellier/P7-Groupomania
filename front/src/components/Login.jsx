@@ -14,8 +14,8 @@ export function Login() {
   const [isAnErrorInPassword, setIsAnErrorInPassword] = useState(true)
   const [isLoginActive, setIsLoginActive] = useState(true)
 
-  const handleLogin = (e) => {
-    e.preventDefault()
+  const handleLogin = (event) => {    
+    if(event) event.preventDefault()
     login(email, password).then(() => {
       navigate('/home')
     })

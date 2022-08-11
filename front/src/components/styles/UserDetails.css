@@ -1,0 +1,22 @@
+.user-details{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.user-details label{
+    margin-left: 20px;
+    font-weight: 600;
+    font-style: italic;
+}
+.user-details input{
+    padding: 2px 15px 2px 5px;
+}
+.user-details__no-data{
+    font-style: italic;
+    font-weight: 300;
+    font-size: .85em;
+}
+.user-details__buttons{
+    align-self: flex-end;
+}

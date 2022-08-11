@@ -19,15 +19,12 @@ const userModel = database.define("users", {
   },
   name: {
     type: Sequelize.STRING(100),
-    defaultValue: "user",
   },
   firstName: {
     type: Sequelize.STRING(100),
-    defaultValue: "user",
   },
   departement: {
     type: Sequelize.STRING(100),
-    defaultValue: "user",
   },
 });
 

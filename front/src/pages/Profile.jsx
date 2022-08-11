@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { CreatePost } from '../components/CreatePost'
 import { PostList } from '../components/PostsList'
 import { useParams } from 'react-router-dom'
+import { UserDetails } from '../components/UserDetails'
 
 export function Profile() {
   const { userId } = useParams()
@@ -12,7 +12,7 @@ export function Profile() {
 
   return (
     <>
-      <CreatePost needReRender={needReRender} />
+      <UserDetails userId={userId} />
       <PostList needReRender={needReRender} userId={userId} />
     </>
   )

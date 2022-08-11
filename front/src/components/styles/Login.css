@@ -1,4 +1,4 @@
-.login, .create-post{
+.login, .create-post, .user-details{
     box-shadow: 2px 2px 15px var(--shadow-color);
     border-radius: 15px;
     overflow: hidden;

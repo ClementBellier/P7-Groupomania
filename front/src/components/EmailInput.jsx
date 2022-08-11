@@ -15,7 +15,7 @@ export function EmailInput({ email, setEmail, isLoginActive, isAnErrorInMail, se
     <>
       <input
         id="email"
-        type="text"
+        type="email"
         value={email}
         onChange={(e) => handleEmailInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}

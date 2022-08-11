@@ -7,6 +7,7 @@ header{
     align-items: center;
     color: white;
     padding-block: 10px;
+    overflow: hidden;
 }
 .header__logo{
     display: flex;
@@ -29,10 +30,18 @@ header{
 .header__actions{
     display: flex;
 }
-.header__actions *{
+.header__actions a, .header__actions div{
     cursor: pointer;
+    transition: transform .15s ease-in-out;
+}
+.header__actions a:hover,.header__actions div:hover{
+    transform: scale(1.1);
 }
 .header__actions svg{
     width: 40px;
     aspect-ratio: 1;
+}
+.header__actions a:hover,.header__actions div:hover, .header__actions--active{
+    border-image: conic-gradient(var(--secondary-color) 0 0) fill 0/0/100vmax 0;
+    color: var(--tertiary-color);
 }

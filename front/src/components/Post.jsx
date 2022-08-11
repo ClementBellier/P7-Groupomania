@@ -4,7 +4,7 @@ import { UserName } from '../utils/Atoms/UserName'
 import useAuth from '../utils/hooks/useAuth'
 import { useState } from 'react'
 import { doFetch } from '../utils/functions/doFetch'
-import { CreatePost } from './CreatePost'
+import { CreatePost as ModifyPost } from './CreatePost'
 
 export function Post({ post, needReRender }) {
   const { userDetails } = useAuth()
@@ -30,7 +30,7 @@ export function Post({ post, needReRender }) {
           })}
         </div>
       </div>
-      {isModifyActive ? <CreatePost post={post} needReRender={needReRender} setModifyActive={setModifyActive} onBlur={()=>setModifyActive(false)} /> : (
+      {isModifyActive ? <ModifyPost post={post} needReRender={needReRender} setModifyActive={setModifyActive} onBlur={()=>setModifyActive(false)} /> : (
         <>
           {post.imageUrl && <img src={post.imageUrl} className="post__image" />}
           {post.text !== '' || post.modified ? (

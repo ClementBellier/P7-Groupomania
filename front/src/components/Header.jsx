@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import useAuth from '../utils/hooks/useAuth'
 import './styles/Header.css'
 
@@ -13,16 +13,21 @@ export function Header() {
 
   return (
     <header>
-      <Link to="/home" className='header__logo'>
+      <Link to="/home" className="header__logo">
         <img
           src="/assets/icon-left-font-monochrome-white.svg"
           alt="Groupomania"
-          className='header__logo--image'
+          className="header__logo--image"
         />
-        <p className='header__logo--text'>social network</p>
+        <p className="header__logo--text">social network</p>
       </Link>
       <div className="header__actions">
-        <Link to={`/profile/${userDetails.userId}`}>
+        <NavLink
+          to={`/profile/${userDetails.userId}`}
+          className={({ isActive }) =>
+            isActive ? 'header__actions--active' : undefined
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -36,7 +41,7 @@ export function Header() {
               d="M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-        </Link>
+        </NavLink>
         <div onClick={handleLogout}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

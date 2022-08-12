@@ -33,12 +33,29 @@
     font-weight: 300;
     font-size: 20px;
     padding: 5px 15px;
+}
+.post__text:is(p:last-of-type){
     margin-bottom: 10px;
 }
 .post__text__modified{
     font-weight: 300;
     font-style: italic;
     font-size: 15px;
+}
+.post__text--userlikes{
+    font-size: 1em;
+    line-height: 1em;
+    font-style: italic;
+    cursor: pointer;
+}
+.post__text--userlikes--inOneLign{
+    height: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.post__text--userlikes--name{
+    font-weight: 500;
 }
 .post__footer{
     display: flex;

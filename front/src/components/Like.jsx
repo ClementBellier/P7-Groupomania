@@ -2,7 +2,7 @@ import { useState } from 'react'
 import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
 
-export function Like({ likes, userlikes, id }) {
+export function Like({ likes, userlikes, id, needReRender }) {
   const { userDetails } = useAuth()
   const [postLikes, setPostLikes] = useState(likes)
   const [userLikedThisPost, setUserLikedThisPost] = useState(userlikes.some(
@@ -20,6 +20,7 @@ export function Like({ likes, userlikes, id }) {
     })
     setUserLikedThisPost(!userLikedThisPost)
     userLikedThisPost ? setPostLikes(postLikes-1) : setPostLikes(postLikes+1)
+    needReRender()
   }
 
   return (

@@ -9,6 +9,7 @@ import { CreatePost as ModifyPost } from './CreatePost'
 export function Post({ post, needReRender }) {
   const { userDetails } = useAuth()
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
+  const [showAllUserLike, setShowAllUserLike] = useState(false)
   const [isModifyActive, setModifyActive] = useState(false)
   const handleDeletePost = async () => {
     const { error } = await doFetch({
@@ -18,6 +19,18 @@ export function Post({ post, needReRender }) {
       isMultipartFormData: false,
     })
     error ? console.error(error) : needReRender()
+  }
+  const DisplayUsersWhoLikes = () => {
+    return post.userlikes.map((like, index) => {
+      return (
+        <span key={`userlike-${index}`}>
+          {index > 0 && <span>, </span>}
+          <span className="post__text--userlikes--name">
+            <UserName user={like.user} isShowingDepartement={false} />
+          </span>
+        </span>
+      )
+    })
   }
   return (
     <div className="post" key={post.id}>
@@ -30,7 +43,14 @@ export function Post({ post, needReRender }) {
           })}
         </div>
       </div>
-      {isModifyActive ? <ModifyPost post={post} needReRender={needReRender} setModifyActive={setModifyActive} onBlur={()=>setModifyActive(false)} /> : (
+      {isModifyActive ? (
+        <ModifyPost
+          post={post}
+          needReRender={needReRender}
+          setModifyActive={setModifyActive}
+          onBlur={() => setModifyActive(false)}
+        />
+      ) : (
         <>
           {post.imageUrl && <img src={post.imageUrl} className="post__image" />}
           {post.text !== '' || post.modified ? (
@@ -43,8 +63,20 @@ export function Post({ post, needReRender }) {
           ) : null}
         </>
       )}
+      {post.userlikes.length > 0 && (
+        <p
+          className={
+            showAllUserLike
+              ? 'post__text--userlikes post__text post__text--userlikes--inOneLign'
+              : 'post__text--userlikes post__text'
+          }
+          onClick={() => setShowAllUserLike(!showAllUserLike)}
+        >
+          Aimé par: <DisplayUsersWhoLikes />
+        </p>
+      )}
       <div className="post__footer">
-        <Like likes={post.likes} userlikes={post.userlikes} id={post.id} />
+        <Like likes={post.likes} userlikes={post.userlikes} id={post.id} needReRender={needReRender} />
         {userDetails.userId === post.userId || userDetails.role === 'admin' ? (
           <>
             <div

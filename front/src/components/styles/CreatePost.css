@@ -31,8 +31,9 @@
     gap: 10px;
 }
 .create-post__actions--image{
-    display: grid;
-    place-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 .create-post__actions--image:hover svg{
@@ -41,6 +42,19 @@
 }
 .create-post__actions--image svg{
     width: 42px;
+}
+.create-post__actions--image--text{    
+    display: inline-flex;
+    width: 0;
+    line-height: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: end;
+    transition: width .3s ease-in-out;
+}
+.create-post__actions--image:hover .create-post__actions--image--text{
+    width: 83px;
+    transition: width .3s ease-in-out .1s;
 }
 .create-post__actions input{
     display: none;

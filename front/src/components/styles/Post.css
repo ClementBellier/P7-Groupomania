@@ -71,6 +71,11 @@
     align-items: center;
     flex: 1;
     cursor: pointer;
+    transition: flex .2s ease-in-out .2s;
+}
+.post__like:hover{
+    flex: 2;
+    transition: flex .2s ease-in-out;
 }
 .post__like--heart{
     width: 35px;
@@ -78,6 +83,7 @@
 }
 .post__like--number{
     font-size: 25px;
+    margin-right: 5px;
 }
 .liked{
     --like-color: var(--primary-color);
@@ -96,9 +102,38 @@
     cursor: pointer;
     flex: 1;
     border-left: 1px solid var(--tertiary-color);
+    position: relative;
+    overflow: hidden;
+    transition: flex .2s ease-in-out .2s;
 }
-.post__action svg{
+.post__action:hover{
+    flex: 2;
+    transition: flex .2s ease-in-out;
+}
+.post__action--icon{
+    text-align: center;
+}
+.post__action--icon svg{
     width: 35px;
+}
+.post__action--text{
+    display: inline-flex;
+    width: 0;
+    color: var(--tertiary-color);
+    font-weight: initial;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width .3s ease-in-out;
+}
+.post__action:hover .post__action--text{
+    width: 74px;
+    transition: width .3s ease-in-out .1s;
+}
+.post__like:hover .unlike{
+    width: 120px;
+}
+.post__like:hover .like{
+    width: 43px;
 }
 .post__confirmation-message{
     position: absolute;

@@ -5,9 +5,9 @@ import { doFetch } from '../utils/functions/doFetch'
 export function Like({ likes, userlikes, id, needReRender }) {
   const { userDetails } = useAuth()
   const [postLikes, setPostLikes] = useState(likes)
-  const [userLikedThisPost, setUserLikedThisPost] = useState(userlikes.some(
-    (user) => user.user_id === userDetails.userId
-  ))
+  const [userLikedThisPost, setUserLikedThisPost] = useState(
+    userlikes.some((user) => user.user_id === userDetails.userId)
+  )
   const handleMouseOver = () => {}
   const handleClick = () => {
     const likeFetchBody = { like: userLikedThisPost ? 0 : 1 }
@@ -19,7 +19,9 @@ export function Like({ likes, userlikes, id, needReRender }) {
       isMultipartFormData: false,
     })
     setUserLikedThisPost(!userLikedThisPost)
-    userLikedThisPost ? setPostLikes(postLikes-1) : setPostLikes(postLikes+1)
+    userLikedThisPost
+      ? setPostLikes(postLikes - 1)
+      : setPostLikes(postLikes + 1)
     needReRender()
   }
 
@@ -42,6 +44,11 @@ export function Like({ likes, userlikes, id, needReRender }) {
         />
       </svg>
       {postLikes > 0 && <span className="post__like--number">{postLikes}</span>}
+      {userLikedThisPost ? (
+        <p className="post__action--text unlike">Ne plus aimer 💔</p>
+      ) : (
+        <p className="post__action--text like">Aimer</p>
+      )}
     </div>
   )
 }

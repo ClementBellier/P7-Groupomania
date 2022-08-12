@@ -67,8 +67,8 @@ export function Post({ post, needReRender }) {
         <p
           className={
             showAllUserLike
-              ? 'post__text--userlikes post__text post__text--userlikes--inOneLign'
-              : 'post__text--userlikes post__text'
+              ? 'post__text--userlikes post__text'
+              : 'post__text--userlikes post__text post__text--userlikes--inOneLign'
           }
           onClick={() => setShowAllUserLike(!showAllUserLike)}
         >
@@ -76,27 +76,34 @@ export function Post({ post, needReRender }) {
         </p>
       )}
       <div className="post__footer">
-        <Like likes={post.likes} userlikes={post.userlikes} id={post.id} needReRender={needReRender} />
+        <Like
+          likes={post.likes}
+          userlikes={post.userlikes}
+          id={post.id}
+          needReRender={needReRender}
+        />
         {userDetails.userId === post.userId || userDetails.role === 'admin' ? (
           <>
             <div
               className="post__action"
               onClick={() => setModifyActive(!isModifyActive)}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13.5 7.5l3 3M4 20v-3.5L15.293 5.207a1 1 0 011.414 0l2.086 2.086a1 1 0 010 1.414L7.5 20H4z"
-                />
-              </svg>
-              Modifier
+              <div className="post__action--icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13.5 7.5l3 3M4 20v-3.5L15.293 5.207a1 1 0 011.414 0l2.086 2.086a1 1 0 010 1.414L7.5 20H4z"
+                  />
+                </svg>
+              </div>
+              <p className="post__action--text">Modifier</p>
             </div>
             <div
               className="post__action"
@@ -104,20 +111,22 @@ export function Post({ post, needReRender }) {
                 setShowConfirmationMessage(!showConfirmationMessage)
               }
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 6l.934 13.071A1 1 0 007.93 20h8.138a1 1 0 00.997-.929L18 6m-6 5v4m8-9H4m4.5 0l.544-1.632A2 2 0 0110.941 3h2.117a2 2 0 011.898 1.368L15.5 6"
-                />
-              </svg>
-              Supprimer
+              <div className="post__action--icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 6l.934 13.071A1 1 0 007.93 20h8.138a1 1 0 00.997-.929L18 6m-6 5v4m8-9H4m4.5 0l.544-1.632A2 2 0 0110.941 3h2.117a2 2 0 011.898 1.368L15.5 6"
+                  />
+                </svg>
+              </div>
+              <p className="post__action--text">Supprimer</p>
             </div>
           </>
         ) : null}

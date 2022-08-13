@@ -71,7 +71,7 @@
     align-items: center;
     flex: 1;
     cursor: pointer;
-    transition: flex .2s ease-in-out .2s;
+    transition: flex .2s ease-in-out;
 }
 .post__like:hover{
     flex: 2;
@@ -104,7 +104,7 @@
     border-left: 1px solid var(--tertiary-color);
     position: relative;
     overflow: hidden;
-    transition: flex .2s ease-in-out .2s;
+    transition: flex .2s ease-in-out;
 }
 .post__action:hover{
     flex: 2;
@@ -127,7 +127,7 @@
 }
 .post__action:hover .post__action--text{
     width: 74px;
-    transition: width .3s ease-in-out .1s;
+    transition: width .3s ease-in-out;
 }
 .post__like:hover .unlike{
     width: 120px;

@@ -48,7 +48,7 @@ export function UserDetails({ userId }) {
         <p>En chargement</p>
       ) : (
         <form className="user-details">
-          <h2>{userDetails.userId ? 'Mon Profil' : 'Son Profil'}</h2>
+          <h2>{userDetails.userId === parseInt(userId) ? 'Mon Profil' : 'Son Profil'}</h2>
           <div>
             <label htmlFor="email">Email: </label>
             {isModifyActive ? (

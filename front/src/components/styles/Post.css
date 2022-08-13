@@ -10,6 +10,11 @@
     background-color: var(--secondary-color);
     padding: 5px 15px;
     font-weight: 500;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+.post__user:hover{
+    color: black;
 }
 .post__user span:first-child{
     font-weight: 800;

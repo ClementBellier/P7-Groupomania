@@ -5,9 +5,11 @@ import useAuth from '../utils/hooks/useAuth'
 import { useState } from 'react'
 import { doFetch } from '../utils/functions/doFetch'
 import { CreatePost as ModifyPost } from './CreatePost'
+import { useNavigate } from 'react-router-dom'
 
 export function Post({ post, needReRender }) {
   const { userDetails } = useAuth()
+  const navigate = useNavigate()
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
   const [showAllUserLike, setShowAllUserLike] = useState(false)
   const [isModifyActive, setModifyActive] = useState(false)
@@ -34,7 +36,7 @@ export function Post({ post, needReRender }) {
   }
   return (
     <div className="post" key={post.id}>
-      <div className="post__user">
+      <div className="post__user" onClick={()=>navigate(`/profile/${post.userId}`)}>
         <UserName user={post.user} isShowingDepartement={true} />
         <div>
           {new Date(post.date).toLocaleString('fr', {

@@ -6,16 +6,23 @@ import './styles/Login.css'
 
 export function CreatePost({ post, needReRender, setModifyActive }) {
   const { userDetails } = useAuth()
+  const [isEmptyPost, setEmptyPost] = useState(post ? false : true)
   const [textValue, setTextValue] = useState(post ? post.text : '')
   const [file, setFile] = useState(false)
   const [imageUrl, setImageUrl] = useState(post ? post.imageUrl : null)
+  const handleText = (e) => {
+    setTextValue(e.target.value)
+    e.target.value ? setEmptyPost(false) : !imageUrl && setEmptyPost(true)
+  }
   const handleAddImage = (e) => {
     setFile(e.target.files[0])
     setImageUrl(URL.createObjectURL(e.target.files[0]))
+    setEmptyPost(false)
   }
   const handleDeleteImage = () => {
     setFile(false)
     setImageUrl(null)
+    textValue === '' && setEmptyPost(true)
   }
   const handleSubmit = async (e, method) => {
     e.preventDefault()
@@ -83,7 +90,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
         <textarea
           name="create-post"
           id="create-post"
-          onInput={(e) => setTextValue(e.target.value)}
+          onInput={(e) => handleText(e)}
           placeholder={
             post
               ? 'Voulez vous ajouter quelque chose ?'
@@ -110,7 +117,11 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
           }
           className="create-post__actions--image"
         >
-          <p className='create-post__actions--image--text'>Ajouter une<br/>image</p>
+          <p className="create-post__actions--image--text">
+            Ajouter une
+            <br />
+            image
+          </p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -127,17 +138,23 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
         </label>
         {post ? (
           <button
-            className="accent"
+            className={isEmptyPost ? 'accent inactive' : 'accent'}
             type="submit"
-            onClick={(e) => handleSubmit(e, 'PUT')}
+            onClick={(e) => {
+              e.preventDefault()
+              !isEmptyPost && handleSubmit(e, 'PUT')
+            }}
           >
             Modifier
           </button>
         ) : (
           <button
-            className="accent"
+            className={isEmptyPost ? 'accent inactive' : 'accent'}
             type="submit"
-            onClick={(e) => handleSubmit(e, 'POST')}
+            onClick={(e) => {
+              e.preventDefault()
+              !isEmptyPost && handleSubmit(e, 'POST')
+            }}
           >
             Publier
           </button>

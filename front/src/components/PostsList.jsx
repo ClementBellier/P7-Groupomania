@@ -3,6 +3,7 @@ import { doFetch } from '../utils/functions/doFetch'
 import useAuth from '../utils/hooks/useAuth'
 import { Post } from './Post'
 import { Loader } from '../components/Loader'
+import { DisplayError } from '../utils/Atoms/DisplayError'
 
 export function PostList({ needReRender, userId }) {
   const [data, setData] = useState({})
@@ -27,16 +28,16 @@ export function PostList({ needReRender, userId }) {
     fetchData()
   }, [needReRender])
 
-  if (error) {
-    return <span> Oups, il y a eu une erreur</span>
-  }
+  if (error) return <DisplayError />
 
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : data.length === 0 ? (
-        <p style={{ textAlign: 'center', marginBlock: '30px' }}>Il n'y a aucun post à afficher... 😞</p>
+        <p style={{ textAlign: 'center', marginBlock: '30px' }}>
+          Il n'y a aucun post à afficher... 😞
+        </p>
       ) : (
         data
           .sort((a, z) => z.date - a.date)

@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { doFetch } from '../utils/functions/doFetch'
 import { CreatePost as ModifyPost } from './CreatePost'
 import { useNavigate } from 'react-router-dom'
+import { DisplayError } from '../utils/Atoms/DisplayError'
 
 export function Post({ post, needReRender }) {
   const { userDetails } = useAuth()
@@ -20,7 +21,7 @@ export function Post({ post, needReRender }) {
       token: userDetails.token,
       isMultipartFormData: false,
     })
-    error ? console.error(error) : needReRender()
+    error ? <DisplayError /> : needReRender()
   }
   const DisplayUsersWhoLikes = () => {
     return post.userlikes.map((like, index) => {

@@ -3,6 +3,7 @@ import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
 import './styles/CreatePost.css'
 import './styles/Login.css'
+import { DisplayError } from '../utils/Atoms/DisplayError'
 
 export function CreatePost({ post, needReRender, setModifyActive }) {
   const { userDetails } = useAuth()
@@ -41,7 +42,6 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       setFile(false)
       setTextValue('')
       setImageUrl(null)
-      console.log('Enleve le texte ?')
     }
     const { error } = await doFetch({
       method: method,
@@ -51,7 +51,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       isMultipartFormData: isMultipartFormData,
     })
     if (post) setModifyActive(false)
-    error ? console.error(error) : needReRender()
+    error ? <DisplayError /> : needReRender()
   }
   return (
     <form className="create-post">

@@ -8,7 +8,9 @@ export function UserName({ user, isShowingDepartement }) {
       ) : (
         <span>{user.email}</span>
       )}
-      {user.departement && isShowingDepartement && <span>{user.departement}</span>}
+      {user.departement && isShowingDepartement && (
+        <span>{user.departement}</span>
+      )}
     </>
   )
 }

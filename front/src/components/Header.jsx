@@ -28,16 +28,12 @@ export function Header() {
             isActive ? 'header__actions--active' : undefined
           }
         >
-          <svg
-            viewBox="0 0 24 24"
-          >
+          <svg viewBox="0 0 24 24">
             <use href="#profile" />
           </svg>
         </NavLink>
         <div onClick={handleLogout}>
-          <svg
-            viewBox="0 0 24 24"
-          >
+          <svg viewBox="0 0 24 24">
             <use href="#logout" />
           </svg>
         </div>

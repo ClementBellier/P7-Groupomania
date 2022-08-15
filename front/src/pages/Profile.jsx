@@ -15,7 +15,7 @@ export function Profile() {
     <>
       <svg
         viewBox="0 0 24 24"
-        className='profile-go-back'
+        className="profile-go-back"
         onClick={() => navigate(-1)}
       >
         <use href="#arrow-left" />

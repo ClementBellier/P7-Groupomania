@@ -122,9 +122,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
             <br />
             image
           </p>
-          <svg
-            viewBox="0 0 24 24"
-          >
+          <svg viewBox="0 0 24 24">
             <use href="#image-logo" />
           </svg>
         </label>

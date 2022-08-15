@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const database = require("../persistence/database");
-const userModel = require("./User");
+const Sequelize = require('sequelize')
+const database = require('../persistence/database')
+const userModel = require('./User')
 
-const postModel = database.define("posts", {
+const postModel = database.define('posts', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -19,7 +19,7 @@ const postModel = database.define("posts", {
   },
   text: {
     type: Sequelize.STRING(20000),
-    defaultValue: "",
+    defaultValue: '',
   },
   imageUrl: {
     type: Sequelize.STRING(500),
@@ -37,21 +37,21 @@ const postModel = database.define("posts", {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
-});
+})
 
-const likesModel = database.define("userlikes", {
+const likesModel = database.define('userlikes', {
   user_id: {
     type: Sequelize.INTEGER,
     references: {
       model: userModel,
-      key: "id",
+      key: 'id',
     },
   },
   post_id: {
     type: Sequelize.INTEGER,
     references: {
       model: postModel,
-      key: "id",
+      key: 'id',
     },
   },
   id: {
@@ -59,9 +59,9 @@ const likesModel = database.define("userlikes", {
     primaryKey: true,
     autoIncrement: true,
   },
-});
-postModel.belongsTo(userModel);
-postModel.hasMany(likesModel, {foreignKey: "post_id"});
-likesModel.belongsTo(postModel, {foreignKey: "post_id"});
-likesModel.belongsTo(userModel, {foreignKey: "user_id"});
-module.exports = { postModel, likesModel };
+})
+postModel.belongsTo(userModel)
+postModel.hasMany(likesModel, { foreignKey: 'post_id' })
+likesModel.belongsTo(postModel, { foreignKey: 'post_id' })
+likesModel.belongsTo(userModel, { foreignKey: 'user_id' })
+module.exports = { postModel, likesModel }

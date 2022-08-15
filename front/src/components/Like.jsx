@@ -31,11 +31,8 @@ export function Like({ likes, userlikes, id, needReRender }) {
       onMouseOver={handleMouseOver}
       onClick={handleClick}
     >
-      <svg
-        className="post__like--heart"
-        viewBox="0 0 24 24"
-      >
-        <use href='#heart' />
+      <svg className="post__like--heart" viewBox="0 0 24 24">
+        <use href="#heart" />
       </svg>
       {postLikes > 0 && <span className="post__like--number">{postLikes}</span>}
       {userLikedThisPost ? (

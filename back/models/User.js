@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const database = require("../persistence/database");
+const Sequelize = require('sequelize')
+const database = require('../persistence/database')
 
-const userModel = database.define("users", {
+const userModel = database.define('users', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -15,7 +15,7 @@ const userModel = database.define("users", {
   password: Sequelize.STRING,
   role: {
     type: Sequelize.STRING(20),
-    defaultValue: "user",
+    defaultValue: 'user',
   },
   name: {
     type: Sequelize.STRING(100),
@@ -26,6 +26,6 @@ const userModel = database.define("users", {
   departement: {
     type: Sequelize.STRING(100),
   },
-});
+})
 
-module.exports = userModel;
+module.exports = userModel

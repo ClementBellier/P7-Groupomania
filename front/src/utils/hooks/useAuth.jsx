@@ -23,43 +23,43 @@ function useAuth() {
     errorMessage,
     setErrorMessage,
     async login(email, password) {
-        try {
-          const response = await fetchApiAuth('login', email, password)
-          const data = await response.json()
-          if (data.token) {
-            setAuthed(true)
-            setUserDetails(data)
-            setErrorMessage()
-          }
-          if (data.error) {
-            setAuthed(false)
-            setErrorMessage(data.error)
-          }
-          return data
-        } catch (error) {
-          return({error})
+      try {
+        const response = await fetchApiAuth('login', email, password)
+        const data = await response.json()
+        if (data.token) {
+          setAuthed(true)
+          setUserDetails(data)
+          setErrorMessage()
         }
+        if (data.error) {
+          setAuthed(false)
+          setErrorMessage(data.error)
+        }
+        return data
+      } catch (error) {
+        return { error }
+      }
     },
     async signup(email, password) {
-        try {
-          const response = await fetchApiAuth('signup', email, password)
-          const data = await response.json()
-          if (data.message) {
-            setErrorMessage()
-          }
-          if (data.error) {
-            setAuthed(false)
-            setErrorMessage(data.error)
-          }
-          return data
-        } catch (error) {
-          return({error})
+      try {
+        const response = await fetchApiAuth('signup', email, password)
+        const data = await response.json()
+        if (data.message) {
+          setErrorMessage()
         }
+        if (data.error) {
+          setAuthed(false)
+          setErrorMessage(data.error)
+        }
+        return data
+      } catch (error) {
+        return { error }
+      }
     },
     logout() {
-        setAuthed(false)
-        setUserDetails()
-        return
+      setAuthed(false)
+      setUserDetails()
+      return
     },
   }
 }

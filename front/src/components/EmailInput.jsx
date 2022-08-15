@@ -1,6 +1,13 @@
 import { useState } from 'react'
 
-export function EmailInput({ email, setEmail, isLoginActive, isAnErrorInMail, setIsAnErrorInMail, setErrorMessage }) {
+export function EmailInput({
+  email,
+  setEmail,
+  isLoginActive,
+  isAnErrorInMail,
+  setIsAnErrorInMail,
+  setErrorMessage,
+}) {
   const [isOnFocus, setIsOnFocus] = useState(false)
   const mailRegExp = /^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$/
   const handleEmailInput = (value) => {
@@ -22,7 +29,7 @@ export function EmailInput({ email, setEmail, isLoginActive, isAnErrorInMail, se
         pattern={mailRegExp}
         required
       />
-      {!isLoginActive && isOnFocus && email.length !==0 ? (
+      {!isLoginActive && isOnFocus && email.length !== 0 ? (
         isAnErrorInMail ? (
           <span className="error-message">
             L'email doit être dans le format suivant prenom.nom@groupomania.fr

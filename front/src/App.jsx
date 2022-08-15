@@ -6,6 +6,7 @@ import { Profile } from './pages/Profile'
 import { RequireAuth } from './utils/context/RequireAuth'
 import { AuthProvider } from './utils/hooks/useAuth'
 import { Header } from './components/Header'
+import { Error404 } from './pages/Error404'
 
 function App() {
   return (
@@ -28,6 +29,15 @@ function App() {
               <Header />
               <Profile />
             </RequireAuth>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <Header />
+              <Error404 />
+            </>
           }
         />
       </Routes>

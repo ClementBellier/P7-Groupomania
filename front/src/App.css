@@ -35,3 +35,10 @@
     0%{width: 0ch;}
     70%, 100%{width: 13ch;}
 }
+.error404{
+    text-align: center;
+    margin-block: 30px;
+}
+.error404 img{
+    width: 100%;
+}

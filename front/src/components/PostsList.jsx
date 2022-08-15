@@ -11,7 +11,9 @@ export function PostList({ needReRender, userId }) {
   const { userDetails } = useAuth()
 
   useEffect(() => {
-    const urlToFetch = userId ? `http://localhost:3000/api/users/${userId}/posts` : 'http://localhost:3000/api/posts/'
+    const urlToFetch = userId
+      ? `http://localhost:3000/api/users/${userId}/posts`
+      : 'http://localhost:3000/api/posts/'
     const fetchData = async () => {
       const { data, isLoading, error } = await doFetch({
         method: 'GET',
@@ -33,6 +35,8 @@ export function PostList({ needReRender, userId }) {
     <>
       {isLoading ? (
         <Loader />
+      ) : data.length === 0 ? (
+        <p style={{ textAlign: 'center', marginBlock: '30px' }}>Il n'y a aucun post à afficher... 😞</p>
       ) : (
         data
           .sort((a, z) => z.date - a.date)

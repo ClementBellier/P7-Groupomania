@@ -22,7 +22,7 @@ export function UserDetails({ userId }) {
       setError(error)
     }
     fetchUserData()
-  }, [])
+  }, [userId])
   const handleSubmit = async (e) => {
     e.preventDefault()
     const {error}= await doFetch({

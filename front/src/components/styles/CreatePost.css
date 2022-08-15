@@ -15,6 +15,9 @@
     resize: none;
     overflow: hidden;
 }
+.create-post__grow-wrap > textarea:focus-visible{
+    outline: var(--primary-color) solid;
+}
 .create-post__grow-wrap > textarea,
 .create-post__grow-wrap::after{
     border-radius: 15px;

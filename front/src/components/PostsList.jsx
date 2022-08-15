@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { doFetch } from '../utils/functions/doFetch'
 import useAuth from '../utils/hooks/useAuth'
 import { Post } from './Post'
+import { Loader } from '../components/Loader'
 
 export function PostList({ needReRender, userId }) {
   const [data, setData] = useState({})
@@ -31,7 +32,7 @@ export function PostList({ needReRender, userId }) {
   return (
     <>
       {isLoading ? (
-        <p>En chargement</p>
+        <Loader />
       ) : (
         data
           .sort((a, z) => z.date - a.date)

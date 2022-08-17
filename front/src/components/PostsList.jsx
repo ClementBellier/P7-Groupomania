@@ -41,10 +41,11 @@ export function PostList({ needReRender, userId }) {
       ) : (
         data
           .sort((a, z) => z.date - a.date)
-          .map((post) => (
+          .map((post, index) => (
             <Post
               key={`post-${post.id}`}
               post={post}
+              index={index}
               needReRender={needReRender}
             />
           ))

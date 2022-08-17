@@ -8,12 +8,13 @@ import { CreatePost as ModifyPost } from './CreatePost'
 import { useNavigate } from 'react-router-dom'
 import { DisplayError } from '../utils/Atoms/DisplayError'
 
-export function Post({ post, needReRender }) {
+export function Post({ post, index, needReRender }) {
   const { userDetails } = useAuth()
   const navigate = useNavigate()
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
   const [showAllUserLike, setShowAllUserLike] = useState(false)
   const [isModifyActive, setModifyActive] = useState(false)
+  const animationDelay = (index + 1) * 200
   const handleDeletePost = async () => {
     const { error } = await doFetch({
       method: 'DELETE',
@@ -36,7 +37,8 @@ export function Post({ post, needReRender }) {
     })
   }
   return (
-    <div className="post" key={post.id}>
+    <div className="post" key={post.id} 
+    style={{animationDelay: `${animationDelay}ms`}}>
       <div
         className="post__user"
         onClick={() => navigate(`/profile/${post.userId}`)}

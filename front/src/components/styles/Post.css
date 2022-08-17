@@ -5,6 +5,11 @@
     border-radius: 15px;
     overflow: hidden;
     position: relative;
+    animation: post-appear .4s ease-in-out both;
+}
+@keyframes post-appear{
+    from{transform: translateY(30px); opacity: 0}
+    to{transform: translateY(0); opacity: 1}
 }
 .post__user{
     background-color: var(--secondary-color);

@@ -25,6 +25,7 @@ export async function doFetch({
   try {
     const response = await fetch(url, requestOptions)
     data = await response.json()
+    if(!response.ok) error = data.error
     isLoading = false
   } catch (errorCatched) {
     error = errorCatched

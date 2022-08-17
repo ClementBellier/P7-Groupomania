@@ -4,6 +4,7 @@ import { doFetch } from '../utils/functions/doFetch'
 import './styles/CreatePost.css'
 import './styles/Login.css'
 import { DisplayError } from '../utils/Atoms/DisplayError'
+import useComponentVisible from '../utils/hooks/useComponentVisible'
 
 export function CreatePost({ post, needReRender, setModifyActive }) {
   const { userDetails } = useAuth()
@@ -11,6 +12,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
   const [textValue, setTextValue] = useState(post ? post.text : '')
   const [file, setFile] = useState(false)
   const [imageUrl, setImageUrl] = useState(post ? post.imageUrl : null)
+  const { ref, isComponentVisible: isAnError, setIsComponentVisible: setError } = useComponentVisible(true)
   const handleText = (e) => {
     setTextValue(e.target.value)
     e.target.value ? setEmptyPost(false) : !imageUrl && setEmptyPost(true)
@@ -51,10 +53,11 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       isMultipartFormData: isMultipartFormData,
     })
     if (post) setModifyActive(false)
-    error ? <DisplayError /> : needReRender()
+    error ? setError(error) : needReRender()
   }
   return (
-    <form className="create-post">
+    <form className="create-post" ref={ref}>
+      {isAnError && <DisplayError message={isAnError} setError={setError} ref={ref} />}
       {post && (
         <>
           <h3>Modification du post</h3>
@@ -68,24 +71,25 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
         </>
       )}
       {(file || imageUrl) && (
-        <div className='create-post__image--container'>
-        <output
-          htmlFor={
-            post
-              ? `update-post-${post.id}__actions--image-input`
-              : 'create-post__actions--image-input'
-          }
-          className="create-post__image"
-        >
-            <img src={imageUrl} />
-          <svg
-            viewBox="0 0 24 24"
-            className="create-post__image--delete"
-            onClick={handleDeleteImage}
+        <div className="create-post__image--container">
+          <output
+            htmlFor={
+              post
+                ? `update-post-${post.id}__actions--image-input`
+                : 'create-post__actions--image-input'
+            }
+            className="create-post__image"
           >
-            <use href="#circle-cross" />
-          </svg>
-        </output></div>
+            <img src={imageUrl} />
+            <svg
+              viewBox="0 0 24 24"
+              className="create-post__image--delete"
+              onClick={handleDeleteImage}
+            >
+              <use href="#circle-cross" />
+            </svg>
+          </output>
+        </div>
       )}
       <div className="create-post__grow-wrap" data-replicated-value={textValue}>
         <textarea
@@ -103,6 +107,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       <div className="create-post__actions">
         <input
           type="file"
+          accept=".jpg,.jpeg,.png"
           id={
             post
               ? `update-post-${post.id}__actions--image-input`

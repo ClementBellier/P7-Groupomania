@@ -5,6 +5,8 @@ exports.getAllPosts = async (req, res, next) => {
   return res.status(response.code).json(response.message)
 }
 exports.createPost = async (req, res, next) => {
+  if(req.isFileInvalid)
+    return res.status(500).json({error:"L'image doit être au format jpg ou png"})
   const postObject = req.file
     ? {
         ...JSON.parse(req.body.post),

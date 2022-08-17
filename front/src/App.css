@@ -60,3 +60,11 @@
 .error404 img{
     width: 100%;
 }
+.display-error{
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.display-error p{
+    color: var(--primary-color);
+}

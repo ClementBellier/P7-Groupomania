@@ -22,4 +22,11 @@ const storage = multer.diskStorage({
   },
 })
 
-module.exports = multer({ storage }).single('image')
+module.exports = multer({
+  storage: storage,
+  fileFilter: function (req, file, callback) {
+    req.isFileInvalid = !MIME_TYPES[file.mimetype]
+    req.isFileInvalid ? callback(null, false) :
+    callback(null, true)
+  },
+}).single('image')

@@ -26,3 +26,15 @@
 .user-details__buttons{
     align-self: flex-end;
 }
+.user-details h2,
+.user-details__title-posts{
+    animation: user-details-title .5s ease-in-out both;
+}
+@keyframes user-details-title{
+    from{transform: translateX(60px);opacity: 0;}
+    to{transform: translateX(0);opacity: 1;}
+}
+.user-details__title-posts{
+    margin: 30px 30px 0;
+    animation-delay: .3s;
+}

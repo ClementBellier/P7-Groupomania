@@ -1,12 +1,30 @@
 .profile-go-back{
-    width: 50px;
+    display: flex;
+    align-items: center;
+    width: fit-content;
     margin-top: 20px;
-    transition: transform .2s ease-in-out;
     cursor: pointer;
 }
-.profile-go-back:hover{
+.profile-go-back__button{
+    width: 50px;
+    transition: transform .2s ease-in-out;
+}
+.profile-go-back__button:hover{
     transform: scale(1.1);
     filter: drop-shadow(2px 2px 2px var(--shadow-color));
+}
+.profile-go-back__text{
+    width: 0;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width .3s ease-in-out;
+}
+.profile-go-back:hover .profile-go-back__text{
+    width: 85px;
+    transition: width .3s ease-in-out .1s;
 }
 .loader{
     margin: 20px auto;

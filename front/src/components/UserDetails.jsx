@@ -40,7 +40,7 @@ export function UserDetails({ userId }) {
       {isLoading ? (
         <p>En chargement</p>
       ) : (
-        <form className="user-details">
+        <><form className="user-details">
           <h2>
             {userDetails.userId === parseInt(userId)
               ? 'Mon Profil'
@@ -142,6 +142,12 @@ export function UserDetails({ userId }) {
             ) : null}
           </div>
         </form>
+        <h2 className='user-details__title-posts'>
+            {userDetails.userId === parseInt(userId)
+              ? 'Mes Posts'
+              : 'Ses Posts'}
+          </h2>
+        </>
       )}
     </>
   )

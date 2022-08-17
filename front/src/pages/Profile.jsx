@@ -13,13 +13,16 @@ export function Profile() {
 
   return (
     <>
-      <svg
-        viewBox="0 0 24 24"
-        className="profile-go-back"
-        onClick={() => navigate(-1)}
-      >
-        <use href="#arrow-left" />
-      </svg>
+      <div className="profile-go-back" onClick={() => navigate('/home')}>
+        <svg viewBox="0 0 24 24" className="profile-go-back__button">
+          <use href="#arrow-left" />
+        </svg>
+        <p className="profile-go-back__text">
+          Retour vers
+          <br />
+          l'accueil
+        </p>
+      </div>
       <UserDetails userId={userId} />
       <PostList needReRender={needReRender} userId={userId} />
     </>

@@ -68,6 +68,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
         </>
       )}
       {(file || imageUrl) && (
+        <div className='create-post__image--container'>
         <output
           htmlFor={
             post
@@ -76,7 +77,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
           }
           className="create-post__image"
         >
-          <img src={imageUrl} />
+            <img src={imageUrl} />
           <svg
             viewBox="0 0 24 24"
             className="create-post__image--delete"
@@ -84,7 +85,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
           >
             <use href="#circle-cross" />
           </svg>
-        </output>
+        </output></div>
       )}
       <div className="create-post__grow-wrap" data-replicated-value={textValue}>
         <textarea

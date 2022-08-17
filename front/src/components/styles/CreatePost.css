@@ -66,8 +66,15 @@
     position: relative;
     margin: 10px auto 10px;
     width: min(400px, 95%);
-    height: auto;
     display: block;
+    animation: image-appear .5s ease-in-out both;
+}
+.create-post__image--container{
+    overflow: hidden;
+}
+@keyframes image-appear{
+    from{transform: translateY(100%);}
+    to{transform: translateY(0);}
 }
 .create-post__image img{
     width: 100%;

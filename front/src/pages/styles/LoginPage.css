@@ -9,3 +9,7 @@
     height: 100%;
     object-fit: cover;
 }
+.loginpage-theme-input{
+    margin: 30px auto;
+    display: block;
+}

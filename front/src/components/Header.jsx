@@ -1,9 +1,11 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import useAuth from '../utils/hooks/useAuth'
+import { useTheme } from '../utils/hooks/useTheme'
 import './styles/Header.css'
 
 export function Header() {
   const { logout, userDetails } = useAuth()
+  const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -15,7 +17,11 @@ export function Header() {
     <header>
       <Link to="/home" className="header__logo">
         <img
-          src="/assets/icon-left-font-monochrome-white.svg"
+          src={
+            theme === 'dark'
+              ? '/assets/icon-left-font-monochrome-black.svg'
+              : '/assets/icon-left-font-monochrome-white.svg'
+          }
           alt="Groupomania"
           className="header__logo--image"
         />
@@ -37,6 +43,12 @@ export function Header() {
             <use href="#logout" />
           </svg>
         </div>
+        <input
+          type="checkbox"
+          className="themeInput"
+          checked={theme === 'dark'}
+          onChange={() => toggleTheme()}
+        />
       </div>
     </header>
   )

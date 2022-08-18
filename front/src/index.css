@@ -1,17 +1,25 @@
 @import url(https://fonts.bunny.net/css?family=lato:100,100i,300,300i,400,400i,700,700i,900,900i);
 
-:root{
+/* [data-theme="light"]{    
     --primary-color: #FD2D01;
     --secondary-color: #FFD7D7;
     --tertiary-color: #4E5166;
     --shadow-color: rgba(129, 129, 129, 0.336);
     --success-color: #00B06B;
-
+    --background-color: white;
+}
+[data-theme="dark"]{
+    --primary-color: #e14323;
+    --secondary-color: #bd7b7b;
+    --tertiary-color: white;
+    --shadow-color: rgba(192, 192, 192, 0.336);
+    --success-color: #00B06B;
+    --background-color: #292931;
+} */
+:root{
     font-size: 16px;
     font-family: 'Lato', sans-serif;
-    color: var(--tertiary-color);
 }
-
 /* Reset */
 
 *, *::before, *::after{
@@ -32,8 +40,8 @@ ul{
 body{
     width: min(100vw, 700px);
     margin-inline: auto;
+    background-color: var(--background-color);
 }
-
 button{
     height: 40px;
     line-height: 40px;
@@ -48,7 +56,7 @@ button{
 }
 button.accent{    
     background-color: var(--primary-color);
-    color: white;
+    color: var(--background-color);
     font-weight: 700;
     text-decoration: none;
 }
@@ -67,4 +75,31 @@ button.accent.inactive{
     transform: none;
     box-shadow: none;
     cursor: default;
+}
+.themeInput{
+    --s:36px;
+    
+    height: var(--s);
+    padding: calc(var(--s)/10);
+    box-sizing: content-box;
+    aspect-ratio: 2;
+    border-radius: var(--s);
+    background:
+      radial-gradient(farthest-side,var(--primary-color) 97%,#0000) 
+       left/var(--s) 100% content-box no-repeat,
+      var(--secondary-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    transition: .3s;
+}
+.themeInput::before{
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="36" fill="none" viewBox="0 0 24 24"><path stroke="white" stroke-linecap="round" stroke-width="2" d="M12 4.5V3m0 18v-1.5m9-7.5h-1.5m-15 0H3m14.303-5.303l1.061-1.061M5.636 18.364l1.06-1.06m11.668 1.06l-1.06-1.06M6.696 6.696L5.636 5.636M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>');
+}
+.themeInput::after{
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="36" viewBox="0 0 24 24"><path stroke="rgb(41, 41, 49)" stroke-linejoin="round" stroke-width="2" d="M20 14.12A7.78 7.78 0 019.88 4a7.782 7.782 0 002.9 15A7.782 7.782 0 0020 14.12z"/></svg>');
+}
+.themeInput:checked{
+    background-position: right;
 }

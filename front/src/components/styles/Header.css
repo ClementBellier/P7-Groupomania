@@ -5,7 +5,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: var(--background-color);
     padding-block: 10px;
     overflow: hidden;
 }
@@ -13,7 +13,7 @@ header{
     display: flex;
     gap: 3px;
 }
-@media (max-width: 430px){
+@media (max-width: 540px){
     .header__logo{flex-direction: column;align-items: flex-end; gap:0}
     .header__logo--text{margin-top: -8px;}
 }
@@ -27,8 +27,15 @@ header{
     font-weight: 300;
     white-space: nowrap;
 }
+@media (max-width: 375px){
+    .header__logo--image{height: 20px;}
+    .header__logo--text{line-height: 20px;font-size: 12px;}
+}
 .header__actions{
     display: flex;
+}
+.header__actions input{
+    margin-left: 3px;
 }
 .header__actions a, .header__actions div{
     cursor: pointer;

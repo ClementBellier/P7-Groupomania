@@ -32,7 +32,8 @@ export function UserDetails({ userId }) {
       body: userData,
       token: userDetails.token,
     })
-    console.error(error)
+    error && console.error(error)
+    setModifyActive(false)
   }
   if (error) return <DisplayError />
   return (

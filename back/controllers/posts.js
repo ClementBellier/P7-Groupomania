@@ -6,7 +6,7 @@ exports.getAllPosts = async (req, res, next) => {
 }
 exports.createPost = async (req, res, next) => {
   if(req.isFileInvalid)
-    return res.status(500).json({error:"L'image doit être au format jpg ou png"})
+    return res.status(500).json({error:"L'image doit être au format jpg, png, gif ou webp"})
   const postObject = req.file
     ? {
         ...JSON.parse(req.body.post),
@@ -24,7 +24,7 @@ exports.getOnePost = async (req, res, next) => {
 }
 exports.modifyPost = async (req, res, next) => {
   if(req.isFileInvalid)
-    return res.status(500).json({error:"L'image doit être au format jpg ou png"})
+    return res.status(500).json({error:"L'image doit être au format jpg, png, gif ou webp"})
   const userWhoAskModify = { userId: req.auth.userId, role: req.auth.role }
   const postObject = req.file
     ? {

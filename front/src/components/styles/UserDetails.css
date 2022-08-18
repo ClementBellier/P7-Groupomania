@@ -18,6 +18,9 @@
     width: 100%;
     margin-top: 3px;
 }
+.user-details input:focus-visible{
+    outline: var(--primary-color) 3px solid;
+}
 .user-details__no-data{
     font-style: italic;
     font-weight: 300;

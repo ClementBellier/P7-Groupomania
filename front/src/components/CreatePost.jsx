@@ -12,7 +12,11 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
   const [textValue, setTextValue] = useState(post ? post.text : '')
   const [file, setFile] = useState(false)
   const [imageUrl, setImageUrl] = useState(post ? post.imageUrl : null)
-  const { ref, isComponentVisible: isAnError, setIsComponentVisible: setError } = useComponentVisible(true)
+  const {
+    ref,
+    isComponentVisible: isAnError,
+    setIsComponentVisible: setError,
+  } = useComponentVisible(true)
   const handleText = (e) => {
     setTextValue(e.target.value)
     e.target.value ? setEmptyPost(false) : !imageUrl && setEmptyPost(true)
@@ -52,14 +56,18 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       token: userDetails.token,
       isMultipartFormData: isMultipartFormData,
     })
-    console.log(error)
-    if(post && error) setError(error)
+    if (post && error) {
+      setError(error)
+    }
     if (post && !error) setModifyActive(false)
+    setEmptyPost(true)
     error ? setError(error) : needReRender()
   }
   return (
     <form className="create-post" ref={ref}>
-      {isAnError && <DisplayError message={isAnError} setError={setError} ref={ref} />}
+      {isAnError && (
+        <DisplayError message={isAnError} setError={setError} ref={ref} />
+      )}
       {post && (
         <>
           <h3>Modification du post</h3>
@@ -109,7 +117,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       <div className="create-post__actions">
         <input
           type="file"
-          accept=".jpg,.jpeg,.png"
+          accept=".jpg,.jpeg,.png,.gif,.webp"
           id={
             post
               ? `update-post-${post.id}__actions--image-input`

@@ -67,4 +67,5 @@
 }
 .display-error p{
     color: var(--primary-color);
+    font-size: 1.1em;
 }

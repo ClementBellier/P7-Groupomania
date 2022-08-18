@@ -52,7 +52,9 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       token: userDetails.token,
       isMultipartFormData: isMultipartFormData,
     })
-    if (post) setModifyActive(false)
+    console.log(error)
+    if(post && error) setError(error)
+    if (post && !error) setModifyActive(false)
     error ? setError(error) : needReRender()
   }
   return (

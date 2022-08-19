@@ -7,6 +7,7 @@ import { doFetch } from '../utils/functions/doFetch'
 import { CreatePost as ModifyPost } from './CreatePost'
 import { useNavigate } from 'react-router-dom'
 import { DisplayError } from '../utils/Atoms/DisplayError'
+import { Comments } from './Comments'
 
 export function Post({ post, index, needReRender }) {
   const { userDetails } = useAuth()
@@ -14,6 +15,7 @@ export function Post({ post, index, needReRender }) {
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
   const [showAllUserLike, setShowAllUserLike] = useState(false)
   const [isModifyActive, setModifyActive] = useState(false)
+  const [showComments, setShowComments] = useState(false)
   const animationDelay = (index + 1) * 200
   const handleDeletePost = async () => {
     const { error } = await doFetch({
@@ -37,8 +39,7 @@ export function Post({ post, index, needReRender }) {
     })
   }
   return (
-    <div className="post" key={post.id} 
-    style={{animationDelay: `${animationDelay}ms`}}>
+    <div className="post" style={{ animationDelay: `${animationDelay}ms` }}>
       <div
         className="post__user"
         onClick={() => navigate(`/profile/${post.userId}`)}
@@ -65,24 +66,35 @@ export function Post({ post, index, needReRender }) {
             <p className="post__text">
               {post.text !== '' && post.text}
               {post.modified && (
-                <span className="post__text__modified"> (modifié) </span>
+                <span className="post__text__modified">{'(modifié)'}</span>
               )}
             </p>
           ) : null}
         </>
       )}
-      {post.userlikes.length > 0 && (
+      <div className="post__likes-comments-container post__text">
+        {post.userlikes.length > 0 && (
+          <p
+            className={
+              showAllUserLike
+                ? 'post__text--userlikes'
+                : 'post__text--userlikes post__text--userlikes--inOneLign'
+            }
+            onClick={() => setShowAllUserLike(!showAllUserLike)}
+          >
+            Aimé par: <DisplayUsersWhoLikes />
+          </p>
+        )}
         <p
-          className={
-            showAllUserLike
-              ? 'post__text--userlikes post__text'
-              : 'post__text--userlikes post__text post__text--userlikes--inOneLign'
-          }
-          onClick={() => setShowAllUserLike(!showAllUserLike)}
+          className="post__text--comments"
+          onClick={() => setShowComments(!showComments)}
         >
-          Aimé par: <DisplayUsersWhoLikes />
+          {post.commentsNumber <= 1
+            ? `${post.commentsNumber} commentaire`
+            : `${post.commentsNumber} commentaires`}
         </p>
-      )}
+      </div>
+
       <div className="post__footer">
         <Like
           likes={post.likes}
@@ -90,6 +102,17 @@ export function Post({ post, index, needReRender }) {
           id={post.id}
           needReRender={needReRender}
         />
+        <div
+          className="post__action"
+          onClick={() => setShowComments(!showComments)}
+        >
+          <div className="post__action--icon">
+            <svg viewBox="0 0 24 24">
+              <use href="#comment" />
+            </svg>
+          </div>
+          <p className="post__action--text">Commenter</p>
+        </div>
         {userDetails.userId === post.userId || userDetails.role === 'admin' ? (
           <>
             <div
@@ -101,7 +124,7 @@ export function Post({ post, index, needReRender }) {
                   <use href="#pen" />
                 </svg>
               </div>
-              <p className="post__action--text">Modifier</p>
+              <p className="post__action--text modify">Modifier</p>
             </div>
             <div
               className="post__action"
@@ -114,11 +137,12 @@ export function Post({ post, index, needReRender }) {
                   <use href="#trash" />
                 </svg>
               </div>
-              <p className="post__action--text">Supprimer</p>
+              <p className="post__action--text delete">Supprimer</p>
             </div>
           </>
         ) : null}
       </div>
+      {showComments && <Comments postId={post.id} />}
       {showConfirmationMessage ? (
         <div className="post__confirmation-message">
           <p className="post__confirmation-message__text">

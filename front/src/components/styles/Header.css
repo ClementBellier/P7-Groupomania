@@ -1,4 +1,7 @@
 header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
     border-image: conic-gradient(var(--primary-color) 0 0) fill 0/0/0 100vmax;
     width: 95%;
     margin-inline: auto;

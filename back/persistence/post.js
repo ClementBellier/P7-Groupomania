@@ -1,6 +1,5 @@
 const { postModel, likesModel } = require('../models/Post')
 const userModel = require('../models/User')
-//const likesModel = require("../models/Likes");
 
 exports.savePostInDB = async (post) => {
   return postModel

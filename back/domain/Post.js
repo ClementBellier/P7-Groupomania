@@ -85,7 +85,7 @@ class Post {
   unlike = async (userId, post) => {
     const deletedLike = likesInDB.deleteLike(userId, post.id)
     if (!deletedLike) return new ApiErrors().postNotFound()
-    if (deletedLike.error) return new ApiErrors(deletedPost).serverError()
+    if (deletedLike.error) return new ApiErrors(deletedLike.error).serverError()
 
     post.likes--
     const unlikePost = await this.updatePost(post.dataValues)

@@ -39,6 +39,43 @@ const postModel = database.define('posts', {
   },
 })
 
+const commentModel = database.define('comments', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false,
+  },
+  postId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  date: {
+    type: Sequelize.BIGINT,
+    defaultValue: 0,
+  },
+  text: {
+    type: Sequelize.STRING(20000),
+    defaultValue: '',
+  },
+  imageUrl: {
+    type: Sequelize.STRING(500),
+    defaultValue: null,
+  },
+  likes: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  modified: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: 0,
+  },
+})
+
 const likesModel = database.define('userlikes', {
   user_id: {
     type: Sequelize.INTEGER,
@@ -60,8 +97,38 @@ const likesModel = database.define('userlikes', {
     autoIncrement: true,
   },
 })
+
+const commentLikeModel = database.define('commentlikes', {
+  userId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: userModel,
+      key: 'id',
+    },
+  },
+  commentId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: commentModel,
+      key: 'id',
+    },
+  },
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+})
+
 postModel.belongsTo(userModel)
+postModel.hasMany(commentModel, { foreignKey: 'postId' })
+commentModel.belongsTo(postModel, { foreignKey: 'postId' })
+commentModel.belongsTo(userModel, { foreignKey: 'userId' })
 postModel.hasMany(likesModel, { foreignKey: 'post_id' })
 likesModel.belongsTo(postModel, { foreignKey: 'post_id' })
 likesModel.belongsTo(userModel, { foreignKey: 'user_id' })
-module.exports = { postModel, likesModel }
+commentModel.hasMany(commentLikeModel, { foreignKey: 'commentId' })
+commentLikeModel.belongsTo(commentModel, { foreignKey: 'commentId' })
+commentLikeModel.belongsTo(userModel, { foreignKey: 'userId' })
+
+module.exports = { postModel, likesModel, commentModel, commentLikeModel }

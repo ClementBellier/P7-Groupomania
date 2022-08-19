@@ -30,6 +30,14 @@ class ApiErrors extends Error {
     this.error = 'Le post doit contenir du texte et/ou une image.'
     return this.badRequest()
   }
+  emptyComment = () => {
+    this.error = 'Le commentaire doit contenir du texte et/ou une image.'
+    return this.badRequest()
+  }
+  commentNotFound = () => {
+    this.error = 'Commentaire non trouvé !'
+    return this.notFound()
+  }
 }
 
 module.exports = ApiErrors

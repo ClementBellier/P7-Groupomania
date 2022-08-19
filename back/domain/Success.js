@@ -12,11 +12,13 @@ class Success {
       message: "Données de l'utilisateur-rice mises à jour",
     })
   postCreated = () => this.returnSuccess(201, { message: 'Post créé' })
+  commentCreated = () => this.returnSuccess(201, { message: 'Commentaire créé' })
   postModified = () => this.returnSuccess(200, { message: 'Post modifié' })
   postDeleted = () => this.returnSuccess(200, { message: 'Post supprimé' })
+  commentDeleted = () => this.returnSuccess(200, { message: 'Commentaire supprimé' })
   likeRecord = () => this.returnSuccess(200, { message: 'Vote ajouté au post' })
   unlikeRecord = () =>
-    this.returnSuccess(200, { message: 'Vote supprimé du post' })
+  this.returnSuccess(200, { message: 'Vote supprimé du post' })
   requestFound = (response) => this.returnSuccess(200, response)
 }
 

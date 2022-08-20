@@ -18,7 +18,7 @@ const postModel = database.define('posts', {
     defaultValue: 0,
   },
   text: {
-    type: Sequelize.STRING(20000),
+    type: Sequelize.STRING(15000),
     defaultValue: '',
   },
   imageUrl: {
@@ -59,7 +59,7 @@ const commentModel = database.define('comments', {
     defaultValue: 0,
   },
   text: {
-    type: Sequelize.STRING(20000),
+    type: Sequelize.STRING(15000),
     defaultValue: '',
   },
   imageUrl: {

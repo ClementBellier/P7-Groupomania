@@ -9,6 +9,10 @@ const database = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: 'mariadb',
+    dialectOptions: {
+      charset: "utf8mb4",
+      collate: "utf8mb4_unicode_ci",
+  },
     define: { timestamps: false },
   }
 )

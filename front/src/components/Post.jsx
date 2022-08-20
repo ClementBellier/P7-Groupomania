@@ -16,6 +16,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
   const [showAllUserLike, setShowAllUserLike] = useState(false)
   const [isModifyActive, setModifyActive] = useState(false)
   const [showComments, setShowComments] = useState(false)
+  const [commentsNumber, setCommentsNumber] = useState(post.commentsNumber)
   const animationDelay = (index + 1) * 200
 
   const handleDeletePost = async () => {
@@ -90,9 +91,9 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
           className="post__text--comments"
           onClick={() => setShowComments(!showComments)}
         >
-          {post.commentsNumber <= 1
-            ? `${post.commentsNumber} commentaire`
-            : `${post.commentsNumber} commentaires`}
+          {commentsNumber <= 1
+            ? `${commentsNumber} commentaire`
+            : `${commentsNumber} commentaires`}
         </p>
       </div>
 
@@ -144,7 +145,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
         ) : null}
       </div>
       {showComments && (
-        <Comments postId={post.id} commentNeedReRender={commentNeedReRender} />
+        <Comments postId={post.id} commentNeedReRender={commentNeedReRender} commentsNumber={commentsNumber} setCommentsNumber={setCommentsNumber} />
       )}
       {showConfirmationMessage ? (
         <div className="post__confirmation-message">

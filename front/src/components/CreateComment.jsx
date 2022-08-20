@@ -5,7 +5,7 @@ import { DisplayError } from '../utils/Atoms/DisplayError'
 import useComponentVisible from '../utils/hooks/useComponentVisible'
 import './styles/CreatePost.css'
 
-export function CreateComment({ postId, comment, commentNeedReRender, setModifyActive }) {
+export function CreateComment({ postId, comment, commentNeedReRender, setModifyActive, commentsNumber, setCommentsNumber }) {
   const { userDetails } = useAuth()
   const [isEmptyComment, setEmptyComment] = useState(comment ? false : true)
   const [textValue, setTextValue] = useState(comment ? comment.text : '')
@@ -48,6 +48,7 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
       setFile(false)
       setTextValue('')
       setImageUrl(null)
+      setCommentsNumber(commentsNumber + 1)
     }
     const { error } = await doFetch({
       method: method,

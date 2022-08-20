@@ -5,7 +5,7 @@ import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
 import { CreateComment } from './CreateComment'
 
-export function Comment({ comment, index, commentNeedReRender }) {
+export function Comment({ comment, index, commentNeedReRender, commentsNumber, setCommentsNumber }) {
   const { userDetails } = useAuth()
   const [commentLikes, setCommentLikes] = useState(comment.likes)
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
@@ -35,7 +35,7 @@ export function Comment({ comment, index, commentNeedReRender }) {
       token: userDetails.token,
       isMultipartFormData: false,
     })
-    error ? console.log(error) : commentNeedReRender()
+    error ? console.log(error) : (setCommentsNumber(commentsNumber - 1), commentNeedReRender())
   }
   return (
     <div className="comment">

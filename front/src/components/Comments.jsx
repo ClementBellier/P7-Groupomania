@@ -5,7 +5,12 @@ import useAuth from '../utils/hooks/useAuth'
 import { Comment } from './Comment'
 import { CreateComment } from './CreateComment'
 
-export function Comments({ postId, commentNeedReRender }) {
+export function Comments({
+  postId,
+  commentNeedReRender,
+  commentsNumber,
+  setCommentsNumber,
+}) {
   const [data, setData] = useState([])
   const [error, setError] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -40,9 +45,16 @@ export function Comments({ postId, commentNeedReRender }) {
                 comment={comment}
                 index={index}
                 commentNeedReRender={commentNeedReRender}
+                setCommentsNumber={setCommentsNumber}
+                commentsNumber={commentsNumber}
               />
             ))}
-          <CreateComment postId={postId} commentNeedReRender={commentNeedReRender} />
+          <CreateComment
+            postId={postId}
+            commentNeedReRender={commentNeedReRender}
+            setCommentsNumber={setCommentsNumber}
+            commentsNumber={commentsNumber}
+          />
         </>
       )}
     </>

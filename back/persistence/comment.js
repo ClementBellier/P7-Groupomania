@@ -83,7 +83,7 @@ exports.saveCommentLikeInDB = async (userId, commentId) => {
 
 exports.deleteCommentLike = async (userId, commentId) => {
   return commentLikeModel
-    .create({ userId: userId, commentId: commentId })
+    .destroy({ where: { userId: userId, commentId: commentId } })
     .then((deleteLike) => deleteLike)
     .catch((error) => {
       return { error }

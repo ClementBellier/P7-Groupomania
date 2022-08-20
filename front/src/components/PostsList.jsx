@@ -10,6 +10,10 @@ export function PostList({ needReRender, userId }) {
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const { userDetails } = useAuth()
+  const [isCommentsneedReRender, setCommentNeedReRender] = useState(false)
+  const commentNeedReRender = () => {
+    setCommentNeedReRender(!isCommentsneedReRender)
+  }
 
   useEffect(() => {
     const urlToFetch = userId
@@ -47,6 +51,7 @@ export function PostList({ needReRender, userId }) {
               post={post}
               index={index}
               needReRender={needReRender}
+              commentNeedReRender={commentNeedReRender}
             />
           ))
       )}

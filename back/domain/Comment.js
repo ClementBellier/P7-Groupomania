@@ -117,7 +117,7 @@ class Comment {
 
     const likes = await commentInDB.findLikesOfThisComment(commentId)
     if (likes.error) return new ApiErrors(likes.error).serverError()
-    const hasAlreadyVote = likes.some((like) => like.user_id === userId)
+    const hasAlreadyVote = likes.some((like) => like.userId === userId)
 
     if (like === 0 && hasAlreadyVote)
       return await this.unlikeComment(userId, comment)

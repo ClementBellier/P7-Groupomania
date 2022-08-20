@@ -3,8 +3,30 @@
     position: relative;
     overflow: visible;
 }
+.create-comment{
+    width: 95%;
+    margin: 20px auto;
+}
+.modify-comment{
+    width: 95%;
+    margin-inline: auto;
+    background-color: var(--background-color);
+    border-radius: 15px;
+    box-shadow: 2px 2px 15px var(--shadow-color);
+    padding: 2%;
+    position: relative;
+}
+.create-comment__text-actions{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.create-comment__textarea{
+    flex-grow: 2;
+}
 .create-post__grow-wrap{
     display: grid;
+    margin-bottom: 8px;
 }
 .create-post__grow-wrap::after{
     content: attr(data-replicated-value) " ";
@@ -29,7 +51,6 @@
     grid-area: 1/1/2/2;
 }
 .create-post__actions{
-    margin-top: 8px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

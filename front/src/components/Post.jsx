@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { DisplayError } from '../utils/Atoms/DisplayError'
 import { Comments } from './Comments'
 
-export function Post({ post, index, needReRender }) {
+export function Post({ post, index, needReRender, commentNeedReRender }) {
   const { userDetails } = useAuth()
   const navigate = useNavigate()
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
@@ -17,6 +17,7 @@ export function Post({ post, index, needReRender }) {
   const [isModifyActive, setModifyActive] = useState(false)
   const [showComments, setShowComments] = useState(false)
   const animationDelay = (index + 1) * 200
+
   const handleDeletePost = async () => {
     const { error } = await doFetch({
       method: 'DELETE',
@@ -142,7 +143,9 @@ export function Post({ post, index, needReRender }) {
           </>
         ) : null}
       </div>
-      {showComments && <Comments postId={post.id} />}
+      {showComments && (
+        <Comments postId={post.id} commentNeedReRender={commentNeedReRender} />
+      )}
       {showConfirmationMessage ? (
         <div className="post__confirmation-message">
           <p className="post__confirmation-message__text">

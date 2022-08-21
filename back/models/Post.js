@@ -2,79 +2,93 @@ const Sequelize = require('sequelize')
 const database = require('../persistence/database')
 const userModel = require('./User')
 
-const postModel = database.define('posts', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
+const postModel = database.define(
+  'posts',
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    date: {
+      type: Sequelize.BIGINT,
+      defaultValue: 0,
+    },
+    text: {
+      type: Sequelize.STRING(15000),
+      defaultValue: '',
+    },
+    imageUrl: {
+      type: Sequelize.STRING(500),
+      defaultValue: null,
+    },
+    likes: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    modified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: 0,
+    },
+    commentsNumber: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  date: {
-    type: Sequelize.BIGINT,
-    defaultValue: 0,
-  },
-  text: {
-    type: Sequelize.STRING(15000),
-    defaultValue: '',
-  },
-  imageUrl: {
-    type: Sequelize.STRING(500),
-    defaultValue: null,
-  },
-  likes: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-  },
-  modified: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: 0,
-  },
-  commentsNumber: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-  },
-})
+  {
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
+  }
+)
 
-const commentModel = database.define('comments', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
+const commentModel = database.define(
+  'comments',
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    postId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    date: {
+      type: Sequelize.BIGINT,
+      defaultValue: 0,
+    },
+    text: {
+      type: Sequelize.STRING(15000),
+      defaultValue: '',
+    },
+    imageUrl: {
+      type: Sequelize.STRING(500),
+      defaultValue: null,
+    },
+    likes: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    modified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: 0,
+    },
   },
-  postId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  date: {
-    type: Sequelize.BIGINT,
-    defaultValue: 0,
-  },
-  text: {
-    type: Sequelize.STRING(15000),
-    defaultValue: '',
-  },
-  imageUrl: {
-    type: Sequelize.STRING(500),
-    defaultValue: null,
-  },
-  likes: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-  },
-  modified: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: 0,
-  },
-})
+  {
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
+  }
+)
 
 const likesModel = database.define('userlikes', {
   user_id: {

@@ -49,6 +49,17 @@ Create a `.env` file in `back` folder
 `DB_PASS` user's password  
 `DB_HOST` ip of the database host machine (localhost if it's the same)
 
+Example:
+
+```
+  SECRET_TOKEN = SecretTokenIsABadExample81kHzcUlkxFWZUSGMIJu97fSdJeDM0XkRlMle85PmM
+  TOKEN_EXPIRED = 12h
+  DB_NAME = groupomania
+  DB_USER = root
+  DB_PASS = Pa55wordI5ABad3xampl3
+  DB_HOST = localhost
+```
+
 I can provide you with the ones I used for this project by contacting me by email [clement.bellier@gmail.com](mailto:clement.bellier@gmail.com)
 
 

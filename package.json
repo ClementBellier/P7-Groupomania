@@ -1,0 +1,13 @@
+{
+    "name": "p7-groupomania-back",
+    "version": "1.0.0",
+    "description": "he project consists of building an internal social network for Groupomania employees",
+    "scripts": {
+    },
+    "dependencies": {
+        "p7-groupomania-front": "file:front",
+        "p7-groupomania-back": "file:back"
+    },
+    "author": "Clément BELLIER",
+    "license": "ISC"
+}

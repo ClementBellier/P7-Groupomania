@@ -1,12 +1,12 @@
 {
-  "name": "p6_api_piiquante",
+  "name": "p7-groupomania-back",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jasmine"
+    "start": "node server"
   },
-  "author": "",
+  "author": "Clément BELLIER",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

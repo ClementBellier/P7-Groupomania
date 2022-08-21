@@ -17,11 +17,11 @@ database.sync()
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
 app.use(express.json())
 
-//Limit each IP to 100 requests per 15 minutes
+//Limit each IP to 1000 requests per 15 minutes
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 1000,
     standardHeaders: true,
     legacyHeaders: false,
   })

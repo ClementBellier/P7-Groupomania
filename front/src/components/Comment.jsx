@@ -13,20 +13,23 @@ export function Comment({ comment, index, commentNeedReRender, commentsNumber, s
   const [userLikedThisComment, setUserLikedThisComment] = useState(
     comment.commentlikes.some((user) => user.userId === userDetails.userId)
   )
-  const handleLike = () => {
+  const handleLike = async () => {
     const likeFetchBody = { like: userLikedThisComment ? 0 : 1 }
-    doFetch({
+    const { error } = await doFetch({
       method: 'POST',
       url: `http://localhost:3000/api/posts/${comment.postId}/comment/${comment.id}/like`,
       body: likeFetchBody,
       token: userDetails.token,
       isMultipartFormData: false,
     })
-    setUserLikedThisComment(!userLikedThisComment)
-    userLikedThisComment
-      ? setCommentLikes(commentLikes - 1)
-      : setCommentLikes(commentLikes + 1)
-    commentNeedReRender()
+    if(!error){
+      setUserLikedThisComment(!userLikedThisComment)
+      userLikedThisComment
+        ? setCommentLikes(commentLikes - 1)
+        : setCommentLikes(commentLikes + 1)
+      commentNeedReRender()
+    }
+    if(error) console.log(error)
   }
   const handleDeletePost = async () => {
     const { error } = await doFetch({
@@ -66,7 +69,7 @@ export function Comment({ comment, index, commentNeedReRender, commentsNumber, s
                 )}
               </p>
             ) : null}
-            {comment.likes > 0 && (
+            {commentLikes > 0 && (
               <div className="comment-content__likes" onClick={handleLike}>
                 <svg
                   className="comment-content__likes--heart"

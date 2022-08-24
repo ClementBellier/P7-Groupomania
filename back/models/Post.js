@@ -42,7 +42,10 @@ const postModel = database.define(
   },
   {
     charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    dialectOptions: {
+      collate: 'utf8mb4_unicode_ci'
+    }
+    ,
   }
 )
 
@@ -86,7 +89,10 @@ const commentModel = database.define(
   },
   {
     charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    dialectOptions: {
+      collate: 'utf8mb4_unicode_ci'
+    }
+    ,
   }
 )
 

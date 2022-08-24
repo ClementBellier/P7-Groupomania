@@ -31,7 +31,10 @@ const userModel = database.define(
   },
   {
     charset: 'utf8mb4',
-    collate: 'utf8mb4_unicode_ci',
+    dialectOptions: {
+      collate: 'utf8mb4_unicode_ci'
+    }
+    ,
   }
 )
 

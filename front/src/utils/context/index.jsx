@@ -11,7 +11,8 @@ export const RequireAuth = ({ children }) => {
 export const ThemeContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light')
+  const userPreferesDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+  const [theme, setTheme] = useState(userPreferesDarkTheme?'dark':'light')
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light')
   }

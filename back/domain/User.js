@@ -23,7 +23,7 @@ class User {
       this.email,
       this.password
     )
-    if (savedUser.error) return new ApiErrors(savedUser.error).badRequest()
+    if (savedUser.error) return new ApiErrors("Cet email est déjà enregistré. Veuillez utiliser l'onglet Se Connecter").badRequest()
     return new Success().userCreated()
   }
   findUser = async () => {

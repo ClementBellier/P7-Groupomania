@@ -109,7 +109,6 @@ export function Login() {
           </>
         )}
       </form>
-      {errorMessage ? console.log(errorMessage) : null}
     </div>
   )
 }

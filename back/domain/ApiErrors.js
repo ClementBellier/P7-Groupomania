@@ -6,7 +6,7 @@ class ApiErrors extends Error {
   returnError = (errorCodeHTTP) => {
     return { code: errorCodeHTTP, message: { error: this.error } }
   }
-  serverError = () => this.returnError(500)
+  serverError = () => {console.log(this.error); return{code: 500, message:'Oups, il y a eu une erreur sur le serveur'}}
   badRequest = () => this.returnError(400)
   unauthorized = () => this.returnError(401)
   notFound = () => this.returnError(404)

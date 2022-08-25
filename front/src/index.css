@@ -1,21 +1,5 @@
 @import url(https://fonts.bunny.net/css?family=lato:100,100i,300,300i,400,400i,700,700i,900,900i);
 
-/* [data-theme="light"]{    
-    --primary-color: #FD2D01;
-    --secondary-color: #FFD7D7;
-    --tertiary-color: #4E5166;
-    --shadow-color: rgba(129, 129, 129, 0.336);
-    --success-color: #00B06B;
-    --background-color: white;
-}
-[data-theme="dark"]{
-    --primary-color: #e14323;
-    --secondary-color: #bd7b7b;
-    --tertiary-color: white;
-    --shadow-color: rgba(192, 192, 192, 0.336);
-    --success-color: #00B06B;
-    --background-color: #292931;
-} */
 :root{
     font-size: 16px;
     font-family: 'Lato', sans-serif;

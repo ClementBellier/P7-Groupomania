@@ -1,4 +1,5 @@
 .login, .create-post, .user-details{
+    background-color: var(--background-color);
     box-shadow: 2px 2px 15px var(--shadow-color);
     border-radius: 15px;
     overflow: hidden;
@@ -46,6 +47,8 @@
     margin-top: 20px;
 }
 .login-form input{
+    background-color: var(--background-color);
+    color: var(--tertiary-color);
     height: 40px;
     border-radius: 20px;
     padding-inline: 20px;

@@ -8,10 +8,11 @@ const StyledGlobalStyle = createGlobalStyle`
         --tertiary-color: ${props=> props.isDarkMode ? 'white':'#4E5166'};
         --shadow-color: ${props=> props.isDarkMode ? 'rgba(192, 192, 192, 0.336)':'rgba(129, 129, 129, 0.336)'};
         --success-color: #00B06B;
-        --background-color: ${props=> props.isDarkMode ? '#292931':'white'};
+        --background-color: ${props=> props.isDarkMode ? '#2F2F38':'white'};
+        --body-color: ${props=> props.isDarkMode ? '#292931':'#fafafa'};
     }
     body{
-        background-color: var(--background-color);
+        background-color: var(--body-color);
         color: var(--tertiary-color);
     }
 `

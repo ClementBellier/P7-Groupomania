@@ -72,9 +72,9 @@
 .create-post__actions--image--text{    
     display: inline-flex;
     width: 0;
-    line-height: 1em;
+    line-height: 1.2em;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: pre;
     text-align: end;
     transition: width .3s ease-in-out;
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PASSWORD_INPUT as PASSWORD } from '../../public/assets/texts/fr-FR'
+import { PASSWORD_INPUT as TEXT } from '../../public/assets/texts/fr-FR'
 
 export function PasswordInput({
   password,
@@ -17,22 +17,22 @@ export function PasswordInput({
 
   const handlepasswordInput = value => {
     setPassword(value)
-    !PASSWORD.WHOLEPASSWORD.REGEXP.test(value)
+    !TEXT.WHOLEPASSWORD.REGEXP.test(value)
       ? setIsAnErrorInPassword(true)
       : setIsAnErrorInPassword(false)
-    !PASSWORD.MORE_THAN_EIGHT_CHAR.REGEXP.test(value)
+    !TEXT.MORE_THAN_EIGHT_CHAR.REGEXP.test(value)
       ? setIsMoreThanEightChar(true)
       : setIsMoreThanEightChar(false)
-    !PASSWORD.HAVE_UPPERCASE.REGEXP.test(value)
+    !TEXT.HAVE_UPPERCASE.REGEXP.test(value)
       ? setIsHaveUppercase(true)
       : setIsHaveUppercase(false)
-    !PASSWORD.HAVE_LOWERCASE.REGEXP.test(value)
+    !TEXT.HAVE_LOWERCASE.REGEXP.test(value)
       ? setIsHaveLowercase(true)
       : setIsHaveLowercase(false)
-    !PASSWORD.HAVE_TWO_DIGITS.REGEXP.test(value)
+    !TEXT.HAVE_TWO_DIGITS.REGEXP.test(value)
       ? setIsHaveTwoDigits(true)
       : setIsHaveTwoDigits(false)
-    !PASSWORD.HAVE_SPECIAL_CHAR.REGEXP.test(value)
+    !TEXT.HAVE_SPECIAL_CHAR.REGEXP.test(value)
       ? setIsHaveSpecialChar(true)
       : setIsHaveSpecialChar(false)
   }
@@ -45,8 +45,8 @@ export function PasswordInput({
         value={password}
         onChange={e => handlepasswordInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
-        pattern={PASSWORD.WHOLEPASSWORD.REGEXP}
-        placeholder={PASSWORD.PLACEHOLDER}
+        pattern={TEXT.WHOLEPASSWORD.REGEXP}
+        placeholder={TEXT.PLACEHOLDER}
         required
       />
       {!isLoginActive && isOnFocus && password.length !== 0 ? (
@@ -54,53 +54,53 @@ export function PasswordInput({
           <>
             {isMoreThanEightChar ? (
               <span className="error-message">
-                {PASSWORD.MORE_THAN_EIGHT_CHAR.ERROR}
+                {TEXT.MORE_THAN_EIGHT_CHAR.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                {PASSWORD.MORE_THAN_EIGHT_CHAR.SUCCESS}
+                {TEXT.MORE_THAN_EIGHT_CHAR.SUCCESS}
               </span>
             )}
             {isHaveUppercase ? (
               <span className="error-message">
-                {PASSWORD.HAVE_UPPERCASE.ERROR}
+                {TEXT.HAVE_UPPERCASE.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                {PASSWORD.HAVE_UPPERCASE.SUCCESS}
+                {TEXT.HAVE_UPPERCASE.SUCCESS}
               </span>
             )}
             {isHaveLowercase ? (
               <span className="error-message">
-                {PASSWORD.HAVE_LOWERCASE.ERROR}
+                {TEXT.HAVE_LOWERCASE.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                {PASSWORD.HAVE_LOWERCASE.SUCCESS}
+                {TEXT.HAVE_LOWERCASE.SUCCESS}
               </span>
             )}
             {isHaveTwoDigits ? (
               <span className="error-message">
-                {PASSWORD.HAVE_TWO_DIGITS.ERROR}
+                {TEXT.HAVE_TWO_DIGITS.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                {PASSWORD.HAVE_TWO_DIGITS.SUCCESS}
+                {TEXT.HAVE_TWO_DIGITS.SUCCESS}
               </span>
             )}
             {isHaveSpecialChar ? (
               <span className="error-message">
-                {PASSWORD.HAVE_SPECIAL_CHAR.ERROR}
+                {TEXT.HAVE_SPECIAL_CHAR.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                {PASSWORD.HAVE_SPECIAL_CHAR.SUCCESS}
+                {TEXT.HAVE_SPECIAL_CHAR.SUCCESS}
               </span>
             )}
           </>
         ) : (
           <span className="success-message">
-            {PASSWORD.WHOLEPASSWORD.SUCCESS}
+            {TEXT.WHOLEPASSWORD.SUCCESS}
           </span>
         )
       ) : null}

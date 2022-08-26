@@ -5,6 +5,8 @@ import './styles/CreatePost.css'
 import './styles/Login.css'
 import { DisplayError } from '../utils/Atoms/DisplayError'
 import useComponentVisible from '../utils/hooks/useComponentVisible'
+import { CREATE_POST as TEXT } from '../../public/assets/texts/fr-FR'
+import { CancelButton } from './CancelButton'
 
 export function CreatePost({ post, needReRender, setModifyActive }) {
   const { userDetails } = useAuth()
@@ -17,11 +19,12 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
     isComponentVisible: isAnError,
     setIsComponentVisible: setError,
   } = useComponentVisible(true)
-  const handleText = (e) => {
+
+  const handleText = e => {
     setTextValue(e.target.value)
     e.target.value ? setEmptyPost(false) : !imageUrl && setEmptyPost(true)
   }
-  const handleAddImage = (e) => {
+  const handleAddImage = e => {
     setFile(e.target.files[0])
     setImageUrl(URL.createObjectURL(e.target.files[0]))
     setEmptyPost(false)
@@ -63,6 +66,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
     setEmptyPost(true)
     error ? setError(error) : needReRender()
   }
+
   return (
     <form className="create-post" ref={ref}>
       {isAnError && (
@@ -70,14 +74,8 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       )}
       {post && (
         <>
-          <h3>Modification du post</h3>
-          <svg
-            viewBox="0 0 24 24"
-            className="create-post__image--delete"
-            onClick={() => setModifyActive(false)}
-          >
-            <use href="#circle-cross" />
-          </svg>
+          <h3>{TEXT.MODIFY_TITLE}</h3>
+          <CancelButton handleClick={() => setModifyActive(false)} />
         </>
       )}
       {(file || imageUrl) && (
@@ -91,13 +89,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
             className="create-post__image"
           >
             <img src={imageUrl} />
-            <svg
-              viewBox="0 0 24 24"
-              className="create-post__image--delete"
-              onClick={handleDeleteImage}
-            >
-              <use href="#circle-cross" />
-            </svg>
+            <CancelButton handleClick={handleDeleteImage} />
           </output>
         </div>
       )}
@@ -105,11 +97,11 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
         <textarea
           name="create-post"
           id="create-post"
-          onInput={(e) => handleText(e)}
+          onInput={e => handleText(e)}
           placeholder={
             post
-              ? 'Voulez vous ajouter quelque chose ?'
-              : "Quoi de neuf aujourd'hui ?"
+              ? TEXT.TEXTAREA_PLACEHOLDER_POST
+              : TEXT.TEXTAREA_PLACEHOLDER_NO_POST
           }
           value={textValue}
         ></textarea>
@@ -123,7 +115,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
               ? `update-post-${post.id}__actions--image-input`
               : 'create-post__actions--image-input'
           }
-          onInput={(e) => handleAddImage(e)}
+          onInput={e => handleAddImage(e)}
         />
         <label
           htmlFor={
@@ -134,37 +126,22 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
           className="create-post__actions--image"
         >
           <p className="create-post__actions--image--text">
-            Ajouter une
-            <br />
-            image
+            {TEXT.ADD_IMAGE}
           </p>
           <svg viewBox="0 0 24 24">
             <use href="#image-logo" />
           </svg>
         </label>
-        {post ? (
-          <button
-            className={isEmptyPost ? 'accent inactive' : 'accent'}
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault()
-              !isEmptyPost && handleSubmit(e, 'PUT')
-            }}
-          >
-            Modifier
-          </button>
-        ) : (
-          <button
-            className={isEmptyPost ? 'accent inactive' : 'accent'}
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault()
-              !isEmptyPost && handleSubmit(e, 'POST')
-            }}
-          >
-            Publier
-          </button>
-        )}
+        <button
+          className={isEmptyPost ? 'accent inactive' : 'accent'}
+          type="submit"
+          onClick={e => {
+            e.preventDefault()
+            !isEmptyPost && handleSubmit(e, post ? 'PUT' : 'POST')
+          }}
+        >
+          {post ? TEXT.MODIFY_BUTTON : TEXT.POST_BUTTON}
+        </button>
       </div>
     </form>
   )

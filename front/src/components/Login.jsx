@@ -4,7 +4,7 @@ import useAuth from '../utils/hooks/useAuth'
 import './styles/Login.css'
 import { EmailInput } from './EmailInput'
 import { PasswordInput } from './PasswordInput'
-import { LOGIN } from '../../public/assets/texts/fr-FR'
+import { LOGIN as TEXT } from '../../public/assets/texts/fr-FR'
 
 export function Login() {
   const navigate = useNavigate()
@@ -42,7 +42,7 @@ export function Login() {
           }
           onClick={!isLoginActive ? handleIsLoginActive : undefined}
         >
-          {LOGIN.LOGIN}
+          {TEXT.LOGIN}
         </h2>
         <h2
           className={
@@ -52,11 +52,11 @@ export function Login() {
           }
           onClick={isLoginActive ? handleIsLoginActive : undefined}
         >
-          {LOGIN.SIGNUP}
+          {TEXT.SIGNUP}
         </h2>
       </div>
       <form className="login-form">
-        <label htmlFor="email">{LOGIN.EMAIL}</label>
+        <label htmlFor="email">{TEXT.EMAIL}</label>
         <EmailInput
           email={email}
           setEmail={setEmail}
@@ -68,7 +68,7 @@ export function Login() {
         {typeof errorMessage === 'string' && (
           <span className="error-message">{errorMessage}</span>
         )}
-        <label htmlFor="password">{LOGIN.PASSWORD}</label>
+        <label htmlFor="password">{TEXT.PASSWORD}</label>
         <PasswordInput
           password={password}
           setPassword={setPassword}
@@ -89,10 +89,10 @@ export function Login() {
               : !isAnErrorInMail && !isAnErrorInPassword && handleSignup(e)
           }
         >
-          {isLoginActive ? LOGIN.LOGIN : LOGIN.SIGNUP}
+          {isLoginActive ? TEXT.LOGIN : TEXT.SIGNUP}
         </button>
         <button onClick={(e) => handleIsLoginActive(e)}>
-          {isLoginActive ? LOGIN.NOT_REGISTERED : LOGIN.REGISTERED}
+          {isLoginActive ? TEXT.NOT_REGISTERED : TEXT.REGISTERED}
         </button>
       </form>
     </div>

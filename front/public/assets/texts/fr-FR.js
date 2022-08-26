@@ -44,3 +44,11 @@ export const PASSWORD_INPUT = {
         SUCCESS: "Le mot de passe contient au moins un caractère spécial"
     }
 }
+export const CREATE_POST = {
+    MODIFY_TITLE: "Modification du post",
+    TEXTAREA_PLACEHOLDER_POST: "Voulez vous ajouter quelque chose ?",
+    TEXTAREA_PLACEHOLDER_NO_POST: "Quoi de neuf aujourd'hui ?",
+    ADD_IMAGE: `Ajouter une\nimage`,
+    MODIFY_BUTTON: "Modifier",
+    POST_BUTTON: "Publier"
+}

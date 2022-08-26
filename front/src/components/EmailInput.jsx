@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { EMAIL_INPUT as TEXT} from '../../public/assets/texts/fr-FR'
+import { EMAIL_INPUT as TEXT } from '../../public/assets/texts/fr-FR'
+import { REGEXP } from '../utils/regexp'
 
 export function EmailInput({
   email,
@@ -11,37 +12,31 @@ export function EmailInput({
 }) {
   const [isOnFocus, setIsOnFocus] = useState(false)
 
-  const handleEmailInput = (value) => {
+  const handleEmailInput = value => {
     setErrorMessage()
     setEmail(value)
-    !TEXT.REGEXP.test(value)
+    !REGEXP.EMAIL.test(value)
       ? setIsAnErrorInMail(true)
       : setIsAnErrorInMail(false)
   }
-
+  const EmailMessage = () => {
+    if (isAnErrorInMail)
+      return <span className="error-message">{TEXT.ERROR}</span>
+    return <span className="success-message">{TEXT.SUCCESS}</span>
+  }
   return (
     <>
       <input
         id="email"
         type="email"
         value={email}
-        onChange={(e) => handleEmailInput(e.target.value)}
+        onChange={e => handleEmailInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
-        pattern={TEXT.REGEXP}
-        placeholder={TEXT.PLACEHOLDER}
+        pattern={REGEXP.EMAIL}
+        placeholder={!isLoginActive && TEXT.PLACEHOLDER}
         required
       />
-      {!isLoginActive && isOnFocus && email.length !== 0 ? (
-        isAnErrorInMail ? (
-          <span className="error-message">
-            {TEXT.ERROR}
-          </span>
-        ) : (
-          <span className="success-message">
-            {TEXT.SUCCESS}
-          </span>
-        )
-      ) : null}
+      {!isLoginActive && isOnFocus && email.length !== 0 && <EmailMessage /> }
     </>
   )
 }

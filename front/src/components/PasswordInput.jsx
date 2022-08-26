@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PASSWORD_INPUT as TEXT } from '../../public/assets/texts/fr-FR'
+import { REGEXP } from '../utils/regexp'
 
 export function PasswordInput({
   password,
@@ -17,26 +18,47 @@ export function PasswordInput({
 
   const handlepasswordInput = value => {
     setPassword(value)
-    !TEXT.WHOLEPASSWORD.REGEXP.test(value)
+    !REGEXP.WHOLEPASSWORD.test(value)
       ? setIsAnErrorInPassword(true)
       : setIsAnErrorInPassword(false)
-    !TEXT.MORE_THAN_EIGHT_CHAR.REGEXP.test(value)
+    !REGEXP.MORE_THAN_EIGHT_CHAR.test(value)
       ? setIsMoreThanEightChar(true)
       : setIsMoreThanEightChar(false)
-    !TEXT.HAVE_UPPERCASE.REGEXP.test(value)
+    !REGEXP.HAVE_UPPERCASE.test(value)
       ? setIsHaveUppercase(true)
       : setIsHaveUppercase(false)
-    !TEXT.HAVE_LOWERCASE.REGEXP.test(value)
+    !REGEXP.HAVE_LOWERCASE.test(value)
       ? setIsHaveLowercase(true)
       : setIsHaveLowercase(false)
-    !TEXT.HAVE_TWO_DIGITS.REGEXP.test(value)
+    !REGEXP.HAVE_TWO_DIGITS.test(value)
       ? setIsHaveTwoDigits(true)
       : setIsHaveTwoDigits(false)
-    !TEXT.HAVE_SPECIAL_CHAR.REGEXP.test(value)
+    !REGEXP.HAVE_SPECIAL_CHAR.test(value)
       ? setIsHaveSpecialChar(true)
       : setIsHaveSpecialChar(false)
   }
-
+  const DisplayMessage = ({ state, text }) => {
+    if (state) return <span className="error-message">{TEXT[text].ERROR}</span>
+    return <span className="success-message">{TEXT[text].SUCCESS}</span>
+  }
+  const ErrorMessage = () => {
+    return (
+      <>
+        <DisplayMessage
+          state={isMoreThanEightChar}
+          text={'MORE_THAN_EIGHT_CHAR'}
+        />
+        <DisplayMessage state={isHaveUppercase} text={'HAVE_UPPERCASE'} />
+        <DisplayMessage state={isHaveLowercase} text={'HAVE_LOWERCASE'} />
+        <DisplayMessage state={isHaveTwoDigits} text={'HAVE_TWO_DIGITS'} />
+        <DisplayMessage state={isHaveSpecialChar} text={'HAVE_SPECIAL_CHAR'} />
+      </>
+    )
+  }
+  const IsThereAnErrorInPassword = () => {
+    if (isAnErrorInPassword) return <ErrorMessage />
+    return <span className="success-message">{TEXT.WHOLEPASSWORD.SUCCESS}</span>
+  }
   return (
     <>
       <input
@@ -45,65 +67,13 @@ export function PasswordInput({
         value={password}
         onChange={e => handlepasswordInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
-        pattern={TEXT.WHOLEPASSWORD.REGEXP}
-        placeholder={TEXT.PLACEHOLDER}
+        pattern={REGEXP.WHOLEPASSWORD}
+        placeholder={!isLoginActive && TEXT.PLACEHOLDER}
         required
       />
-      {!isLoginActive && isOnFocus && password.length !== 0 ? (
-        isAnErrorInPassword ? (
-          <>
-            {isMoreThanEightChar ? (
-              <span className="error-message">
-                {TEXT.MORE_THAN_EIGHT_CHAR.ERROR}
-              </span>
-            ) : (
-              <span className="success-message">
-                {TEXT.MORE_THAN_EIGHT_CHAR.SUCCESS}
-              </span>
-            )}
-            {isHaveUppercase ? (
-              <span className="error-message">
-                {TEXT.HAVE_UPPERCASE.ERROR}
-              </span>
-            ) : (
-              <span className="success-message">
-                {TEXT.HAVE_UPPERCASE.SUCCESS}
-              </span>
-            )}
-            {isHaveLowercase ? (
-              <span className="error-message">
-                {TEXT.HAVE_LOWERCASE.ERROR}
-              </span>
-            ) : (
-              <span className="success-message">
-                {TEXT.HAVE_LOWERCASE.SUCCESS}
-              </span>
-            )}
-            {isHaveTwoDigits ? (
-              <span className="error-message">
-                {TEXT.HAVE_TWO_DIGITS.ERROR}
-              </span>
-            ) : (
-              <span className="success-message">
-                {TEXT.HAVE_TWO_DIGITS.SUCCESS}
-              </span>
-            )}
-            {isHaveSpecialChar ? (
-              <span className="error-message">
-                {TEXT.HAVE_SPECIAL_CHAR.ERROR}
-              </span>
-            ) : (
-              <span className="success-message">
-                {TEXT.HAVE_SPECIAL_CHAR.SUCCESS}
-              </span>
-            )}
-          </>
-        ) : (
-          <span className="success-message">
-            {TEXT.WHOLEPASSWORD.SUCCESS}
-          </span>
-        )
-      ) : null}
+      {!isLoginActive && isOnFocus && password.length !== 0 && (
+        <IsThereAnErrorInPassword />
+      )}
     </>
   )
 }

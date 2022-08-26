@@ -33,7 +33,7 @@ export function EmailInput({
         onChange={e => handleEmailInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
         pattern={REGEXP.EMAIL}
-        placeholder={!isLoginActive && TEXT.PLACEHOLDER}
+        placeholder={!isLoginActive ? TEXT.PLACEHOLDER : undefined}
         required
       />
       {!isLoginActive && isOnFocus && email.length !== 0 && <EmailMessage /> }

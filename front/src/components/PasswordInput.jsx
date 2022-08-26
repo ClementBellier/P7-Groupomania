@@ -68,7 +68,7 @@ export function PasswordInput({
         onChange={e => handlepasswordInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
         pattern={REGEXP.WHOLEPASSWORD}
-        placeholder={!isLoginActive && TEXT.PLACEHOLDER}
+        placeholder={!isLoginActive ? TEXT.PLACEHOLDER : undefined}
         required
       />
       {!isLoginActive && isOnFocus && password.length !== 0 && (

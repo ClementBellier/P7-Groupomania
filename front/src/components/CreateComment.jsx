@@ -4,8 +4,17 @@ import { doFetch } from '../utils/functions/doFetch'
 import { DisplayError } from '../utils/Atoms/DisplayError'
 import useComponentVisible from '../utils/hooks/useComponentVisible'
 import './styles/CreatePost.css'
+import { CancelButton } from './CancelButton'
+import { CREATE_COMMENT as TEXT } from '../../public/assets/texts/fr-FR'
 
-export function CreateComment({ postId, comment, commentNeedReRender, setModifyActive, commentsNumber, setCommentsNumber }) {
+export function CreateComment({
+  postId,
+  comment,
+  commentNeedReRender,
+  setModifyActive,
+  commentsNumber,
+  setCommentsNumber,
+}) {
   const { userDetails } = useAuth()
   const [isEmptyComment, setEmptyComment] = useState(comment ? false : true)
   const [textValue, setTextValue] = useState(comment ? comment.text : '')
@@ -17,11 +26,11 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
     setIsComponentVisible: setError,
   } = useComponentVisible(true)
 
-  const handleText = (e) => {
+  const handleText = e => {
     setTextValue(e.target.value)
     e.target.value ? setEmptyComment(false) : !imageUrl && setEmptyComment(true)
   }
-  const handleAddImage = (e) => {
+  const handleAddImage = e => {
     setFile(e.target.files[0])
     setImageUrl(URL.createObjectURL(e.target.files[0]))
     setEmptyComment(false)
@@ -34,21 +43,13 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
   const handleSubmit = async (e, method) => {
     e.preventDefault()
     const urlPath = comment ? comment.id : ''
-    let data = comment
-      ? { text: textValue, imageUrl: imageUrl }
-      : { text: textValue }
+    let data = { text: textValue, imageUrl: comment ? imageUrl : null }
     let isMultipartFormData = false
     if (file) {
       isMultipartFormData = true
       data = new FormData()
       data.append('post', JSON.stringify({ text: textValue }))
       data.append('image', file)
-    }
-    if (!comment) {
-      setFile(false)
-      setTextValue('')
-      setImageUrl(null)
-      setCommentsNumber(commentsNumber + 1)
     }
     const { error } = await doFetch({
       method: method,
@@ -57,28 +58,25 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
       token: userDetails.token,
       isMultipartFormData: isMultipartFormData,
     })
-    if (comment && error) {
-      setError(error)
-    }
     if (comment && !error) setModifyActive(false)
+    if (!comment) {
+      setCommentsNumber(commentsNumber + 1)
+    }
+    setFile(false)
+    setTextValue('')
+    setImageUrl(null)
     setEmptyComment(true)
     error ? setError(error) : commentNeedReRender()
   }
   return (
-    <form className={comment ? "modify-comment": "create-comment"} ref={ref}>
+    <form className={comment ? 'modify-comment' : 'create-comment'} ref={ref}>
       {isAnError && (
         <DisplayError message={isAnError} setError={setError} ref={ref} />
       )}
       {comment && (
         <>
-          <h3>Modification du commentaire</h3>
-          <svg
-            viewBox="0 0 24 24"
-            className="create-post__image--delete"
-            onClick={() => setModifyActive(false)}
-          >
-            <use href="#circle-cross" />
-          </svg>
+          <h3>{TEXT.MODIFY_TITLE}</h3>
+          <CancelButton handleClick={() => setModifyActive(false)} />
         </>
       )}
       {(file || imageUrl) && (
@@ -92,13 +90,7 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
             className="create-post__image"
           >
             <img src={imageUrl} />
-            <svg
-              viewBox="0 0 24 24"
-              className="create-post__image--delete"
-              onClick={handleDeleteImage}
-            >
-              <use href="#circle-cross" />
-            </svg>
+            <CancelButton handleClick={handleDeleteImage} />
           </output>
         </div>
       )}
@@ -110,8 +102,8 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
           <textarea
             name="create-post"
             id="create-post"
-            onInput={(e) => handleText(e)}
-            placeholder="Voulez vous ajouter quelque chose ?"
+            onInput={e => handleText(e)}
+            placeholder={TEXT.TEXTAREA_PLACEHOLDER}
             value={textValue}
           ></textarea>
         </div>
@@ -124,7 +116,7 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
                 ? `update-comment-${comment.id}__actions--image-input`
                 : 'create-coment__actions--image-input'
             }
-            onInput={(e) => handleAddImage(e)}
+            onInput={e => handleAddImage(e)}
           />
           <label
             htmlFor={
@@ -138,29 +130,16 @@ export function CreateComment({ postId, comment, commentNeedReRender, setModifyA
               <use href="#image-logo" />
             </svg>
           </label>
-          {comment ? (
-            <button
-              className={isEmptyComment ? 'accent inactive' : 'accent'}
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault()
-                !isEmptyComment && handleSubmit(e, 'PUT')
-              }}
-            >
-              Modifier
-            </button>
-          ) : (
-            <button
-              className={isEmptyComment ? 'accent inactive' : 'accent'}
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault()
-                !isEmptyComment && handleSubmit(e, 'POST')
-              }}
-            >
-              Commenter
-            </button>
-          )}
+          <button
+            className={isEmptyComment ? 'accent inactive' : 'accent'}
+            type="submit"
+            onClick={e => {
+              e.preventDefault()
+              !isEmptyComment && handleSubmit(e, comment ? 'PUT' : 'POST')
+            }}
+          >
+            {comment ? TEXT.MODIFY_BUTTON : TEXT.COMMENT_BUTTON}
+          </button>
         </div>
       </div>
     </form>

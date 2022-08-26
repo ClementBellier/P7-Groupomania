@@ -45,3 +45,9 @@ export const CREATE_POST = {
     MODIFY_BUTTON: "Modifier",
     POST_BUTTON: "Publier"
 }
+export const CREATE_COMMENT = {
+    MODIFY_TITLE: "Modification du commentaire",
+    TEXTAREA_PLACEHOLDER: "Voulez vous ajouter quelque chose ?",
+    MODIFY_BUTTON: "Modifier",
+    COMMENT_BUTTON: "Commenter"
+}

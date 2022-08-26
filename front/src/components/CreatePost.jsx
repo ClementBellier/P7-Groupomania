@@ -37,20 +37,13 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
   const handleSubmit = async (e, method) => {
     e.preventDefault()
     const urlPath = post ? post.id : ''
-    let data = post
-      ? { text: textValue, imageUrl: imageUrl }
-      : { text: textValue }
+    let data = { text: textValue, imageUrl: post ? imageUrl : null }
     let isMultipartFormData = false
     if (file) {
       isMultipartFormData = true
       data = new FormData()
       data.append('post', JSON.stringify({ text: textValue }))
       data.append('image', file)
-    }
-    if (!post) {
-      setFile(false)
-      setTextValue('')
-      setImageUrl(null)
     }
     const { error } = await doFetch({
       method: method,
@@ -59,10 +52,10 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       token: userDetails.token,
       isMultipartFormData: isMultipartFormData,
     })
-    if (post && error) {
-      setError(error)
-    }
     if (post && !error) setModifyActive(false)
+    setFile(false)
+    setTextValue('')
+    setImageUrl(null)
     setEmptyPost(true)
     error ? setError(error) : needReRender()
   }
@@ -125,9 +118,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
           }
           className="create-post__actions--image"
         >
-          <p className="create-post__actions--image--text">
-            {TEXT.ADD_IMAGE}
-          </p>
+          <p className="create-post__actions--image--text">{TEXT.ADD_IMAGE}</p>
           <svg viewBox="0 0 24 24">
             <use href="#image-logo" />
           </svg>

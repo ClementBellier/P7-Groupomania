@@ -6,7 +6,14 @@ export const LOGIN = {
     EMAIL: "Email",
     PASSWORD: "Mot de passe"
 }
-export const PASSWORD = {
+export const EMAIL_INPUT = {
+    REGEXP: /^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$/,
+    ERROR: "L'email doit être dans le format suivant prenom.nom@groupomania.fr",
+    SUCCESS: "L'email est dans le bon format",
+    PLACEHOLDER: "prenom.nom@groupomania.fr"
+}
+export const PASSWORD_INPUT = {
+    PLACEHOLDER: "un super mot de passe",
     WHOLEPASSWORD : {
         REGEXP: /^(?=(?:.*[A-Z]){1,})(?=(?:.*[a-z]){1,})(?=(?:.*\d){2,})(?=(?:.*[!@#$£%^&*()\-_=+{};:,<.>\?\/\]\[]){1,})([A-Za-z0-9éèçàù!@#$£%^&*()\-_=+{};:,<.>\?\/\]\[]{8,})$/,
         SUCCESS: "Le mot de passe est suffisament fort, Bravo !"

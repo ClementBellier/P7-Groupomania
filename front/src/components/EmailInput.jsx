@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { EMAIL_INPUT } from '../../public/assets/texts/fr-FR'
 
 export function EmailInput({
   email,
@@ -9,11 +10,11 @@ export function EmailInput({
   setErrorMessage,
 }) {
   const [isOnFocus, setIsOnFocus] = useState(false)
-  const mailRegExp = /^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$/
+
   const handleEmailInput = (value) => {
     setErrorMessage()
     setEmail(value)
-    !mailRegExp.test(value)
+    !EMAIL_INPUT.REGEXP.test(value)
       ? setIsAnErrorInMail(true)
       : setIsAnErrorInMail(false)
   }
@@ -26,17 +27,18 @@ export function EmailInput({
         value={email}
         onChange={(e) => handleEmailInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
-        pattern={mailRegExp}
+        pattern={EMAIL_INPUT.REGEXP}
+        placeholder={EMAIL_INPUT.PLACEHOLDER}
         required
       />
       {!isLoginActive && isOnFocus && email.length !== 0 ? (
         isAnErrorInMail ? (
           <span className="error-message">
-            L'email doit être dans le format suivant prenom.nom@groupomania.fr
+            {EMAIL_INPUT.ERROR}
           </span>
         ) : (
           <span className="success-message">
-            L'email est dans le bon format
+            {EMAIL_INPUT.SUCCESS}
           </span>
         )
       ) : null}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PASSWORD } from '../../public/assets/texts/fr-FR'
+import { PASSWORD_INPUT as PASSWORD } from '../../public/assets/texts/fr-FR'
 
 export function PasswordInput({
   password,
@@ -46,6 +46,7 @@ export function PasswordInput({
         onChange={e => handlepasswordInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
         pattern={PASSWORD.WHOLEPASSWORD.REGEXP}
+        placeholder={PASSWORD.PLACEHOLDER}
         required
       />
       {!isLoginActive && isOnFocus && password.length !== 0 ? (

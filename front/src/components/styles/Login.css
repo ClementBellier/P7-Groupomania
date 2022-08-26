@@ -34,6 +34,7 @@
     box-shadow: inset var(--shadow-x) -15px 15px -15px var(--shadow-color);
     cursor: pointer;
     font-weight: 300;
+    background-color: var(--body-color);
     color: var(--tertiary-color);
     transition: all .2s ease-in-out;
 }

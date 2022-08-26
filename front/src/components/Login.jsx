@@ -32,28 +32,28 @@ export function Login() {
   }
   return (
     <div className="login">
-      {isLoginActive ? (
-        <div className="login-title">
-          <h2 className="login-title__title">Se connecter</h2>
-          <h2
-            className="login-title__title inactive-signup-title"
-            onClick={handleIsLoginActive}
-          >
-            S'enregistrer
-          </h2>
-        </div>
-      ) : (
-        <div className="login-title">
-          <h2
-            className="login-title__title inactive-login-title"
-            onClick={handleIsLoginActive}
-          >
-            Se connecter
-          </h2>
-          <h2 className="login-title__title">S'enregistrer</h2>
-        </div>
-      )}
-
+      <div className="login-title">
+        <h2
+          className={
+            isLoginActive
+              ? 'login-title__title'
+              : 'login-title__title inactive-login-title'
+          }
+          onClick={!isLoginActive && handleIsLoginActive}
+        >
+          Se connecter
+        </h2>
+        <h2
+          className={
+            isLoginActive
+              ? 'login-title__title inactive-signup-title'
+              : 'login-title__title'
+          }
+          onClick={isLoginActive && handleIsLoginActive}
+        >
+          S'enregistrer
+        </h2>
+      </div>
       <form className="login-form">
         <label htmlFor="email">Email</label>
         <EmailInput
@@ -79,35 +79,20 @@ export function Login() {
           errorMessage.map((error) => (
             <span className="error-message">{error.message}</span>
           ))}
-        {isLoginActive ? (
-          <>
-            <button
-              type="submit"
-              className="accent"
-              onClick={(e) => handleLogin(e)}
-            >
-              Se connecter
-            </button>
-            <button onClick={(e) => handleIsLoginActive(e)}>
-              Pas encore inscrit ?
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              type="submit"
-              className="accent"
-              onClick={(e) =>
-                !isAnErrorInMail && !isAnErrorInPassword && handleSignup(e)
-              }
-            >
-              S'enregistrer
-            </button>
-            <button onClick={(e) => handleIsLoginActive(e)}>
-              Déjà inscrit ?
-            </button>
-          </>
-        )}
+        <button
+          type="submit"
+          className="accent"
+          onClick={(e) =>
+            isLoginActive
+              ? handleLogin(e)
+              : !isAnErrorInMail && !isAnErrorInPassword && handleSignup(e)
+          }
+        >
+          {isLoginActive ? 'Se connecter' : "S'enregistrer"}
+        </button>
+        <button onClick={(e) => handleIsLoginActive(e)}>
+          {isLoginActive ? "Pas encore inscrit ?" : "Déjà inscrit ?"}
+        </button>
       </form>
     </div>
   )

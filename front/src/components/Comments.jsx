@@ -31,32 +31,28 @@ export function Comments({
 
   if (error) return <DisplayError />
 
+  if (isLoading) return <Loader />
+
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          {data
-            .sort((a, z) => a.date - z.date)
-            .map((comment, index) => (
-              <Comment
-                key={`post-${comment.postId}-comment-${comment.id}`}
-                comment={comment}
-                index={index}
-                commentNeedReRender={commentNeedReRender}
-                setCommentsNumber={setCommentsNumber}
-                commentsNumber={commentsNumber}
-              />
-            ))}
-          <CreateComment
-            postId={postId}
+      {data
+        .sort((a, z) => a.date - z.date)
+        .map((comment, index) => (
+          <Comment
+            key={`post-${comment.postId}-comment-${comment.id}`}
+            comment={comment}
+            index={index}
             commentNeedReRender={commentNeedReRender}
             setCommentsNumber={setCommentsNumber}
             commentsNumber={commentsNumber}
           />
-        </>
-      )}
+        ))}
+      <CreateComment
+        postId={postId}
+        commentNeedReRender={commentNeedReRender}
+        setCommentsNumber={setCommentsNumber}
+        commentsNumber={commentsNumber}
+      />
     </>
   )
 }

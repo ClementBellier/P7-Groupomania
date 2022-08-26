@@ -4,6 +4,7 @@ import useAuth from '../utils/hooks/useAuth'
 import { Post } from './Post'
 import { Loader } from '../components/Loader'
 import { DisplayError } from '../utils/Atoms/DisplayError'
+import { POST_LIST as TEXT } from '../../public/assets/texts/fr-FR'
 
 export function PostList({ needReRender, userId }) {
   const [data, setData] = useState({})
@@ -34,27 +35,28 @@ export function PostList({ needReRender, userId }) {
 
   if (error) return <DisplayError />
 
+  if (isLoading) return <Loader />
+
+  if (data.length === 0)
+    return (
+      <p style={{ textAlign: 'center', marginBlock: '30px' }}>
+        {TEXT.NO_POST}
+      </p>
+    )
+
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : data.length === 0 ? (
-        <p style={{ textAlign: 'center', marginBlock: '30px' }}>
-          Il n'y a aucun post à afficher... 😞
-        </p>
-      ) : (
-        data
-          .sort((a, z) => z.date - a.date)
-          .map((post, index) => (
-            <Post
-              key={`post-${post.id}`}
-              post={post}
-              index={index}
-              needReRender={needReRender}
-              commentNeedReRender={commentNeedReRender}
-            />
-          ))
-      )}
+      {data
+        .sort((a, z) => z.date - a.date)
+        .map((post, index) => (
+          <Post
+            key={`post-${post.id}`}
+            post={post}
+            index={index}
+            needReRender={needReRender}
+            commentNeedReRender={commentNeedReRender}
+          />
+        ))}
     </>
   )
 }

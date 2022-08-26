@@ -51,3 +51,6 @@ export const CREATE_COMMENT = {
     MODIFY_BUTTON: "Modifier",
     COMMENT_BUTTON: "Commenter"
 }
+export const POST_LIST = {
+    NO_POST: "Il n'y a aucun post à afficher... 😞"
+}

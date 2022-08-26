@@ -4,6 +4,7 @@ import useAuth from '../utils/hooks/useAuth'
 import './styles/Login.css'
 import { EmailInput } from './EmailInput'
 import { PasswordInput } from './PasswordInput'
+import { LOGIN } from '../../public/assets/texts/fr-FR'
 
 export function Login() {
   const navigate = useNavigate()
@@ -39,9 +40,9 @@ export function Login() {
               ? 'login-title__title'
               : 'login-title__title inactive-login-title'
           }
-          onClick={!isLoginActive && handleIsLoginActive}
+          onClick={!isLoginActive ? handleIsLoginActive : undefined}
         >
-          Se connecter
+          {LOGIN.LOGIN}
         </h2>
         <h2
           className={
@@ -49,13 +50,13 @@ export function Login() {
               ? 'login-title__title inactive-signup-title'
               : 'login-title__title'
           }
-          onClick={isLoginActive && handleIsLoginActive}
+          onClick={isLoginActive ? handleIsLoginActive : undefined}
         >
-          S'enregistrer
+          {LOGIN.SIGNUP}
         </h2>
       </div>
       <form className="login-form">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{LOGIN.EMAIL}</label>
         <EmailInput
           email={email}
           setEmail={setEmail}
@@ -67,7 +68,7 @@ export function Login() {
         {typeof errorMessage === 'string' && (
           <span className="error-message">{errorMessage}</span>
         )}
-        <label htmlFor="password">Mot de passe</label>
+        <label htmlFor="password">{LOGIN.PASSWORD}</label>
         <PasswordInput
           password={password}
           setPassword={setPassword}
@@ -88,10 +89,10 @@ export function Login() {
               : !isAnErrorInMail && !isAnErrorInPassword && handleSignup(e)
           }
         >
-          {isLoginActive ? 'Se connecter' : "S'enregistrer"}
+          {isLoginActive ? LOGIN.LOGIN : LOGIN.SIGNUP}
         </button>
         <button onClick={(e) => handleIsLoginActive(e)}>
-          {isLoginActive ? "Pas encore inscrit ?" : "Déjà inscrit ?"}
+          {isLoginActive ? LOGIN.NOT_REGISTERED : LOGIN.REGISTERED}
         </button>
       </form>
     </div>

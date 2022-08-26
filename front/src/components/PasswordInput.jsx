@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PASSWORD } from '../../public/assets/texts/fr-FR'
 
 export function PasswordInput({
   password,
@@ -13,33 +14,25 @@ export function PasswordInput({
   const [isHaveLowercase, setIsHaveLowercase] = useState(false)
   const [isHaveTwoDigits, setIsHaveTwoDigits] = useState(false)
   const [isHaveSpecialChar, setIsHaveSpecialChar] = useState(false)
-  const passwordRegExp =
-    /^(?=(?:.*[A-Z]){1,})(?=(?:.*[a-z]){1,})(?=(?:.*\d){2,})(?=(?:.*[!@#$£%^&*()\-_=+{};:,<.>\?\/\]\[]){1,})([A-Za-z0-9éèçàù!@#$£%^&*()\-_=+{};:,<.>\?\/\]\[]{8,})$/
-  const moreThanEightChar =
-    /^([A-Za-z0-9éèçàù!@#$£%^&*()\-_=+{};:,<.>\?\/\]\[]{8,})$/
-  const haveUppercase = /^.*(?=(?:.*[A-Z]){1,}).*$/
-  const haveLowercase = /^.*(?=(?:.*[a-z]){1,}).*$/
-  const haveTwoDigits = /^.*(?=(?:.*\d){2,}).*$/
-  const haveSpecialChar =
-    /^.*(?=(?:.*[!@#$£%^&*()\-_=+{};:,<.>\?\/\]\[]){1,}).*$/
-  const handlepasswordInput = (value) => {
+
+  const handlepasswordInput = value => {
     setPassword(value)
-    !passwordRegExp.test(value)
+    !PASSWORD.WHOLEPASSWORD.REGEXP.test(value)
       ? setIsAnErrorInPassword(true)
       : setIsAnErrorInPassword(false)
-    !moreThanEightChar.test(value)
+    !PASSWORD.MORE_THAN_EIGHT_CHAR.REGEXP.test(value)
       ? setIsMoreThanEightChar(true)
       : setIsMoreThanEightChar(false)
-    !haveUppercase.test(value)
+    !PASSWORD.HAVE_UPPERCASE.REGEXP.test(value)
       ? setIsHaveUppercase(true)
       : setIsHaveUppercase(false)
-    !haveLowercase.test(value)
+    !PASSWORD.HAVE_LOWERCASE.REGEXP.test(value)
       ? setIsHaveLowercase(true)
       : setIsHaveLowercase(false)
-    !haveTwoDigits.test(value)
+    !PASSWORD.HAVE_TWO_DIGITS.REGEXP.test(value)
       ? setIsHaveTwoDigits(true)
       : setIsHaveTwoDigits(false)
-    !haveSpecialChar.test(value)
+    !PASSWORD.HAVE_SPECIAL_CHAR.REGEXP.test(value)
       ? setIsHaveSpecialChar(true)
       : setIsHaveSpecialChar(false)
   }
@@ -50,9 +43,9 @@ export function PasswordInput({
         id="password"
         type="password"
         value={password}
-        onChange={(e) => handlepasswordInput(e.target.value)}
+        onChange={e => handlepasswordInput(e.target.value)}
         onFocus={() => setIsOnFocus(true)}
-        pattern={passwordRegExp}
+        pattern={PASSWORD.WHOLEPASSWORD.REGEXP}
         required
       />
       {!isLoginActive && isOnFocus && password.length !== 0 ? (
@@ -60,55 +53,53 @@ export function PasswordInput({
           <>
             {isMoreThanEightChar ? (
               <span className="error-message">
-                Le mot de passe doit contenir au moins 8 caractères et NE PEUT
-                PAS avoir d'espace
+                {PASSWORD.MORE_THAN_EIGHT_CHAR.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                Le mot de passe contient au moins 8 caractères et n'a pas
-                d'espace
+                {PASSWORD.MORE_THAN_EIGHT_CHAR.SUCCESS}
               </span>
             )}
             {isHaveUppercase ? (
               <span className="error-message">
-                Le mot de passe doit contenir au moins une majuscule
+                {PASSWORD.HAVE_UPPERCASE.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                Le mot de passe contient au moins une majuscule
+                {PASSWORD.HAVE_UPPERCASE.SUCCESS}
               </span>
             )}
             {isHaveLowercase ? (
               <span className="error-message">
-                Le mot de passe doit contenir au moins une minuscule
+                {PASSWORD.HAVE_LOWERCASE.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                Le mot de passe contient au moins une minuscule
+                {PASSWORD.HAVE_LOWERCASE.SUCCESS}
               </span>
             )}
             {isHaveTwoDigits ? (
               <span className="error-message">
-                Le mot de passe doit contenir au moins 2 chiffres
+                {PASSWORD.HAVE_TWO_DIGITS.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                Le mot de passe contient au moins 2 chiffres
+                {PASSWORD.HAVE_TWO_DIGITS.SUCCESS}
               </span>
             )}
             {isHaveSpecialChar ? (
               <span className="error-message">
-                Le mot de passe doit contenir au moins un caractère spécial
+                {PASSWORD.HAVE_SPECIAL_CHAR.ERROR}
               </span>
             ) : (
               <span className="success-message">
-                Le mot de passe contient au moins un caractère spécial
+                {PASSWORD.HAVE_SPECIAL_CHAR.SUCCESS}
               </span>
             )}
           </>
         ) : (
           <span className="success-message">
-            Le mot de passe est suffisament fort, Bravo !
+            {PASSWORD.WHOLEPASSWORD.SUCCESS}
           </span>
         )
       ) : null}

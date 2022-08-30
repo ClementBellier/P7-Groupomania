@@ -1,12 +1,13 @@
 import { Login } from '../components/Login'
 import { useTheme } from '../utils/hooks/useTheme'
 import './styles/LoginPage.css'
+import { THEME } from '../../public/assets/texts/texts'
 
 export function LoginPage() {
   const { theme, toggleTheme } = useTheme()
   return (
     <>
-      <div className="loginpage-logo">
+      <h1 className="loginpage-logo">
         <img
           src={
             theme === 'dark'
@@ -14,14 +15,16 @@ export function LoginPage() {
               : '/assets/icon-left-font-light.svg'
           }
           className="loginpage-logo-image"
+          alt='Groupomania Social Network'
         />
-      </div>
+      </h1>
       <Login />
       <input
         type="checkbox"
         className="themeInput loginpage-theme-input"
         checked={theme === 'dark'}
         onChange={() => toggleTheme()}
+        aria-label={THEME.ARIA_LABEL}
       />
     </>
   )

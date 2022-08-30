@@ -1,3 +1,9 @@
+export const THEME = {
+    ARIA_LABEL:"Choix du thème de couleur"
+}
+export const LOADER = {
+    LOADING: "En chargement..."
+}
 export const LOGIN = {
     LOGIN: "Se Connecter",
     SIGNUP: "S'enregistrer",
@@ -37,6 +43,10 @@ export const PASSWORD_INPUT = {
         SUCCESS: "Contient au moins un caractère spécial"
     }
 }
+export const HEADER = {
+    PROFILE:"Mon Profil",
+    LOGOUT:"Se déconnecter"
+}
 export const CREATE_POST = {
     MODIFY_TITLE: "Modification du post",
     TEXTAREA_PLACEHOLDER_POST: "Voulez vous ajouter quelque chose ?",
@@ -49,7 +59,8 @@ export const CREATE_COMMENT = {
     MODIFY_TITLE: "Modification du commentaire",
     TEXTAREA_PLACEHOLDER: "Voulez vous ajouter quelque chose ?",
     MODIFY_BUTTON: "Modifier",
-    COMMENT_BUTTON: "Commenter"
+    COMMENT_BUTTON: "Commenter",
+    ADD_IMAGE: "Ajouter une image"
 }
 export const POST_LIST = {
     NO_POST: "Il n'y a aucun post à afficher... 😞"

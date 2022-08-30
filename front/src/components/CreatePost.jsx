@@ -96,6 +96,11 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
               ? TEXT.TEXTAREA_PLACEHOLDER_POST
               : TEXT.TEXTAREA_PLACEHOLDER_NO_POST
           }
+          aria-label={
+            post
+              ? TEXT.TEXTAREA_PLACEHOLDER_POST
+              : TEXT.TEXTAREA_PLACEHOLDER_NO_POST
+          }
           value={textValue}
         ></textarea>
       </div>

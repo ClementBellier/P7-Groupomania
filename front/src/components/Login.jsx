@@ -32,7 +32,7 @@ export function Login() {
     setIsLoginActive(!isLoginActive)
   }
   return (
-    <div className="login">
+    <main className="login">
       <div className="login-title">
         <h2
           className={
@@ -95,6 +95,6 @@ export function Login() {
           {isLoginActive ? TEXT.NOT_REGISTERED : TEXT.REGISTERED}
         </button>
       </form>
-    </div>
+    </main>
   )
 }

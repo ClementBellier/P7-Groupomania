@@ -104,6 +104,9 @@ export function CreateComment({
             id="create-post"
             onInput={e => handleText(e)}
             placeholder={TEXT.TEXTAREA_PLACEHOLDER}
+            aria-label={
+              textValue.length === 0 ? TEXT.TEXTAREA_PLACEHOLDER : textValue
+            }
             value={textValue}
           ></textarea>
         </div>
@@ -126,7 +129,7 @@ export function CreateComment({
             }
             className="create-post__actions--image"
           >
-            <svg viewBox="0 0 24 24">
+            <svg viewBox="0 0 24 24" aria-label={TEXT.ADD_IMAGE}>
               <use href="#image-logo" />
             </svg>
           </label>

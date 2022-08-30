@@ -21,7 +21,7 @@
     max-width: 100%;
     max-height: 150px;
     display: block;
-    margin-inline: auto;
+    margin: 3px auto;
 }
 .comment-content__text{
     text-indent: 3ch;

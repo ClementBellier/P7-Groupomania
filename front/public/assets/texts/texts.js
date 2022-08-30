@@ -54,3 +54,7 @@ export const CREATE_COMMENT = {
 export const POST_LIST = {
     NO_POST: "Il n'y a aucun post à afficher... 😞"
 }
+export const LIKE = {
+    UNLIKE: "Ne plus aimer 💔",
+    LIKE: "Aimer"
+}

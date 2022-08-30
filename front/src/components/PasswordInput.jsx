@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PASSWORD_INPUT as TEXT } from '../../public/assets/texts/fr-FR'
+import { PASSWORD_INPUT as TEXT } from '../../public/assets/texts/texts'
 import { REGEXP } from '../utils/regexp'
 
 export function PasswordInput({

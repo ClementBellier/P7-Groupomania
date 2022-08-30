@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
+import { LIKE as TEXT } from '../../public/assets/texts/texts'
 
 export function Like({ likes, userlikes, id, needReRender }) {
   const { userDetails } = useAuth()
   const [postLikes, setPostLikes] = useState(likes)
   const [userLikedThisPost, setUserLikedThisPost] = useState(
-    userlikes.some((user) => user.user_id === userDetails.userId)
+    userlikes.some(user => user.user_id === userDetails.userId)
   )
   const handleMouseOver = () => {}
   const handleClick = () => {
@@ -24,7 +25,11 @@ export function Like({ likes, userlikes, id, needReRender }) {
       : setPostLikes(postLikes + 1)
     needReRender()
   }
-
+  const LikeText = () => {
+    if (userLikedThisPost)
+      return <p className="post__action--text unlike">{TEXT.UNLIKE}</p>
+    return <p className="post__action--text like">{TEXT.LIKE}</p>
+  }
   return (
     <div
       className={userLikedThisPost ? 'post__like liked' : 'post__like'}
@@ -35,11 +40,7 @@ export function Like({ likes, userlikes, id, needReRender }) {
         <use href="#heart" />
       </svg>
       {postLikes > 0 && <span className="post__like--number">{postLikes}</span>}
-      {userLikedThisPost ? (
-        <p className="post__action--text unlike">Ne plus aimer 💔</p>
-      ) : (
-        <p className="post__action--text like">Aimer</p>
-      )}
+      <LikeText />
     </div>
   )
 }

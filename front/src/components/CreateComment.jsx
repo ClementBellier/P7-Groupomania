@@ -5,7 +5,7 @@ import { DisplayError } from '../utils/Atoms/DisplayError'
 import useComponentVisible from '../utils/hooks/useComponentVisible'
 import './styles/CreatePost.css'
 import { CancelButton } from './CancelButton'
-import { CREATE_COMMENT as TEXT } from '../../public/assets/texts/fr-FR'
+import { CREATE_COMMENT as TEXT } from '../../public/assets/texts/texts'
 
 export function CreateComment({
   postId,

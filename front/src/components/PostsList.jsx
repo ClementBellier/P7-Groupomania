@@ -4,7 +4,7 @@ import useAuth from '../utils/hooks/useAuth'
 import { Post } from './Post'
 import { Loader } from '../components/Loader'
 import { DisplayError } from '../utils/Atoms/DisplayError'
-import { POST_LIST as TEXT } from '../../public/assets/texts/fr-FR'
+import { POST_LIST as TEXT } from '../../public/assets/texts/texts'
 
 export function PostList({ needReRender, userId }) {
   const [data, setData] = useState({})
@@ -39,9 +39,7 @@ export function PostList({ needReRender, userId }) {
 
   if (data.length === 0)
     return (
-      <p style={{ textAlign: 'center', marginBlock: '30px' }}>
-        {TEXT.NO_POST}
-      </p>
+      <p style={{ textAlign: 'center', marginBlock: '30px' }}>{TEXT.NO_POST}</p>
     )
 
   return (

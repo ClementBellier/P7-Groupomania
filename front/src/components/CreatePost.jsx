@@ -5,7 +5,7 @@ import './styles/CreatePost.css'
 import './styles/Login.css'
 import { DisplayError } from '../utils/Atoms/DisplayError'
 import useComponentVisible from '../utils/hooks/useComponentVisible'
-import { CREATE_POST as TEXT } from '../../public/assets/texts/fr-FR'
+import { CREATE_POST as TEXT } from '../../public/assets/texts/texts'
 import { CancelButton } from './CancelButton'
 
 export function CreatePost({ post, needReRender, setModifyActive }) {

@@ -4,7 +4,7 @@ import useAuth from '../utils/hooks/useAuth'
 import './styles/Login.css'
 import { EmailInput } from './EmailInput'
 import { PasswordInput } from './PasswordInput'
-import { LOGIN as TEXT } from '../../public/assets/texts/fr-FR'
+import { LOGIN as TEXT } from '../../public/assets/texts/texts'
 
 export function Login() {
   const navigate = useNavigate()

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { EMAIL_INPUT as TEXT } from '../../public/assets/texts/fr-FR'
+import { EMAIL_INPUT as TEXT } from '../../public/assets/texts/texts'
 import { REGEXP } from '../utils/regexp'
 
 export function EmailInput({
@@ -36,7 +36,7 @@ export function EmailInput({
         placeholder={!isLoginActive ? TEXT.PLACEHOLDER : undefined}
         required
       />
-      {!isLoginActive && isOnFocus && email.length !== 0 && <EmailMessage /> }
+      {!isLoginActive && isOnFocus && email.length !== 0 && <EmailMessage />}
     </>
   )
 }

@@ -4,8 +4,9 @@
     flex-direction: column;
     gap: 5px;
 }
-.user-details label{
-    margin-left: 20px;
+.user-details p{
+    display: inline-block;
+    margin-inline: 20px 5px;
     font-weight: 600;
     font-style: italic;
 }

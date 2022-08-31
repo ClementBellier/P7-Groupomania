@@ -80,3 +80,17 @@ export const CONTENT = {
     COMMENT: "commentaire",
     COMMENTS: "commentaires"
 }
+export const USER_DETAILS = {
+    MY_PROFILE: "Mon Profil",
+    MY_POSTS: "Mes Posts",
+    THEIR_PROFILE: "Son Profil",
+    THEIRS_POSTS: "Ses Posts",
+    NO_DATA: "Donnée non renseignée",
+    MODIFY_BUTTON: "Modifier",
+    CANCEL_BUTTON: "Annuler",
+    OK_BUTTON: "Ok",
+    EMAIL: "Email: ",
+    FISRT_NAME: "Prénom: ",
+    NAME: "Nom: ",
+    DEPARTEMENT: "Département: "
+}

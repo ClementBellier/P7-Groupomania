@@ -4,6 +4,8 @@ import { doFetch } from '../utils/functions/doFetch'
 import './styles/Login.css'
 import './styles/UserDetails.css'
 import { DisplayError } from '../utils/Atoms/DisplayError'
+import { Loader } from './Loader'
+import { USER_DETAILS as TEXT } from '../../public/assets/texts/texts'
 
 export function UserDetails({ userId }) {
   const { userDetails } = useAuth()
@@ -24,7 +26,7 @@ export function UserDetails({ userId }) {
     }
     fetchUserData()
   }, [userId])
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     const { error } = await doFetch({
       method: 'PUT',
@@ -32,124 +34,115 @@ export function UserDetails({ userId }) {
       body: userData,
       token: userDetails.token,
     })
-    error && console.error(error)
+    if(error) setError(error)
     setModifyActive(false)
   }
+  const DisplayUserData = ({data}) => {
+    if(data) return <span>{data}</span>
+    return <span className="user-details__no-data">{TEXT.NO_DATA}</span>
+  }
+
   if (error) return <DisplayError />
+
+  if (isLoading) return <Loader />
+
   return (
     <>
-      {isLoading ? (
-        <p>En chargement</p>
-      ) : (
-        <><form className="user-details">
-          <h2>
-            {userDetails.userId === parseInt(userId)
-              ? 'Mon Profil'
-              : 'Son Profil'}
-          </h2>
-          <div>
-            <label htmlFor="email">Email: </label>
-            {isModifyActive ? (
-              <input
-                id="email"
-                value={userData.email}
-                type="email"
-                required
-                onChange={(e) =>
-                  setUserData({ ...userData, email: e.target.value })
-                }
-              />
-            ) : (
-              <span>{userData.email}</span>
-            )}
-          </div>
-          <div>
-            <label htmlFor="first-name">Prénom: </label>
-            {isModifyActive ? (
-              <input
-                id="first-name"
-                value={userData.firstName ?? ''}
-                placeholder="Donnée non renseignée"
-                type="text"
-                onChange={(e) =>
-                  setUserData({ ...userData, firstName: e.target.value })
-                }
-              />
-            ) : userData.firstName ? (
-              <span>{userData.firstName}</span>
-            ) : (
-              <span className="user-details__no-data">
-                Donnée non renseignée
-              </span>
-            )}
-          </div>
-          <div>
-            <label htmlFor="name">Nom: </label>
-            {isModifyActive ? (
-              <input
-                id="name"
-                value={userData.name ?? ''}
-                placeholder="Donnée non renseignée"
-                type="text"
-                onChange={(e) =>
-                  setUserData({ ...userData, name: e.target.value })
-                }
-              />
-            ) : userData.name ? (
-              <span>{userData.name}</span>
-            ) : (
-              <span className="user-details__no-data">
-                Donnée non renseignée
-              </span>
-            )}
-          </div>
-          <div>
-            <label htmlFor="departement">Département: </label>
-            {isModifyActive ? (
-              <input
-                id="departement"
-                value={userData.departement ?? ''}
-                placeholder="Donnée non renseignée"
-                type="text"
-                onChange={(e) =>
-                  setUserData({ ...userData, departement: e.target.value })
-                }
-              />
-            ) : userData.departement ? (
-              <span>{userData.departement}</span>
-            ) : (
-              <span className="user-details__no-data">
-                Donnée non renseignée
-              </span>
-            )}
-          </div>
-          <div className="user-details__buttons">
-            {isModifyActive && (
-              <button className="accent" onClick={(e) => handleSubmit(e)}>
-                Ok
-              </button>
-            )}
-            {userDetails.userId === parseInt(userId) ||
-            userDetails.role === 'admin' ? (
-              <button
-                className={!isModifyActive ? 'accent' : undefined}
-                onClick={(e) => {
-                  setModifyActive(!isModifyActive)
-                  e.preventDefault()
-                }}
-              >
-                {isModifyActive ? 'Annuler' : 'Modifier'}
-              </button>
-            ) : null}
-          </div>
-        </form>
-        <h2 className='user-details__title-posts'>
-            {userDetails.userId === parseInt(userId)
-              ? 'Mes Posts'
-              : 'Ses Posts'}
-          </h2>
-        </>
-      )}
+      <form className="user-details">
+        <h2>
+          {userDetails.userId === parseInt(userId)
+            ? TEXT.MY_PROFILE
+            : TEXT.THEIR_PROFILE}
+        </h2>
+        <div>
+          <p>{TEXT.EMAIL}</p>
+          {isModifyActive ? (
+            <input
+              aria-label={TEXT.EMAIL}
+              id="email"
+              value={userData.email}
+              type="email"
+              required
+              onChange={e =>
+                setUserData({ ...userData, email: e.target.value })
+              }
+            />
+          ) : (
+            <span>{userData.email}</span>
+          )}
+        </div>
+        <div>
+          <p>{TEXT.FISRT_NAME}</p>
+          {isModifyActive ? (
+            <input
+              aria-label={TEXT.FISRT_NAME}
+              id="first-name"
+              value={userData.firstName ?? ''}
+              placeholder={TEXT.NO_DATA}
+              type="text"
+              onChange={e =>
+                setUserData({ ...userData, firstName: e.target.value })
+              }
+            />
+          ) : (
+            <DisplayUserData data={userData.firstName} />
+          )}
+        </div>
+        <div>
+          <p>{TEXT.NAME}</p>
+          {isModifyActive ? (
+            <input
+              aria-label={TEXT.NAME}
+              id="name"
+              value={userData.name ?? ''}
+              placeholder={TEXT.NO_DATA}
+              type="text"
+              onChange={e => setUserData({ ...userData, name: e.target.value })}
+            />
+          ) : (
+            <DisplayUserData data={userData.name} />
+          )}
+        </div>
+        <div>
+          <p>{TEXT.DEPARTEMENT}</p>
+          {isModifyActive ? (
+            <input
+              aria-label={TEXT.DEPARTEMENT}
+              id="departement"
+              value={userData.departement ?? ''}
+              placeholder={TEXT.NO_DATA}
+              type="text"
+              onChange={e =>
+                setUserData({ ...userData, departement: e.target.value })
+              }
+            />
+          ) : (
+            <DisplayUserData data={userData.departement} />
+          )}
+        </div>
+        <div className="user-details__buttons">
+          {isModifyActive && (
+            <button className="accent" onClick={e => handleSubmit(e)}>
+              {TEXT.OK_BUTTON}
+            </button>
+          )}
+          {(userDetails.userId === parseInt(userId) ||
+            userDetails.role === 'admin') && (
+            <button
+              className={!isModifyActive ? 'accent' : undefined}
+              onClick={e => {
+                setModifyActive(!isModifyActive)
+                e.preventDefault()
+              }}
+            >
+              {isModifyActive ? TEXT.CANCEL_BUTTON : TEXT.MODIFY_BUTTON}
+            </button>
+          )}
+        </div>
+      </form>
+      <h2 className="user-details__title-posts">
+        {userDetails.userId === parseInt(userId) ? TEXT.MY_POSTS : TEXT.THEIRS_POSTS}
+      </h2>
     </>
   )
 }

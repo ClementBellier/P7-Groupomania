@@ -136,9 +136,9 @@ export function CreateComment({
           <button
             className={isEmptyComment ? 'accent inactive' : 'accent'}
             type="submit"
+            disabled={isEmptyPost ? true : false}
             onClick={e => {
-              e.preventDefault()
-              !isEmptyComment && handleSubmit(e, comment ? 'PUT' : 'POST')
+              handleSubmit(e, comment ? 'PUT' : 'POST')
             }}
           >
             {comment ? TEXT.MODIFY_BUTTON : TEXT.COMMENT_BUTTON}

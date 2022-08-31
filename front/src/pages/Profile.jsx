@@ -12,7 +12,7 @@ export function Profile() {
   }
 
   return (
-    <>
+    <main>
       <div className="profile-go-back" onClick={() => navigate('/home')}>
         <svg viewBox="0 0 24 24" className="profile-go-back__button">
           <use href="#arrow-left" />
@@ -25,6 +25,6 @@ export function Profile() {
       </div>
       <UserDetails userId={userId} />
       <PostList needReRender={needReRender} userId={userId} />
-    </>
+    </main>
   )
 }

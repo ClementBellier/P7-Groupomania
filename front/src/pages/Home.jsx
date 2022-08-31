@@ -9,9 +9,9 @@ export function Home() {
   }
 
   return (
-    <>
+    <main>
       <CreatePost needReRender={needReRender} />
       <PostList needReRender={needReRender} />
-    </>
+    </main>
   )
 }

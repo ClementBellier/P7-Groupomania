@@ -15,7 +15,7 @@ export function Header() {
   }
 
   return (
-    <header>
+    <header class="header">
       <h1>
         <Link to="/home" className="header__logo">
           <img
@@ -42,7 +42,7 @@ export function Header() {
             <use href="#profile" />
           </svg>
         </NavLink>
-        <div onClick={handleLogout} aria-label={TEXT.LOGOUT}>
+        <div onClick={handleLogout} aria-label={TEXT.LOGOUT} role="button">
           <svg viewBox="0 0 24 24">
             <use href="#logout" />
           </svg>

@@ -131,9 +131,9 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
         <button
           className={isEmptyPost ? 'accent inactive' : 'accent'}
           type="submit"
+          disabled={isEmptyPost ? true : false}
           onClick={e => {
-            e.preventDefault()
-            !isEmptyPost && handleSubmit(e, post ? 'PUT' : 'POST')
+            handleSubmit(e, post ? 'PUT' : 'POST')
           }}
         >
           {post ? TEXT.MODIFY_BUTTON : TEXT.POST_BUTTON}

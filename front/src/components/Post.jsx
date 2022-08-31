@@ -8,6 +8,10 @@ import { CreatePost as ModifyPost } from './CreatePost'
 import { useNavigate } from 'react-router-dom'
 import { DisplayError } from '../utils/Atoms/DisplayError'
 import { Comments } from './Comments'
+import { DisplayContent } from './DisplayContent'
+import { CONTENT as TEXT } from '../../public/assets/texts/texts'
+import { AuthorActions } from './AuthorActions'
+import { DeleteConfirmationMessage } from './DeleteConfirmationMessage'
 
 export function Post({ post, index, needReRender, commentNeedReRender }) {
   const { userDetails } = useAuth()
@@ -17,6 +21,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
   const [isModifyActive, setModifyActive] = useState(false)
   const [showComments, setShowComments] = useState(false)
   const [commentsNumber, setCommentsNumber] = useState(post.commentsNumber)
+  const [error, setError]=useState(false)
   const animationDelay = (index + 1) * 200
 
   const handleDeletePost = async () => {
@@ -26,7 +31,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
       token: userDetails.token,
       isMultipartFormData: false,
     })
-    error ? <DisplayError /> : needReRender()
+    error ? setError(error) : needReRender()
   }
   const DisplayUsersWhoLikes = () => {
     return post.userlikes.map((like, index) => {
@@ -40,6 +45,9 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
       )
     })
   }
+
+  if(error) return <DisplayError />
+
   return (
     <div className="post" style={{ animationDelay: `${animationDelay}ms` }}>
       <div
@@ -62,17 +70,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
           onBlur={() => setModifyActive(false)}
         />
       ) : (
-        <>
-          {post.imageUrl && <img src={post.imageUrl} className="post__image" />}
-          {post.text !== '' || post.modified ? (
-            <p className="post__text">
-              {post.text !== '' && post.text}
-              {post.modified && (
-                <span className="post__text__modified">{'(modifié)'}</span>
-              )}
-            </p>
-          ) : null}
-        </>
+        <DisplayContent data={post} />
       )}
       <div className="post__likes-comments-container post__text">
         {post.userlikes.length > 0 && (
@@ -84,7 +82,8 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
             }
             onClick={() => setShowAllUserLike(!showAllUserLike)}
           >
-            Aimé par: <DisplayUsersWhoLikes />
+            {TEXT.LIKED_BY}
+            <DisplayUsersWhoLikes />
           </p>
         )}
         <p
@@ -92,8 +91,8 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
           onClick={() => setShowComments(!showComments)}
         >
           {commentsNumber <= 1
-            ? `${commentsNumber} commentaire`
-            : `${commentsNumber} commentaires`}
+            ? `${commentsNumber} ${TEXT.COMMENT}`
+            : `${commentsNumber} ${TEXT.COMMENTS}`}
         </p>
       </div>
 
@@ -113,58 +112,34 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
               <use href="#comment" />
             </svg>
           </div>
-          <p className="post__action--text">Commenter</p>
+          <p className="post__action--text">{TEXT.COMMENT_BUTTON}</p>
         </div>
-        {userDetails.userId === post.userId || userDetails.role === 'admin' ? (
-          <>
-            <div
-              className="post__action"
-              onClick={() => setModifyActive(!isModifyActive)}
-            >
-              <div className="post__action--icon">
-                <svg viewBox="0 0 24 24">
-                  <use href="#pen" />
-                </svg>
-              </div>
-              <p className="post__action--text modify">Modifier</p>
-            </div>
-            <div
-              className="post__action"
-              onClick={() =>
-                setShowConfirmationMessage(!showConfirmationMessage)
-              }
-            >
-              <div className="post__action--icon">
-                <svg viewBox="0 0 24 24">
-                  <use href="#trash" />
-                </svg>
-              </div>
-              <p className="post__action--text delete">Supprimer</p>
-            </div>
-          </>
-        ) : null}
+        {(userDetails.userId === post.userId ||
+          userDetails.role === 'admin') && (
+          <AuthorActions
+            data={post}
+            modifyButtonOnClick={() => setModifyActive(!isModifyActive)}
+            deleteButtonOnClick={() =>
+              setShowConfirmationMessage(!showConfirmationMessage)
+            }
+          />
+        )}
       </div>
       {showComments && (
-        <Comments postId={post.id} commentNeedReRender={commentNeedReRender} commentsNumber={commentsNumber} setCommentsNumber={setCommentsNumber} />
+        <Comments
+          postId={post.id}
+          commentNeedReRender={commentNeedReRender}
+          commentsNumber={commentsNumber}
+          setCommentsNumber={setCommentsNumber}
+        />
       )}
-      {showConfirmationMessage ? (
-        <div className="post__confirmation-message">
-          <p className="post__confirmation-message__text">
-            Voulez-vous vraiment supprimer ce post ?
-          </p>
-          <div className="post__confirmation-message__response">
-            <button className="accent" onClick={(e) => handleDeletePost(e)}>
-              Oui
-            </button>
-            <button
-              className="accent"
-              onClick={() => setShowConfirmationMessage(false)}
-            >
-              Non
-            </button>
-          </div>
-        </div>
-      ) : null}
+      {showConfirmationMessage && (
+        <DeleteConfirmationMessage
+          data={post}
+          handleDelete={handleDeletePost}
+          setShowConfirmationMessage={setShowConfirmationMessage}
+        />
+      )}
     </div>
   )
 }

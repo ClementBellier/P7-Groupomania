@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
-import { LIKE as TEXT } from '../../public/assets/texts/texts'
+import { CONTENT as TEXT } from '../../public/assets/texts/texts'
 
 export function Like({ likes, userlikes, id, needReRender }) {
   const { userDetails } = useAuth()

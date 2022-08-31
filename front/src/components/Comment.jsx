@@ -4,15 +4,26 @@ import './styles/Comment.css'
 import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
 import { CreateComment } from './CreateComment'
+import { DisplayContent } from './DisplayContent'
+import { CONTENT as TEXT } from '../../public/assets/texts/texts'
+import { AuthorActions } from './AuthorActions'
+import { DeleteConfirmationMessage } from './DeleteConfirmationMessage'
 
-export function Comment({ comment, index, commentNeedReRender, commentsNumber, setCommentsNumber }) {
+export function Comment({
+  comment,
+  index,
+  commentNeedReRender,
+  commentsNumber,
+  setCommentsNumber,
+}) {
   const { userDetails } = useAuth()
   const [commentLikes, setCommentLikes] = useState(comment.likes)
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
   const [isModifyActive, setModifyActive] = useState(false)
   const [userLikedThisComment, setUserLikedThisComment] = useState(
-    comment.commentlikes.some((user) => user.userId === userDetails.userId)
+    comment.commentlikes.some(user => user.userId === userDetails.userId)
   )
+  const [error, setError] = useState(false)
   const handleLike = async () => {
     const likeFetchBody = { like: userLikedThisComment ? 0 : 1 }
     const { error } = await doFetch({
@@ -22,24 +33,31 @@ export function Comment({ comment, index, commentNeedReRender, commentsNumber, s
       token: userDetails.token,
       isMultipartFormData: false,
     })
-    if(!error){
+    if (!error) {
       setUserLikedThisComment(!userLikedThisComment)
       userLikedThisComment
         ? setCommentLikes(commentLikes - 1)
         : setCommentLikes(commentLikes + 1)
       commentNeedReRender()
     }
-    if(error) console.log(error)
+    if (error) setError(error)
   }
-  const handleDeletePost = async () => {
+  const handleDeleteComment = async () => {
     const { error } = await doFetch({
       method: 'DELETE',
       url: `http://localhost:3000/api/posts/${comment.postId}/comment/${comment.id}`,
       token: userDetails.token,
       isMultipartFormData: false,
     })
-    error ? console.log(error) : (setCommentsNumber(commentsNumber - 1), commentNeedReRender())
+    if (!error) {
+      setCommentsNumber(commentsNumber - 1)
+      commentNeedReRender()
+    }
+    if (error) setError(error)
   }
+
+  if(error) return <DisplayError />
+
   return (
     <div className="comment">
       <div className="comment-content">
@@ -56,19 +74,7 @@ export function Comment({ comment, index, commentNeedReRender, commentsNumber, s
           />
         ) : (
           <>
-            {comment.imageUrl && (
-              <img src={comment.imageUrl} className="comment-content__image" />
-            )}
-            {comment.text !== '' || comment.modified ? (
-              <p className="comment-content__text">
-                {comment.text !== '' && comment.text}
-                {comment.modified && (
-                  <span className="comment-content__text--modified">
-                    {'(modifié)'}
-                  </span>
-                )}
-              </p>
-            ) : null}
+            <DisplayContent data={comment} />
             {commentLikes > 0 && (
               <div className="comment-content__likes" onClick={handleLike}>
                 <svg
@@ -85,40 +91,26 @@ export function Comment({ comment, index, commentNeedReRender, commentsNumber, s
       </div>
       <div className="comment-actions">
         <div onClick={handleLike}>
-          {userLikedThisComment ? 'Ne plus aimer' : 'Aimer'}
+          {userLikedThisComment ? TEXT.UNLIKE : TEXT.LIKE}
         </div>
-        {userDetails.userId === comment.userId ||
-        userDetails.role === 'admin' ? (
-          <>
-            <div onClick={() => setModifyActive(!isModifyActive)}>Modifier</div>
-            <div
-              onClick={() =>
-                setShowConfirmationMessage(!showConfirmationMessage)
-              }
-            >
-              Supprimer
-            </div>
-          </>
-        ) : null}
+        {(userDetails.userId === comment.userId ||
+          userDetails.role === 'admin') && (
+          <AuthorActions
+            data={comment}
+            modifyButtonOnClick={() => setModifyActive(!isModifyActive)}
+            deleteButtonOnClick={() =>
+              setShowConfirmationMessage(!showConfirmationMessage)
+            }
+          />
+        )}
       </div>
-      {showConfirmationMessage ? (
-        <div className="comment__confirmation-message">
-          <p className="comment__confirmation-message__text">
-            Voulez-vous vraiment supprimer ce commentaire ?
-          </p>
-          <div className="comment__confirmation-message__response">
-            <button className="accent" onClick={(e) => handleDeletePost(e)}>
-              Oui
-            </button>
-            <button
-              className="accent"
-              onClick={() => setShowConfirmationMessage(false)}
-            >
-              Non
-            </button>
-          </div>
-        </div>
-      ) : null}
+      {showConfirmationMessage && (
+        <DeleteConfirmationMessage
+          data={comment}
+          handleDelete={handleDeleteComment}
+          setShowConfirmationMessage={setShowConfirmationMessage}
+        />
+      )}
     </div>
   )
 }

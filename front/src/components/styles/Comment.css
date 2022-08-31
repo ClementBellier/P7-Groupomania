@@ -61,24 +61,3 @@
     cursor: pointer;
     text-decoration: underline;
 }
-.comment__confirmation-message{
-    position: absolute;
-    inset: 5%;
-    background-color: var(--background-color);
-    border-radius: 15px;
-    box-shadow: 0 0 0 100vmax var(--shadow-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.comment__confirmation-message__text{
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 1.3em;
-}
-.comment__confirmation-message__response{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}

@@ -65,7 +65,18 @@ export const CREATE_COMMENT = {
 export const POST_LIST = {
     NO_POST: "Il n'y a aucun post à afficher... 😞"
 }
-export const LIKE = {
-    UNLIKE: "Ne plus aimer 💔",
-    LIKE: "Aimer"
+export const CONTENT = {
+    UNLIKE: "Ne plus aimer",
+    LIKE: "Aimer",
+    MODIFIED: "(modifié)",
+    COMMENT_BUTTON: "Commenter",
+    MODIFY_BUTTON: "Modifier",
+    DELETE_BUTTON: "Supprimer",
+    CONFIRM_DELETE_COMMENT: "Voulez-vous vraiment supprimer ce commentaire ?",
+    CONFIRM_DELETE_POST: "Voulez-vous vraiment supprimer ce post ?",
+    CONFIRM_DELETE_YES: "Oui",
+    CONFIRM_DELETE_NO: "Non",
+    LIKED_BY: "Aimé par: ",
+    COMMENT: "commentaire",
+    COMMENTS: "commentaires"
 }

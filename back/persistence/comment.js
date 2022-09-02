@@ -21,10 +21,10 @@ exports.findAllComments = async (postId) => {
       {
         model: commentLikeModel,
         attributes: ['userId'],
-        include: {
-          model: userModel,
-          attributes: { exclude: ['id', 'role', 'password'] },
-        },
+        // include: {
+        //   model: userModel,
+        //   attributes: { exclude: ['id', 'role', 'password'] },
+        // },
       },
     ],
   }

@@ -27,6 +27,10 @@ const postModel = database.define(
       type: Sequelize.STRING(500),
       defaultValue: null,
     },
+    altText: {
+      type: Sequelize.STRING(500),
+      defaultValue: null,
+    },
     likes: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
@@ -75,6 +79,10 @@ const commentModel = database.define(
       defaultValue: '',
     },
     imageUrl: {
+      type: Sequelize.STRING(500),
+      defaultValue: null,
+    },
+    altText: {
       type: Sequelize.STRING(500),
       defaultValue: null,
     },

@@ -3,9 +3,14 @@
     position: relative;
     overflow: hidden;
     border-radius: 15px;
+    animation: comment-appear .3s ease-in-out both;
+}
+@keyframes comment-appear{
+    from{transform: translateX(100px); opacity: 0}
+    to{transform: translateY(0); opacity: 1}
 }
 .comment-content{
-    width: 80%;
+    width: 100%;
     border-radius: 15px;
     background-color: var(--secondary-color);
     padding: 15px 15px 30px;
@@ -14,17 +19,19 @@
     gap: 5px;
     position: relative;
 }
+@media (min-width: 500px){
+    .comment-content{width: 500px;}
+}
 .comment-content__user{
     font-weight: 600;
 }
 .comment-content__image{
     max-width: 100%;
     max-height: 150px;
-    display: block;
-    margin: 3px auto;
+    align-self: center;
 }
 .comment-content__text{
-    text-indent: 3ch;
+    text-indent: 2ch;
     font-weight: 300;
 }
 .comment-content__text--modified{

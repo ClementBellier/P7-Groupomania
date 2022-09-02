@@ -24,6 +24,8 @@ export function Comment({
     comment.user_like_comments.some(user => user.userId === userDetails.userId)
   )
   const [error, setError] = useState(false)
+  const animationDelay = (index + 1) * 150
+
   const handleLike = async () => {
     const likeFetchBody = { like: userLikedThisComment ? 0 : 1 }
     const { error } = await doFetch({
@@ -59,7 +61,7 @@ export function Comment({
   if(error) return <DisplayError />
 
   return (
-    <div className="comment">
+    <div className="comment" style={{ animationDelay: `${animationDelay}ms` }}>
       <div className="comment-content">
         <div className="comment-content__user">
           <UserName user={comment.user} isShowingDepartement={false} />

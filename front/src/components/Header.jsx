@@ -15,7 +15,7 @@ export function Header() {
   }
 
   return (
-    <header class="header">
+    <header className="header">
       <h1>
         <Link to="/home" className="header__logo">
           <img

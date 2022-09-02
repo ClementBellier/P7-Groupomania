@@ -96,9 +96,10 @@ const commentModel = database.define(
   }
 )
 
-const likesModel = database.define('userlikes', {
+const likesModel = database.define('user_like_post', {
   user_id: {
     type: Sequelize.INTEGER,
+    primaryKey: true,
     references: {
       model: userModel,
       key: 'id',
@@ -106,21 +107,18 @@ const likesModel = database.define('userlikes', {
   },
   post_id: {
     type: Sequelize.INTEGER,
+    primaryKey: true,
     references: {
       model: postModel,
       key: 'id',
     },
   },
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
 })
 
-const commentLikeModel = database.define('commentlikes', {
+const commentLikeModel = database.define('user_like_comment', {
   userId: {
     type: Sequelize.INTEGER,
+    primaryKey: true,
     references: {
       model: userModel,
       key: 'id',
@@ -128,15 +126,11 @@ const commentLikeModel = database.define('commentlikes', {
   },
   commentId: {
     type: Sequelize.INTEGER,
+    primaryKey: true,
     references: {
       model: commentModel,
       key: 'id',
     },
-  },
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
   },
 })
 

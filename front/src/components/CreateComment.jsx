@@ -136,7 +136,7 @@ export function CreateComment({
           <button
             className={isEmptyComment ? 'accent inactive' : 'accent'}
             type="submit"
-            disabled={isEmptyPost ? true : false}
+            disabled={isEmptyComment ? true : false}
             onClick={e => {
               handleSubmit(e, comment ? 'PUT' : 'POST')
             }}

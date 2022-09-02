@@ -61,9 +61,6 @@
 .login-form button:first-of-type{
     margin-top: 50px;
 }
-.login-form input:focus-visible{
-    outline: var(--primary-color) solid;
-}
 .error-message,.success-message{
     position: relative;
     color: var(--message-color);

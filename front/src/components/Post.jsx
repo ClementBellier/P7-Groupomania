@@ -34,7 +34,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
     error ? setError(error) : needReRender()
   }
   const DisplayUsersWhoLikes = () => {
-    return post.userlikes.map((like, index) => {
+    return post.user_like_posts.map((like, index) => {
       return (
         <span key={`userlike-${index}`}>
           {index > 0 && <span>, </span>}
@@ -73,7 +73,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
         <DisplayContent data={post} />
       )}
       <div className="post__likes-comments-container post__text">
-        {post.userlikes.length > 0 && (
+        {post.user_like_posts.length > 0 && (
           <p
             className={
               showAllUserLike
@@ -99,7 +99,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
       <div className="post__footer">
         <Like
           likes={post.likes}
-          userlikes={post.userlikes}
+          user_like_posts={post.user_like_posts}
           id={post.id}
           needReRender={needReRender}
         />

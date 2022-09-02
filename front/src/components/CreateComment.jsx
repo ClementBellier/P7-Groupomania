@@ -6,6 +6,7 @@ import useComponentVisible from '../utils/hooks/useComponentVisible'
 import './styles/CreatePost.css'
 import { CancelButton } from './CancelButton'
 import { CREATE_COMMENT as TEXT } from '../../public/assets/texts/texts'
+import { AltTextExplanation } from './AltTextExplanation'
 
 export function CreateComment({
   postId,
@@ -18,7 +19,9 @@ export function CreateComment({
   const { userDetails } = useAuth()
   const [isEmptyComment, setEmptyComment] = useState(comment ? false : true)
   const [textValue, setTextValue] = useState(comment ? comment.text : '')
+  const [altTextValue, setAltText] = useState(comment ? comment.altText : '')
   const [file, setFile] = useState(false)
+  const [displayAltExplanation, setAltExplanation] = useState(false)
   const [imageUrl, setImageUrl] = useState(comment ? comment.imageUrl : null)
   const {
     ref,
@@ -43,12 +46,19 @@ export function CreateComment({
   const handleSubmit = async (e, method) => {
     e.preventDefault()
     const urlPath = comment ? comment.id : ''
-    let data = { text: textValue, imageUrl: comment ? imageUrl : null }
+    let data = {
+      text: textValue,
+      imageUrl: comment ? imageUrl : undefined,
+      altText: altTextValue,
+    }
     let isMultipartFormData = false
     if (file) {
       isMultipartFormData = true
       data = new FormData()
-      data.append('post', JSON.stringify({ text: textValue }))
+      data.append(
+        'post',
+        JSON.stringify({ text: textValue, altText: altTextValue })
+      )
       data.append('image', file)
     }
     const { error } = await doFetch({
@@ -64,6 +74,7 @@ export function CreateComment({
     }
     setFile(false)
     setTextValue('')
+    setAltText('')
     setImageUrl(null)
     setEmptyComment(true)
     error ? setError(error) : commentNeedReRender()
@@ -72,6 +83,9 @@ export function CreateComment({
     <form className={comment ? 'modify-comment' : 'create-comment'} ref={ref}>
       {isAnError && (
         <DisplayError message={isAnError} setError={setError} ref={ref} />
+      )}
+      {displayAltExplanation && (
+        <AltTextExplanation handleCancel={() => setAltExplanation(false)} />
       )}
       {comment && (
         <>
@@ -91,6 +105,24 @@ export function CreateComment({
           >
             <img src={imageUrl} />
             <CancelButton handleClick={handleDeleteImage} />
+            <div className="create-post__image--altText">
+              <input
+              placeholder={TEXT.ALT_TEXT_PLACEHOLDER}
+              aria-label={TEXT.ALT_TEXT_LABEL}
+                value={altTextValue}
+                onChange={e => setAltText(e.target.value)}
+              />
+              <button
+                onClick={e => {
+                  e.preventDefault()
+                  setAltExplanation(true)
+                }}
+              >
+                <svg viewBox="0 0 24 24">
+                  <use href="#info-circle" />
+                </svg>
+              </button>
+            </div>
           </output>
         </div>
       )}

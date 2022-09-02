@@ -26,6 +26,9 @@ body{
     margin-inline: auto;
     background-color: var(--background-color);
 }
+*:focus-visible{    
+    outline: var(--primary-color) solid;
+}
 button{
     height: 40px;
     line-height: 40px;

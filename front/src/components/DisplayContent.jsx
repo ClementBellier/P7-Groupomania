@@ -4,11 +4,14 @@ import { CONTENT as TEXT } from '../../public/assets/texts/texts'
 
 export function DisplayContent({ data }) {
   const isComment = data.postId ? true : false
+  const suffixMissingAltText = isComment ? TEXT.MISSING_COMMENT : TEXT.MISSING_POST
+  const missingAltText = `${TEXT.MISSING_ALT_TEXT} ${suffixMissingAltText} ${data.id}`
   return (
     <>
       {data.imageUrl && (
         <img
           src={data.imageUrl}
+          alt={data.altText ? data.altText : missingAltText}
           className={isComment ? 'comment-content__image' : 'post__image'}
         />
       )}

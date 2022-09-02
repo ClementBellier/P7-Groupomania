@@ -3,11 +3,11 @@ import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
 import { CONTENT as TEXT } from '../../public/assets/texts/texts'
 
-export function Like({ likes, userlikes, id, needReRender }) {
+export function Like({ likes, user_like_posts, id, needReRender }) {
   const { userDetails } = useAuth()
   const [postLikes, setPostLikes] = useState(likes)
   const [userLikedThisPost, setUserLikedThisPost] = useState(
-    userlikes.some(user => user.user_id === userDetails.userId)
+    user_like_posts.some(user => user.user_id === userDetails.userId)
   )
   const handleMouseOver = () => {}
   const handleClick = () => {

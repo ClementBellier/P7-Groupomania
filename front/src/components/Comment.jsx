@@ -21,7 +21,7 @@ export function Comment({
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false)
   const [isModifyActive, setModifyActive] = useState(false)
   const [userLikedThisComment, setUserLikedThisComment] = useState(
-    comment.commentlikes.some(user => user.userId === userDetails.userId)
+    comment.user_like_comments.some(user => user.userId === userDetails.userId)
   )
   const [error, setError] = useState(false)
   const handleLike = async () => {

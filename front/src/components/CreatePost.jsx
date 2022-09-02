@@ -3,16 +3,20 @@ import useAuth from '../utils/hooks/useAuth'
 import { doFetch } from '../utils/functions/doFetch'
 import './styles/CreatePost.css'
 import './styles/Login.css'
+import './styles/Post.css'
 import { DisplayError } from '../utils/Atoms/DisplayError'
 import useComponentVisible from '../utils/hooks/useComponentVisible'
 import { CREATE_POST as TEXT } from '../../public/assets/texts/texts'
 import { CancelButton } from './CancelButton'
+import { AltTextExplanation } from './AltTextExplanation'
 
 export function CreatePost({ post, needReRender, setModifyActive }) {
   const { userDetails } = useAuth()
   const [isEmptyPost, setEmptyPost] = useState(post ? false : true)
   const [textValue, setTextValue] = useState(post ? post.text : '')
+  const [altTextValue, setAltText] = useState(post ? post.altText : undefined)
   const [file, setFile] = useState(false)
+  const [displayAltExplanation, setAltExplanation] = useState(false)
   const [imageUrl, setImageUrl] = useState(post ? post.imageUrl : null)
   const {
     ref,
@@ -37,12 +41,19 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
   const handleSubmit = async (e, method) => {
     e.preventDefault()
     const urlPath = post ? post.id : ''
-    let data = { text: textValue, imageUrl: post ? imageUrl : null }
+    let data = {
+      text: textValue,
+      imageUrl: post ? imageUrl : null,
+      altText: altTextValue,
+    }
     let isMultipartFormData = false
     if (file) {
       isMultipartFormData = true
       data = new FormData()
-      data.append('post', JSON.stringify({ text: textValue }))
+      data.append(
+        'post',
+        JSON.stringify({ text: textValue, altText: altTextValue })
+      )
       data.append('image', file)
     }
     const { error } = await doFetch({
@@ -55,6 +66,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
     if (post && !error) setModifyActive(false)
     setFile(false)
     setTextValue('')
+    setAltText('')
     setImageUrl(null)
     setEmptyPost(true)
     error ? setError(error) : needReRender()
@@ -65,6 +77,7 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
       {isAnError && (
         <DisplayError message={isAnError} setError={setError} ref={ref} />
       )}
+      {displayAltExplanation && <AltTextExplanation handleCancel={()=>setAltExplanation(false)} />}
       {post && (
         <>
           <h3>{TEXT.MODIFY_TITLE}</h3>
@@ -84,6 +97,19 @@ export function CreatePost({ post, needReRender, setModifyActive }) {
             <img src={imageUrl} />
             <CancelButton handleClick={handleDeleteImage} />
           </output>
+          <div className="create-post__image--altText">
+            <input
+              placeholder={TEXT.ALT_TEXT_PLACEHOLDER}
+              aria-label={TEXT.ALT_TEXT_LABEL}
+              value={altTextValue}
+              onChange={e => setAltText(e.target.value)}
+            />
+            <button onClick={(e)=>{e.preventDefault(); setAltExplanation(true)}}>
+              <svg viewBox="0 0 24 24">
+                <use href="#info-circle" />
+              </svg>
+            </button>
+          </div>
         </div>
       )}
       <div className="create-post__grow-wrap" data-replicated-value={textValue}>

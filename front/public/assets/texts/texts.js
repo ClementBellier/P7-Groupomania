@@ -51,16 +51,25 @@ export const CREATE_POST = {
     MODIFY_TITLE: "Modification du post",
     TEXTAREA_PLACEHOLDER_POST: "Voulez vous ajouter quelque chose ?",
     TEXTAREA_PLACEHOLDER_NO_POST: "Quoi de neuf aujourd'hui ?",
-    ADD_IMAGE: `Ajouter une\nimage`,
+    ADD_IMAGE: "Ajouter une\nimage",
     MODIFY_BUTTON: "Modifier",
-    POST_BUTTON: "Publier"
+    POST_BUTTON: "Publier",
+    ALT_TEXT_PLACEHOLDER: "Décrivez l'image",
+    ALT_TEXT_LABEL: "Text Alternatif"
 }
 export const CREATE_COMMENT = {
     MODIFY_TITLE: "Modification du commentaire",
     TEXTAREA_PLACEHOLDER: "Voulez vous ajouter quelque chose ?",
     MODIFY_BUTTON: "Modifier",
     COMMENT_BUTTON: "Commenter",
-    ADD_IMAGE: "Ajouter une image"
+    ADD_IMAGE: "Ajouter une image",
+    ALT_TEXT_PLACEHOLDER: "Décrivez l'image",
+    ALT_TEXT_LABEL: "Text Alternatif"
+}
+export const ALT_EXPLANATION = {
+    TITLE: "Ajouter une description",
+    DESCRIPTION: "Vous pouvez ajouter à vos photos une description, aussi nommée texte alternatif, pour qu'elles soient accessibles à encore plus de monde, notamment aux personnes aveugles ou déficientes visuelles.\nLes bonnes descriptions sont concises, mais indiquent ce qui figure sur vos photos de manière précise et permettent de comprendre leur contexte.",
+    BUTTON: "Ok"
 }
 export const POST_LIST = {
     NO_POST: "Il n'y a aucun post à afficher... 😞"
@@ -78,7 +87,10 @@ export const CONTENT = {
     CONFIRM_DELETE_NO: "Non",
     LIKED_BY: "Aimé par: ",
     COMMENT: "commentaire",
-    COMMENTS: "commentaires"
+    COMMENTS: "commentaires",
+    MISSING_ALT_TEXT: "Texte alternatif indisponible pour l'image",
+    MISSING_COMMENT: "du commentaire",
+    MISSING_POST: "du post"
 }
 export const USER_DETAILS = {
     MY_PROFILE: "Mon Profil",

@@ -99,7 +99,7 @@ export function CreateComment({
             htmlFor={
               comment
                 ? `update-comment-${comment.id}__actions--image-input`
-                : 'create-comment__actions--image-input'
+                : `create-coment__actions--image-input-${postId}`
             }
             className="create-post__image"
           >
@@ -107,8 +107,8 @@ export function CreateComment({
             <CancelButton handleClick={handleDeleteImage} />
             <div className="create-post__image--altText">
               <input
-              placeholder={TEXT.ALT_TEXT_PLACEHOLDER}
-              aria-label={TEXT.ALT_TEXT_LABEL}
+                placeholder={TEXT.ALT_TEXT_PLACEHOLDER}
+                aria-label={TEXT.ALT_TEXT_LABEL}
                 value={altTextValue}
                 onChange={e => setAltText(e.target.value)}
               />
@@ -149,7 +149,7 @@ export function CreateComment({
             id={
               comment
                 ? `update-comment-${comment.id}__actions--image-input`
-                : 'create-coment__actions--image-input'
+                : `create-coment__actions--image-input-${postId}`
             }
             onInput={e => handleAddImage(e)}
           />
@@ -157,7 +157,7 @@ export function CreateComment({
             htmlFor={
               comment
                 ? `update-comment-${comment.id}__actions--image-input`
-                : 'create-coment__actions--image-input'
+                : `create-coment__actions--image-input-${postId}`
             }
             className="create-post__actions--image"
           >

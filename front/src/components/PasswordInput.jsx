@@ -15,6 +15,7 @@ export function PasswordInput({
   const [isHaveLowercase, setIsHaveLowercase] = useState(false)
   const [isHaveTwoDigits, setIsHaveTwoDigits] = useState(false)
   const [isHaveSpecialChar, setIsHaveSpecialChar] = useState(false)
+  const [hidePassword, setHidePassword] = useState(true)
 
   const handlepasswordInput = value => {
     setPassword(value)
@@ -59,21 +60,30 @@ export function PasswordInput({
     if (isAnErrorInPassword) return <ErrorMessage />
     return <span className="success-message">{TEXT.WHOLEPASSWORD.SUCCESS}</span>
   }
+  const EyeIcon = () => {
+      return (
+        <svg viewBox="0 0 24 24" onClick={()=>setHidePassword(!hidePassword)}>
+          <use href={hidePassword ? "#eye" : "#eye-off"} />
+        </svg>
+      )
+  }
+
   return (
     <>
-      <input
-        id="password"
-        type="password"
-        value={password}
-        onChange={e => handlepasswordInput(e.target.value)}
-        onFocus={() => setIsOnFocus(true)}
-        pattern={REGEXP.WHOLEPASSWORD}
-        placeholder={!isLoginActive ? TEXT.PLACEHOLDER : undefined}
-        required
-      />
-      {!isLoginActive && isOnFocus && password.length !== 0 && (
-        <IsThereAnErrorInPassword />
-      )}
+      <div className="password-input">
+        <input
+          id="password"
+          type={hidePassword ? "password" : "text"}
+          value={password}
+          onChange={e => handlepasswordInput(e.target.value)}
+          onFocus={() => setIsOnFocus(true)}
+          pattern={REGEXP.WHOLEPASSWORD}
+          placeholder={!isLoginActive ? TEXT.PLACEHOLDER : undefined}
+          required
+        />
+        <EyeIcon />
+      </div>
+      {!isLoginActive && isOnFocus && <IsThereAnErrorInPassword />}
     </>
   )
 }

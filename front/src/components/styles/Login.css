@@ -85,3 +85,19 @@
 .success-message{
     --message-color: var(--success-color);
 }
+.password-input{
+    position: relative;
+}
+.password-input svg{
+    position: absolute;
+    right: 5px;
+    width: 36px;
+    margin-block: 2px;
+    cursor: pointer;
+}
+.password-input svg:hover{
+    color: var(--primary-color)
+}
+.password-input input{
+    width: 100%;
+}

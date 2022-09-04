@@ -8,6 +8,7 @@ import { AuthProvider } from './utils/hooks/useAuth'
 import { Header } from './components/Header'
 import { Error404 } from './pages/Error404'
 import { GlobalStyle } from './utils/Atoms/GlobalStyles'
+import { Footer } from './components/Footer'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <RequireAuth>
                 <Header />
                 <Home />
+                <Footer />
               </RequireAuth>
             }
           />
@@ -31,6 +33,7 @@ function App() {
               <RequireAuth>
                 <Header />
                 <Profile />
+                <Footer />
               </RequireAuth>
             }
           />
@@ -40,6 +43,7 @@ function App() {
               <>
                 <Header />
                 <Error404 />
+                <Footer />
               </>
             }
           />

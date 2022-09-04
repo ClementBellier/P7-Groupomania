@@ -90,3 +90,7 @@ button.accent.inactive{
 .themeInput:checked{
     background-position: right;
 }
+footer input{
+    margin: 30px auto;
+    display: block;
+}

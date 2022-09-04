@@ -1,10 +1,10 @@
 import { Login } from '../components/Login'
 import { useTheme } from '../utils/hooks/useTheme'
 import './styles/LoginPage.css'
-import { THEME } from '../../public/assets/texts/texts'
+import { Footer } from '../components/Footer'
 
 export function LoginPage() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
   return (
     <>
       <header>
@@ -21,15 +21,7 @@ export function LoginPage() {
         </h1>
       </header>
       <Login />
-      <footer>
-        <input
-          type="checkbox"
-          className="themeInput loginpage-theme-input"
-          checked={theme === 'dark'}
-          onChange={() => toggleTheme()}
-          aria-label={THEME.ARIA_LABEL}
-        />
-      </footer>
+      <Footer />
     </>
   )
 }

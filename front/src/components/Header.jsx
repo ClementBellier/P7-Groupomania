@@ -2,11 +2,11 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../utils/hooks/useAuth'
 import { useTheme } from '../utils/hooks/useTheme'
 import './styles/Header.css'
-import { THEME, HEADER as TEXT } from '../../public/assets/texts/texts'
+import { HEADER as TEXT } from '../../public/assets/texts/texts'
 
 export function Header() {
   const { logout, userDetails } = useAuth()
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
   const navigate = useNavigate()
   const location = useLocation().pathname
 
@@ -53,26 +53,23 @@ export function Header() {
         <NavLink
           to={`/profile/${userDetails.userId}`}
           className={({ isActive }) =>
-            isActive ? 'header__actions--active' : undefined
+            isActive
+              ? 'header__actions--active header__action--link'
+              : 'header__action--link'
           }
           aria-label={TEXT.PROFILE}
         >
           <svg viewBox="0 0 24 24">
             <use href="#profile" />
           </svg>
+          <p className="header__action--text">{TEXT.PROFILE}</p>
         </NavLink>
-        <div onClick={handleLogout} aria-label={TEXT.LOGOUT} role="button">
+        <div onClick={handleLogout} aria-label={TEXT.LOGOUT} role="button" className='header__action--link' >
           <svg viewBox="0 0 24 24">
             <use href="#logout" />
           </svg>
+          <p className="header__action--text logout">{TEXT.LOGOUT}</p>
         </div>
-        <input
-          type="checkbox"
-          className="themeInput"
-          checked={theme === 'dark'}
-          onChange={() => toggleTheme()}
-          aria-label={THEME.ARIA_LABEL}
-        />
       </div>
     </header>
   )

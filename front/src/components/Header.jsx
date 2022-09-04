@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../utils/hooks/useAuth'
 import { useTheme } from '../utils/hooks/useTheme'
 import './styles/Header.css'
@@ -8,16 +8,35 @@ export function Header() {
   const { logout, userDetails } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
+  const location = useLocation().pathname
 
   const handleLogout = () => {
     logout()
     navigate('/')
   }
+  const LinkToHome = ({ children }) => {
+    if (location === '/home')
+      return (
+        <div
+          role="link"
+          aria-label={TEXT.SCROLL_TO_TOP}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="header__logo"
+        >
+          {children}
+        </div>
+      )
+    return (
+      <Link to="/home" className="header__logo">
+        {children}
+      </Link>
+    )
+  }
 
   return (
     <header className="header">
       <h1>
-        <Link to="/home" className="header__logo">
+        <LinkToHome>
           <img
             src={
               theme === 'dark'
@@ -28,7 +47,7 @@ export function Header() {
             className="header__logo--image"
           />
           <div className="header__logo--text">social network</div>
-        </Link>
+        </LinkToHome>
       </h1>
       <div className="header__actions">
         <NavLink

@@ -45,7 +45,8 @@ export const PASSWORD_INPUT = {
 }
 export const HEADER = {
     PROFILE:"Mon Profil",
-    LOGOUT:"Se déconnecter"
+    LOGOUT:"Se déconnecter",
+    SCROLL_TO_TOP: "Retour en haut"
 }
 export const CREATE_POST = {
     MODIFY_TITLE: "Modification du post",

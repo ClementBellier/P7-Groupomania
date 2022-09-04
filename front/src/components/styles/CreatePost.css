@@ -21,6 +21,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
+    gap: 5px;
 }
 .create-comment__textarea{
     flex-grow: 2;
@@ -83,7 +84,8 @@
     width: 83px;
     transition: width .3s ease-in-out .1s;
 }
-.create-post__actions input{
+.create-post__actions input,
+.create-comment__text-actions input{
     display: none;
 }
 .create-post__image{

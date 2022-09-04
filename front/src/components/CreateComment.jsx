@@ -142,7 +142,7 @@ export function CreateComment({
             value={textValue}
           ></textarea>
         </div>
-        <div className="create-post__actions">
+        <div className="create-comment__text-actions">
           <input
             type="file"
             accept=".jpg,.jpeg,.png,.gif,.webp"

@@ -183,3 +183,22 @@
     justify-content: center;
     gap: 10px;
 }
+.missing-image{
+    width: 100%;
+    aspect-ratio: 3;
+    background-color: var(--body-color);
+    display: grid;
+    place-content: center;
+    white-space: pre;
+    text-align: center;
+    isolation: isolate;
+    position: relative;
+}
+.missing-image svg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    color: var(--secondary-color);
+    z-index: -1;
+}

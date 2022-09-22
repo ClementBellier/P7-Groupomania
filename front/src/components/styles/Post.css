@@ -190,7 +190,7 @@
     background-color: var(--body-color);
     display: grid;
     place-content: center;
-    white-space: pre;
+    white-space: pre-line;
     text-align: center;
     isolation: isolate;
     position: relative;

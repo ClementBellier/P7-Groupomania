@@ -112,7 +112,7 @@ export function Post({ post, index, needReRender, commentNeedReRender }) {
               <use href="#comment" />
             </svg>
           </div>
-          {post.commentsNumber > 0 && <span className="post__like--number">{post.commentsNumber}</span>}
+          {commentsNumber > 0 && <span className="post__like--number">{commentsNumber}</span>}
           <p className="post__action--text">{TEXT.COMMENT_BUTTON}</p>
         </div>
         {(userDetails.userId === post.userId ||

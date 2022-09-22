@@ -44,6 +44,7 @@
     font-weight: 300;
     font-size: 20px;
     padding: 5px 15px;
+    white-space: pre-line;
 }
 .post__text__modified{
     font-weight: 300;

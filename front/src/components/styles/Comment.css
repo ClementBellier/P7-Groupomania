@@ -33,6 +33,7 @@
 .comment-content__text{
     text-indent: 2ch;
     font-weight: 300;
+    white-space: pre-line;
 }
 .comment-content__text--modified{
     font-size: .9em;

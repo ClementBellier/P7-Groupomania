@@ -40,6 +40,11 @@ app.use((req, res, next) => {
   next()
 })
 
+// Simulate request time
+// app.use(function(req, res, next){
+// 	setTimeout(next, Math.floor( ( Math.random() * 1000 ) + 100 ) )
+// });
+
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use('/api/auth', authRoutes)

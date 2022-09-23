@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { DisplayError } from '../utils/Atoms/DisplayError'
+import { Loader } from '../components/Loader'
 import { doFetch } from '../utils/functions/doFetch'
 import useAuth from '../utils/hooks/useAuth'
 import { Comment } from './Comment'
@@ -13,7 +14,7 @@ export function Comments({
 }) {
   const [data, setData] = useState([])
   const [error, setError] = useState(false)
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
   const { userDetails } = useAuth()
   useEffect(() => {
     const fetchData = async () => {

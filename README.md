@@ -52,10 +52,10 @@ Create a `.env` file in `back` folder
 Example:
 
 ```
-  SECRET_TOKEN = SecretTokenIsABadExample81kHzcUlkxFWZUSGMIJu97fSdJeDM0XkRlMle85PmM
+  SECRET_TOKEN = SecretTokenIsABadExample
   TOKEN_EXPIRED = 12h
   DB_NAME = groupomania
-  DB_USER = root
+  DB_USER = admin
   DB_PASS = Pa55wordI5ABad3xampl3
   DB_HOST = localhost
 ```
@@ -99,7 +99,7 @@ I change the persistance part with MariaDB and control it with Sequelize.
 I create this front with Vite, ReactJs, React-router
 ## Lessons Learned
 
-This is my first fullstack big project and my first time with ReactJs.  
+This is my first fullstack project and my first time with ReactJs.  
 I love React and I'm sure I want to do front for the rest of my life.
 
 There is still a lot of work to make this project perfect.  
